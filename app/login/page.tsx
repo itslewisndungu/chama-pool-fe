@@ -1,3 +1,10 @@
+import { LoginForm } from '@/app/login/LoginForm';
+import { Paper } from '@mantine/core';
+
 export default function Page() {
-  return <h1>Login Page</h1>
+  return (
+    <section className={'mt-20 grid place-content-center mx-auto'}>
+        <LoginForm />
+    </section>
+  );
 }
