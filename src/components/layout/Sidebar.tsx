@@ -13,7 +13,10 @@ const mockdata = [
   {
     label: 'Members',
     icon: IconUsers,
-    links: [{ label: 'Invite new member', link: '/members/new-member' }],
+    links: [
+      { label: 'Invite new member', link: '/members/new-member' },
+      { label: 'Member directory', link: '/members/directory' },
+    ],
   },
 ];
 

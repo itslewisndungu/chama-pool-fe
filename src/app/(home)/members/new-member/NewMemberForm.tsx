@@ -1,11 +1,52 @@
 'use client';
 
+import useAuth from '@/hooks/useAuth';
+import { inviteMemberToGroup } from '@/lib/api/invite-member';
+import { InvitedMember } from '@/types/InvitedMember';
 import { Button, Input, Text, Title } from '@mantine/core';
+import { useForm } from '@mantine/form';
 import { IconPlus, IconUserPlus } from '@tabler/icons-react';
+import { redirect } from 'next/navigation';
 
 export const NewMemberForm = () => {
+  const { token, user } = useAuth();
+
+  const form = useForm<InvitedMember>({
+    initialValues: {
+      constituency: '',
+      county: '',
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
+      nationalId: '',
+      nextOfKinFirstName: '',
+      nextOfKinLastName: '',
+      nextOfKinMobileNumber: '',
+      nextOfKinNationalId: '',
+      organization: '',
+      position: '',
+      salary: 0.0,
+      subCounty: '',
+    },
+  });
+
+  const inviteMember = async (memberDetails: InvitedMember, token: string) => {
+    const user = await inviteMemberToGroup(memberDetails, token)
+      .then(res => res.json())
+      .catch(e => form.errors);
+
+    console.log({ user });
+  };
+
+  {
+    token === undefined ? redirect('/login') : null;
+  }
+
   return (
-    <form className={'max-w-4xl grid gap-y-8'}>
+    <form
+      className={'max-w-4xl grid gap-y-8'}
+      onSubmit={form.onSubmit(v => inviteMember(v, token!))}
+    >
       <div className={'grid grid-cols-2 gap-y-4 gap-x-8'}>
         <Title order={2} className={'col-span-2'} weight={'normal'}>
           Personal Information
@@ -21,6 +62,7 @@ export const NewMemberForm = () => {
             size={'md'}
             required={true}
             autoComplete={'given-name'}
+            {...form.getInputProps('firstName')}
           />
         </span>
 
@@ -34,6 +76,7 @@ export const NewMemberForm = () => {
             size="md"
             required={true}
             autoComplete={'family-name'}
+            {...form.getInputProps('lastName')}
           />
         </span>
 
@@ -46,6 +89,7 @@ export const NewMemberForm = () => {
             placeholder={'eg. 0712345678'}
             size="md"
             required={true}
+            {...form.getInputProps('phoneNumber')}
           />
         </span>
 
@@ -58,6 +102,7 @@ export const NewMemberForm = () => {
             placeholder={'eg. 11122585'}
             size="md"
             required={true}
+            {...form.getInputProps('nationalId')}
           />
         </span>
 
@@ -71,6 +116,7 @@ export const NewMemberForm = () => {
             size="md"
             required={true}
             autoComplete="bday"
+            // {...form.getInputProps('nationalId')}
           />
         </span>
       </div>
@@ -93,6 +139,7 @@ export const NewMemberForm = () => {
             placeholder={'eg. Simon'}
             size="md"
             required={true}
+            {...form.getInputProps('nextOfKinLastName')}
           />
         </span>
 
@@ -105,6 +152,7 @@ export const NewMemberForm = () => {
             placeholder={"eg. Ndung'u"}
             size="md"
             required={true}
+            {...form.getInputProps('nextOfKinFirstName')}
           />
         </span>
 
@@ -121,6 +169,7 @@ export const NewMemberForm = () => {
             placeholder={'eg. 0712345678'}
             size="md"
             required={true}
+            {...form.getInputProps('nextOfKinMobileNumber')}
           />
         </span>
 
@@ -137,6 +186,7 @@ export const NewMemberForm = () => {
             placeholder={'eg. 11122585'}
             size="md"
             required={true}
+            {...form.getInputProps('nextOfKinNationalId')}
           />
         </span>
       </div>
@@ -160,6 +210,7 @@ export const NewMemberForm = () => {
             size={'md'}
             required={true}
             autoComplete="organization"
+            {...form.getInputProps('organization')}
           />
         </span>
 
@@ -186,6 +237,7 @@ export const NewMemberForm = () => {
             size={'md'}
             required={true}
             type="number"
+            {...form.getInputProps('salary')}
           />
         </span>
       </div>
@@ -204,6 +256,7 @@ export const NewMemberForm = () => {
             placeholder={'eg. Simon'}
             size={'md'}
             required={true}
+            {...form.getInputProps('county')}
           />
         </span>
 
@@ -216,18 +269,24 @@ export const NewMemberForm = () => {
             placeholder={'eg. Simon'}
             size={'md'}
             required={true}
+            {...form.getInputProps('subCounty')}
           />
         </span>
 
         <span className="space-y-2">
-          <Text component="label" htmlFor={'ward'} className={'text-lg'}>
-            Ward
+          <Text
+            component="label"
+            htmlFor={'constituency'}
+            className={'text-lg'}
+          >
+            Constituency
           </Text>
           <Input
-            id={'ward'}
+            id={'constituency'}
             placeholder={'eg. Simon'}
             size={'md'}
             required={true}
+            {...form.getInputProps('constituency')}
           />
         </span>
       </div>

@@ -11,11 +11,12 @@ import {
   Menu,
   Tabs,
   Burger,
-  rem
+  rem,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import {
   IconLogout,
+  IconLogin,
   IconHeart,
   IconStar,
   IconMessage,
@@ -24,19 +25,22 @@ import {
   IconTrash,
   IconSwitchHorizontal,
   IconChevronDown,
-  IconUserCircle
+  IconUserCircle,
 } from '@tabler/icons-react';
+import useAuth from '@/hooks/useAuth';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const useStyles = createStyles(theme => ({
   header: {
     backgroundColor: theme.fn.variant({
       variant: 'filled',
-      color: theme.primaryColor
+      color: theme.primaryColor,
     }).background,
     borderBottom: `${rem(1)} solid ${
       theme.fn.variant({ variant: 'filled', color: theme.primaryColor })
         .background
-    }`
+    }`,
   },
 
   user: {
@@ -50,18 +54,18 @@ const useStyles = createStyles(theme => ({
         theme.fn.variant({ variant: 'filled', color: theme.primaryColor })
           .background!,
         0.1
-      )
+      ),
     },
 
     [theme.fn.smallerThan('xs')]: {
-      display: 'none'
-    }
+      display: 'none',
+    },
   },
 
   burger: {
     [theme.fn.largerThan('xs')]: {
-      display: 'none'
-    }
+      display: 'none',
+    },
   },
 
   userActive: {
@@ -69,36 +73,34 @@ const useStyles = createStyles(theme => ({
       theme.fn.variant({ variant: 'filled', color: theme.primaryColor })
         .background!,
       0.1
-    )
-  }
+    ),
+  },
 }));
 
-interface HeaderTabsProps {
-  user: { name: string };
-}
+interface HeaderTabsProps {}
 
-export default function Navbar({ user }: HeaderTabsProps) {
+export default function Navbar({}: HeaderTabsProps) {
   const { classes, theme, cx } = useStyles();
   const [opened, { toggle }] = useDisclosure(false);
   const [userMenuOpened, setUserMenuOpened] = useState(false);
+  const { user, logout } = useAuth();
 
   return (
     <div className={classes.header}>
       <div className={`text-white py-2 px-8`}>
-        <Group position='apart'>
+        <Group position="apart">
           <p>Vision Ahead Chama System</p>
-
           <Burger
             opened={opened}
             onClick={toggle}
             className={classes.burger}
-            size='sm'
+            size="sm"
             color={theme.white}
           />
 
           <Menu
             width={260}
-            position='bottom-end'
+            position="bottom-end"
             transitionProps={{ transition: 'pop-top-right' }}
             onClose={() => setUserMenuOpened(false)}
             onOpen={() => setUserMenuOpened(true)}
@@ -107,32 +109,48 @@ export default function Navbar({ user }: HeaderTabsProps) {
             <Menu.Target>
               <UnstyledButton
                 className={cx(classes.user, {
-                  [classes.userActive]: userMenuOpened
+                  [classes.userActive]: userMenuOpened,
                 })}
               >
                 <Group spacing={7}>
                   <IconUserCircle />
                   <Text
                     weight={500}
-                    size='sm'
+                    size="sm"
                     sx={{ lineHeight: 1, color: theme.white }}
                     mr={3}
                   >
-                    {user.name}
+                    {/* {user.name} */}
+                    {user ? `${user.firstName} ${user.lastName}` : 'Account'}
                   </Text>
                   <IconChevronDown size={rem(12)} stroke={1.5} />
                 </Group>
               </UnstyledButton>
             </Menu.Target>
-            <Menu.Dropdown>
-              <Menu.Label>Settings</Menu.Label>
-              <Menu.Item icon={<IconSettings size='0.9rem' stroke={1.5} />}>
-                Account details
-              </Menu.Item>
-              <Menu.Item icon={<IconLogout size='0.9rem' stroke={1.5} />}>
-                Logout
-              </Menu.Item>
-            </Menu.Dropdown>
+            {user ? (
+              <Menu.Dropdown>
+                <Menu.Label>Settings</Menu.Label>
+                <Menu.Item icon={<IconSettings size="0.9rem" stroke={1.5} />}>
+                  Account details
+                </Menu.Item>
+                <Menu.Item
+                  onClick={() => logout()}
+                  icon={<IconLogout size="0.9rem" stroke={1.5} />}
+                >
+                  Logout
+                </Menu.Item>
+              </Menu.Dropdown>
+            ) : (
+              <Menu.Dropdown>
+                <Menu.Item
+                  component={Link}
+                  href={'/login'}
+                  icon={<IconLogin size="0.9rem" stroke={1.5} />}
+                >
+                  Log in
+                </Menu.Item>
+              </Menu.Dropdown>
+            )}
           </Menu>
         </Group>
       </div>
