@@ -1,29 +1,34 @@
-'use client';
+"use client";
 
-import { Navbar, ScrollArea, createStyles } from '@mantine/core';
-import { IconGauge, IconUsers } from '@tabler/icons-react';
-import { LinksGroup } from '@/components/LinkGroups';
+import { Navbar, ScrollArea, createStyles } from "@mantine/core";
+import { IconGauge, IconUsers, IconCalendar } from "@tabler/icons-react";
+import { LinksGroup } from "@/components/LinkGroups";
 
 const mockdata = [
   {
-    label: 'Dashboard',
+    label: "Dashboard",
     icon: IconGauge,
-    link: '/dashboard',
+    link: "/dashboard",
   },
   {
-    label: 'Members',
+    label: "Members",
     icon: IconUsers,
     links: [
-      { label: 'Invite new member', link: '/members/new-member' },
-      { label: 'Member directory', link: '/members/directory' },
+      { label: "Invite new member", link: "/members/new-member" },
+      { label: "Member directory", link: "/members/directory" },
     ],
+  },
+  {
+    label: "Meetings",
+    icon: IconCalendar,
+    link: "/meetings",
   },
 ];
 
 const useStyles = createStyles(theme => ({
   navbar: {
     backgroundColor:
-      theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.white,
+      theme.colorScheme === "dark" ? theme.colors.dark[6] : theme.white,
     paddingBottom: 0,
   },
 
@@ -44,7 +49,7 @@ export function Sidebar() {
       className={`${classes.navbar} min-h-full`}
     >
       <Navbar.Section grow className={classes.links} component={ScrollArea}>
-        <div className={''}>{links}</div>
+        <div className={""}>{links}</div>
       </Navbar.Section>
     </Navbar>
   );
