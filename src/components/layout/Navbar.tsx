@@ -3,13 +3,10 @@
 import { useState } from 'react';
 import {
   createStyles,
-  Container,
-  Avatar,
   UnstyledButton,
   Group,
   Text,
   Menu,
-  Tabs,
   Burger,
   rem,
 } from '@mantine/core';
@@ -17,19 +14,11 @@ import { useDisclosure } from '@mantine/hooks';
 import {
   IconLogout,
   IconLogin,
-  IconHeart,
-  IconStar,
-  IconMessage,
   IconSettings,
-  IconPlayerPause,
-  IconTrash,
-  IconSwitchHorizontal,
   IconChevronDown,
   IconUserCircle,
 } from '@tabler/icons-react';
-import useAuth from '@/hooks/useAuth';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
 const useStyles = createStyles(theme => ({
   header: {
@@ -77,13 +66,14 @@ const useStyles = createStyles(theme => ({
   },
 }));
 
-interface HeaderTabsProps {}
+interface Props {}
 
-export default function Navbar({}: HeaderTabsProps) {
+export default function Navbar({}: Props) {
   const { classes, theme, cx } = useStyles();
   const [opened, { toggle }] = useDisclosure(false);
   const [userMenuOpened, setUserMenuOpened] = useState(false);
-  const { user, logout } = useAuth();
+
+  const { data: session } = useSession();
 
   return (
     <div className={classes.header}>
@@ -120,21 +110,22 @@ export default function Navbar({}: HeaderTabsProps) {
                     sx={{ lineHeight: 1, color: theme.white }}
                     mr={3}
                   >
-                    {/* {user.name} */}
-                    {user ? `${user.firstName} ${user.lastName}` : 'Account'}
+                    {session
+                      ? `${session.user.firstName} ${session.user.lastName}`
+                      : 'Account'}
                   </Text>
                   <IconChevronDown size={rem(12)} stroke={1.5} />
                 </Group>
               </UnstyledButton>
             </Menu.Target>
-            {user ? (
+            {session ? (
               <Menu.Dropdown>
                 <Menu.Label>Settings</Menu.Label>
                 <Menu.Item icon={<IconSettings size="0.9rem" stroke={1.5} />}>
                   Account details
                 </Menu.Item>
                 <Menu.Item
-                  onClick={() => logout()}
+                  onClick={() => signOut()}
                   icon={<IconLogout size="0.9rem" stroke={1.5} />}
                 >
                   Logout
@@ -143,8 +134,7 @@ export default function Navbar({}: HeaderTabsProps) {
             ) : (
               <Menu.Dropdown>
                 <Menu.Item
-                  component={Link}
-                  href={'/login'}
+                  onClick={() => signIn()}
                   icon={<IconLogin size="0.9rem" stroke={1.5} />}
                 >
                   Log in
