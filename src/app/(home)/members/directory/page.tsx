@@ -1,6 +1,5 @@
 import React from 'react';
 import MembersTable from './MembersTable';
-import { listAllGroupMembers } from '@/lib/api/list-group-members';
 import { User } from '@/types/User';
 
 type Props = {};
@@ -10,13 +9,10 @@ const getMembersList = async () => {
     method: 'GET',
   });
 
-  const members: {
-    members: User[];
-  } = await fetch(req, { next: { revalidate: 10 } })
-    .then(res => res.json())
-    .catch(console.error);
+  const res = await fetch(req, { next: { revalidate: 10 } });
+  const members = (await res.json()) as User[];
 
-  return members.members.map(m => {
+  return members.map(m => {
     return {
       firstName: m.firstName,
       lastName: m.lastName,
