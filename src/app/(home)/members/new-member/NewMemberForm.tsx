@@ -1,16 +1,21 @@
 'use client';
 
-import useAuth from '@/hooks/useAuth';
 import { inviteMemberToGroup } from '@/lib/api/invite-member';
 import { InvitedMember } from '@/types/InvitedMember';
 import { Button, Input, Text, Title } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { IconPlus, IconUserPlus } from '@tabler/icons-react';
-import { redirect } from 'next/navigation';
+import { IconUserPlus } from '@tabler/icons-react';
+import { signIn, useSession } from 'next-auth/react';
+
+const inviteMember = async (memberDetails: InvitedMember, token: string) => {
+  const user = await inviteMemberToGroup(memberDetails, token).then(res =>
+    res.json()
+  );
+
+  console.log({ user });
+};
 
 export const NewMemberForm = () => {
-  const { token, user } = useAuth();
-
   const form = useForm<InvitedMember>({
     initialValues: {
       constituency: '',
@@ -30,22 +35,17 @@ export const NewMemberForm = () => {
     },
   });
 
-  const inviteMember = async (memberDetails: InvitedMember, token: string) => {
-    const user = await inviteMemberToGroup(memberDetails, token)
-      .then(res => res.json())
-      .catch(e => form.errors);
-
-    console.log({ user });
-  };
-
-  {
-    token === undefined ? redirect('/login') : null;
-  }
+  const { data: session } = useSession({
+    required: true,
+    onUnauthenticated() {
+      signIn();
+    },
+  });
 
   return (
     <form
       className={'max-w-4xl grid gap-y-8'}
-      onSubmit={form.onSubmit(v => inviteMember(v, token!))}
+      onSubmit={form.onSubmit(v => inviteMember(v, session?.accessToken!))}
     >
       <div className={'grid grid-cols-2 gap-y-4 gap-x-8'}>
         <Title order={2} className={'col-span-2'} weight={'normal'}>
