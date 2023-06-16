@@ -1,5 +1,5 @@
-import { MemberNotEligible } from "@/app/(home)/loans/apply/MemberNotEligible";
-import { MemberEligible } from "@/app/(home)/loans/apply/MemberEligible";
+import { MemberNotEligible } from "@/app/(home)/loans/new-loan/MemberNotEligible";
+import { MemberEligible } from "@/app/(home)/loans/new-loan/MemberEligible";
 
 type LoanEligibility =
   | {
@@ -31,12 +31,12 @@ const isMemberEligibleForLoan = async (
 
 export default async function Page() {
   const { isEligible, amountEligible, reason } = await isMemberEligibleForLoan(
-    false
+    true
   );
 
   return (
     <section>
-      <h1 className="text-xl font-bold m-0">Loan application</h1>
+      <h1 className="font-semibold m-0">Loan application</h1>
 
       {!isEligible ? (
         <MemberNotEligible reason={reason} />
