@@ -1,7 +1,12 @@
 "use client";
 
 import { Navbar, ScrollArea, createStyles } from "@mantine/core";
-import { IconGauge, IconUsers, IconCalendar } from "@tabler/icons-react";
+import {
+  IconGauge,
+  IconUsers,
+  IconCalendar,
+  IconBuildingBank,
+} from "@tabler/icons-react";
 import { LinksGroup } from "@/components/LinkGroups";
 
 const mockdata = [
@@ -23,6 +28,11 @@ const mockdata = [
     icon: IconCalendar,
     link: "/meetings",
   },
+  {
+    label: "Loans",
+    icon: IconBuildingBank,
+    links: [{ label: "New loan", link: "/loans/new-loan" }],
+  },
 ];
 
 const useStyles = createStyles(theme => ({
@@ -30,6 +40,7 @@ const useStyles = createStyles(theme => ({
     backgroundColor:
       theme.colorScheme === "dark" ? theme.colors.dark[6] : theme.white,
     paddingBottom: 0,
+    zIndex: 0,
   },
 
   links: {
@@ -46,7 +57,7 @@ export function Sidebar() {
     <Navbar
       width={{ sm: 300 }}
       p="md"
-      className={`${classes.navbar} min-h-full`}
+      className={`${classes.navbar} min-h-full z-0!`}
     >
       <Navbar.Section grow className={classes.links} component={ScrollArea}>
         <div className={""}>{links}</div>
