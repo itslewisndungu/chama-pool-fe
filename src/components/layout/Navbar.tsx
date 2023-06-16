@@ -125,7 +125,9 @@ export default function Navbar({}: Props) {
                   Account details
                 </Menu.Item>
                 <Menu.Item
-                  onClick={() => signOut()}
+                  onClick={() =>
+                    signOut({ redirect: false, callbackUrl: '/login' })
+                  }
                   icon={<IconLogout size="0.9rem" stroke={1.5} />}
                 >
                   Logout
