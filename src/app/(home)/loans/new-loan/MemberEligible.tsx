@@ -1,4 +1,4 @@
-import { AcceptLoanConditions } from "@/app/(home)/loans/apply/AcceptLoanConditions";
+import { AcceptLoanConditions } from "@/app/(home)/loans/new-loan/AcceptLoanConditions";
 import getFormattedCurrency from "@/lib/format-currency";
 
 type Props = {
@@ -8,11 +8,11 @@ type Props = {
 export function MemberEligible({ amount }: Props) {
   return (
     <div className={"max-w-[70ch] mt-8"}>
-      <p className={"text-lg font-light text-gray-800"}>
+      <p className={"text-xl md:text-2xl font-light text-gray-800"}>
         Dear Lewis. You are eligible for a loan of{" "}
         {getFormattedCurrency(amount)}
       </p>
-      <p className={"text-sm text-gray-900"}>
+      <p className={"text-gray-900"}>
         Loans are supposed to be repaid within five months and with an interest
         of 10% on the total amount loaned. After five months, the interest rises
         by 5% for three months that follow. If the loan exceeds the time limit
