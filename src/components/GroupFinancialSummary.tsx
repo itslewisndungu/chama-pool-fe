@@ -1,13 +1,14 @@
-'use client';
+"use client";
 
-import { createStyles, Group, Paper, Text, rem } from '@mantine/core';
+import { Group, Paper, Text } from "@mantine/core";
 import {
   IconTransferOut,
   IconReceipt2,
   IconCoin,
   IconArrowUpRight,
   IconArrowDownRight,
-} from '@tabler/icons-react';
+} from "@tabler/icons-react";
+import getFormattedCurrency from "@/lib/format-currency";
 
 interface StatsGridProps {
   data: {
@@ -19,10 +20,7 @@ interface StatsGridProps {
 }
 
 const AccountBalanceStatCard = () => {
-  const amount = new Intl.NumberFormat('en-KE', {
-    style: 'currency',
-    currency: 'KSH',
-  }).format(1_200_000);
+  const amount = getFormattedCurrency(1_200_000);
 
   return (
     <Paper withBorder p="md" radius="md" className="flex-1">
@@ -45,10 +43,7 @@ const AccountBalanceStatCard = () => {
 };
 
 const MonthlyRevenueStatCard = () => {
-  const amount = new Intl.NumberFormat('en-KE', {
-    style: 'currency',
-    currency: 'KSH',
-  }).format(15_000);
+  const amount = getFormattedCurrency(15_000);
 
   return (
     <Paper withBorder p="md" radius="md" className="flex-1">
@@ -64,7 +59,7 @@ const MonthlyRevenueStatCard = () => {
 
         <Text
           // color={stat.diff > 0 ? 'teal' : 'red'}
-          color={'red'}
+          color={"red"}
           fz="sm"
           fw={500}
           className="flex items-center"
@@ -82,10 +77,7 @@ const MonthlyRevenueStatCard = () => {
 };
 
 const MonthlyExpensesStatCard = () => {
-  const amount = new Intl.NumberFormat('en-KE', {
-    style: 'currency',
-    currency: 'KSH',
-  }).format(1_000);
+  const amount = getFormattedCurrency(1_000);
 
   return (
     <Paper withBorder p="md" radius="md" className="flex-1">
@@ -101,7 +93,7 @@ const MonthlyExpensesStatCard = () => {
 
         <Text
           // color={stat.diff > 0 ? 'teal' : 'red'}
-          color={'teal'}
+          color={"teal"}
           fz="sm"
           fw={500}
           className="flex items-center"
