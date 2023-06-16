@@ -2,9 +2,10 @@
 
 import { useForm } from "@mantine/form";
 import { Button, NumberInput, Text, Textarea } from "@mantine/core";
-import { IconCash } from "@tabler/icons-react";
+import { IconCash, IconCheck } from "@tabler/icons-react";
 import { LoanApplication } from "@/app/(home)/loans/new-loan/AcceptLoanConditions";
 import { useState } from "react";
+import { notifications } from "@mantine/notifications";
 
 type Props = {
   close(): void;
@@ -27,6 +28,13 @@ export function RequestLoanForm({ close }: Props) {
 
     try {
       await applyForLoan(values as LoanApplication);
+      notifications.show({
+        title: "Loan application successful",
+        message:
+          "Your loan application has been received and is being processed. You will be notified when it has been approved.",
+        autoClose: 10000,
+        icon: <IconCheck />,
+      });
     } catch (e) {
       setError("An unknown error occurred. Lets try that again");
     } finally {
