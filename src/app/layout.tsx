@@ -1,7 +1,7 @@
 import Navbar from "@/components/layout/Navbar";
 import "@/app/globals.css";
 import { Inter } from "next/font/google";
-import RootStyleRegistry from "../context/emotion";
+import RootStyleRegistry from "../context/mantine-provider";
 import NextAuthProvider from "@/context/next-auth-provider";
 
 const inter = Inter({ subsets: ["latin"] });

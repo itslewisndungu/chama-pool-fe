@@ -3,6 +3,7 @@
 import { CacheProvider } from "@emotion/react";
 import { useEmotionCache, MantineProvider } from "@mantine/core";
 import { useServerInsertedHTML } from "next/navigation";
+import { ModalsProvider } from "@mantine/modals";
 
 const RootStyleRegistry = ({ children }: { children: React.ReactNode }) => {
   const cache = useEmotionCache();
@@ -20,7 +21,7 @@ const RootStyleRegistry = ({ children }: { children: React.ReactNode }) => {
   return (
     <CacheProvider value={cache}>
       <MantineProvider withGlobalStyles withNormalizeCSS>
-        {children}
+        <ModalsProvider>{children}</ModalsProvider>
       </MantineProvider>
     </CacheProvider>
   );
