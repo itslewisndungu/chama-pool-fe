@@ -20,7 +20,7 @@
     "@mantine/next": "^6.0.10",
     "@mantine/notifications": "^6.0.10",
     "@mantine/nprogress": "^6.0.10",
-    "@tabler/icons-react": "^2.19.0",
+    "@tabler/icons-react": "^2.22.0",
     "@types/node": "20.1.4",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
@@ -39,6 +39,7 @@
   "devDependencies": {
     "@total-typescript/ts-reset": "^0.4.2",
     "msw": "^1.2.1",
-    "prettier": "^2.8.8"
+    "prettier": "^2.8.8",
+    "prettier-plugin-tailwindcss": "^0.3.0"
   }
 }
