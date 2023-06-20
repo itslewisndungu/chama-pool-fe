@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 import {
   createStyles,
   UnstyledButton,
@@ -9,25 +9,25 @@ import {
   Menu,
   Burger,
   rem,
-} from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+} from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import {
   IconLogout,
   IconLogin,
   IconSettings,
   IconChevronDown,
   IconUserCircle,
-} from '@tabler/icons-react';
-import { signIn, signOut, useSession } from 'next-auth/react';
+} from "@tabler/icons-react";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const useStyles = createStyles(theme => ({
   header: {
     backgroundColor: theme.fn.variant({
-      variant: 'filled',
+      variant: "filled",
       color: theme.primaryColor,
     }).background,
     borderBottom: `${rem(1)} solid ${
-      theme.fn.variant({ variant: 'filled', color: theme.primaryColor })
+      theme.fn.variant({ variant: "filled", color: theme.primaryColor })
         .background
     }`,
   },
@@ -36,30 +36,30 @@ const useStyles = createStyles(theme => ({
     color: theme.white,
     padding: `${theme.spacing.xs} ${theme.spacing.sm}`,
     borderRadius: theme.radius.sm,
-    transition: 'background-color 100ms ease',
+    transition: "background-color 100ms ease",
 
-    '&:hover': {
+    "&:hover": {
       backgroundColor: theme.fn.lighten(
-        theme.fn.variant({ variant: 'filled', color: theme.primaryColor })
+        theme.fn.variant({ variant: "filled", color: theme.primaryColor })
           .background!,
         0.1
       ),
     },
 
-    [theme.fn.smallerThan('xs')]: {
-      display: 'none',
+    [theme.fn.smallerThan("xs")]: {
+      display: "none",
     },
   },
 
   burger: {
-    [theme.fn.largerThan('xs')]: {
-      display: 'none',
+    [theme.fn.largerThan("xs")]: {
+      display: "none",
     },
   },
 
   userActive: {
     backgroundColor: theme.fn.lighten(
-      theme.fn.variant({ variant: 'filled', color: theme.primaryColor })
+      theme.fn.variant({ variant: "filled", color: theme.primaryColor })
         .background!,
       0.1
     ),
@@ -76,7 +76,7 @@ export default function Navbar({}: Props) {
   const { data: session } = useSession();
 
   return (
-    <div className={classes.header}>
+    <header className={classes.header}>
       <div className={`text-white py-2 px-8`}>
         <Group position="apart">
           <p>Vision Ahead Chama System</p>
@@ -91,7 +91,7 @@ export default function Navbar({}: Props) {
           <Menu
             width={260}
             position="bottom-end"
-            transitionProps={{ transition: 'pop-top-right' }}
+            transitionProps={{ transition: "pop-top-right" }}
             onClose={() => setUserMenuOpened(false)}
             onOpen={() => setUserMenuOpened(true)}
             withinPortal
@@ -112,7 +112,7 @@ export default function Navbar({}: Props) {
                   >
                     {session
                       ? `${session.user.firstName} ${session.user.lastName}`
-                      : 'Account'}
+                      : "Account"}
                   </Text>
                   <IconChevronDown size={rem(12)} stroke={1.5} />
                 </Group>
@@ -126,7 +126,7 @@ export default function Navbar({}: Props) {
                 </Menu.Item>
                 <Menu.Item
                   onClick={() =>
-                    signOut({ redirect: false, callbackUrl: '/login' })
+                    signOut({ redirect: false, callbackUrl: "/login" })
                   }
                   icon={<IconLogout size="0.9rem" stroke={1.5} />}
                 >
@@ -146,6 +146,6 @@ export default function Navbar({}: Props) {
           </Menu>
         </Group>
       </div>
-    </div>
+    </header>
   );
 }
