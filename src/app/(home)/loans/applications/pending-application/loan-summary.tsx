@@ -1,4 +1,4 @@
-import getFormattedCurrency from "@/lib/format-currency";
+import { getFormattedCurrency } from "@/lib/utils";
 
 export function LoanSummary() {
   return (

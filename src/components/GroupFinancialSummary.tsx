@@ -8,7 +8,7 @@ import {
   IconArrowUpRight,
   IconArrowDownRight,
 } from "@tabler/icons-react";
-import getFormattedCurrency from "@/lib/format-currency";
+import { getFormattedCurrency } from "@/lib/utils";
 
 interface StatsGridProps {
   data: {

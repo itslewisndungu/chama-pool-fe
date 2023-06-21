@@ -1,5 +1,5 @@
 import { AcceptLoanConditions } from "@/app/(home)/loans/new-loan/AcceptLoanConditions";
-import getFormattedCurrency from "@/lib/format-currency";
+import { getFormattedCurrency } from "@/lib/utils";
 
 type Props = {
   amount: number;
