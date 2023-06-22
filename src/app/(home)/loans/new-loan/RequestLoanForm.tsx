@@ -6,6 +6,7 @@ import { IconCash, IconCheck } from "@tabler/icons-react";
 import { LoanApplication } from "@/app/(home)/loans/new-loan/AcceptLoanConditions";
 import { useState } from "react";
 import { notifications } from "@mantine/notifications";
+import { useRouter } from "next/navigation";
 
 type Props = {
   close(): void;
@@ -20,6 +21,7 @@ const applyForLoan = async (loanApplication: LoanApplication) => {
 export function RequestLoanForm({ close }: Props) {
   const [error, setError] = useState<string>();
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const form = useForm({});
 
@@ -35,6 +37,7 @@ export function RequestLoanForm({ close }: Props) {
         autoClose: 10000,
         icon: <IconCheck />,
       });
+      router.push("/loans/applications/pending-application");
     } catch (e) {
       setError("An unknown error occurred. Lets try that again");
     } finally {

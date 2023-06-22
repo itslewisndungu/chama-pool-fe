@@ -8,7 +8,7 @@ export function LoanSummary() {
       <div className={"flex flex-col my-1"}>
         <p className={"my-1 space-x-2"}>
           <span className={"text-gray-800 text-sm"}>Loan status:</span>
-          <span>Approved</span>
+          <span>Awaiting approval</span>
         </p>
         <p className={"my-1 space-x-2"}>
           <span className={"text-gray-800 text-sm"}>Loan amount:</span>
