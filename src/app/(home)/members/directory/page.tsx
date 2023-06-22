@@ -1,12 +1,17 @@
-import React from 'react';
-import MembersTable from './MembersTable';
-import { User } from '@/types/User';
+import React from "react";
+import { getServerSession } from "next-auth/next";
+import { useSession } from "next-auth/react";
+import MembersTable from "./MembersTable";
+import { User } from "@/types/User";
 
 type Props = {};
 
-const getMembersList = async () => {
-  const req = new Request('http://localhost:8080/members', {
-    method: 'GET',
+const getMembersList = async (token: string) => {
+  const req = new Request("http://localhost:8080/members", {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
 
   const res = await fetch(req, { next: { revalidate: 10 } });
@@ -23,11 +28,20 @@ const getMembersList = async () => {
 };
 
 export default async function Page({}: Props) {
-  const members = await getMembersList();
+  const session = useSession({
+    required: true,
+    onUnauthenticated() {
+      return { redirect: "/login" };
+    },
+  });
+
+  const token = session.data?.accessToken;
+
+  const members = await getMembersList(token!);
 
   return (
-    <section className={'max-w-5xl'}>
-      <h1 className={'mt-0'}>Members directory</h1>
+    <section className={"max-w-5xl"}>
+      <h1 className={"mt-0"}>Members directory</h1>
       <MembersTable data={members} />
     </section>
   );
