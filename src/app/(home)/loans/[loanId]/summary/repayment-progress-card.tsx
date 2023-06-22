@@ -1,6 +1,6 @@
 "use client";
 
-import { Text, Progress, Card, Button, Group } from "@mantine/core";
+import { Text, Progress, Card, Button } from "@mantine/core";
 import Link from "next/link";
 import { getFormattedCurrency } from "@/lib/utils";
 
