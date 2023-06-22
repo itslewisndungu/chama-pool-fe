@@ -9,11 +9,11 @@ export function TimelineCard() {
         Timeline
       </Text>
       <Text fz="lg" fw={500}>
-        13 days remaining to repay loan
+        13 days remaining to repay loan.
       </Text>
       <Progress value={70} mt="md" size="lg" radius="xl" />
 
-      <p className={"self-end mt-5"}>Deadline: 13th May, 2023</p>
+      <p className={"self-end mt-5 text-sm"}>Loan due on: 13th May, 2023</p>
     </Card>
   );
 }
