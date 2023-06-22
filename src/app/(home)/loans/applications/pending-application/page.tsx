@@ -1,5 +1,5 @@
 import { NoActiveApplication } from "@/app/(home)/loans/applications/pending-application/no-active-application";
-import { LoanApplicationSummary } from "@/app/(home)/loans/applications/pending-application/application-summary";
+import { ActiveApplicationSummary } from "@/app/(home)/loans/applications/pending-application/application-summary";
 
 type LoanApplication = {};
 
@@ -14,7 +14,7 @@ export default async function PendingApplicationPage() {
 
   return (
     <>
-      {loanApplication ? <LoanApplicationSummary /> : <NoActiveApplication />}
+      {loanApplication ? <ActiveApplicationSummary /> : <NoActiveApplication />}
     </>
   );
 }
