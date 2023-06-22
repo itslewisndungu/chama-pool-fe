@@ -1,8 +1,5 @@
-import { InvitedMember } from '@/types/InvitedMember';
-import AcceptInvitationForm from './AcceptInvatationForm';
-import { inviteMemberToGroup } from '@/lib/api/invite-member';
-import { acceptMemberInvitation } from '@/lib/api/accept-invitation';
-import { useRouter } from 'next/navigation';
+import { InvitedMember } from "@/types/InvitedMember";
+import AcceptInvitationForm from "./AcceptInvatationForm";
 
 type Props = {
   params: {
@@ -12,20 +9,17 @@ type Props = {
 
 async function getInvitedMember(id: string) {
   const req = new Request(`http://localhost:8080/members/invites/${id}`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   });
 
-  const user: {
-    invitedMember: InvitedMember & { username: string; inviteId: number };
-  } = await fetch(req)
-    .then(res => res.json())
-    .catch(console.error);
-
-  console.log(user);
-  return user;
+  const res = await fetch(req);
+  return (await res.json()) as InvitedMember & {
+    username: string;
+    inviteId: number;
+  };
 }
 
 export default async function Page({ params }: Props) {
@@ -33,7 +27,7 @@ export default async function Page({ params }: Props) {
   return (
     <main className="grid place-content-center mx-auto">
       <h1>Accept invitation into the group</h1>
-      <AcceptInvitationForm invitation={invitation.invitedMember} />
+      <AcceptInvitationForm invitation={invitation} />
     </main>
   );
 }
