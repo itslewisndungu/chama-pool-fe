@@ -49,7 +49,7 @@ const useStyles = createStyles(theme => ({
   },
 }));
 
-export function Sidebar() {
+export function MemberSidebar() {
   const { classes } = useStyles();
   const links = mockdata.map(item => <LinksGroup {...item} key={item.label} />);
 

@@ -1,8 +1,9 @@
-import Navbar from "@/components/layout/Navbar";
+import Navbar from "@/components/layout/navbar";
 import "@/app/globals.css";
 import { Inter } from "next/font/google";
 import RootStyleRegistry from "../context/mantine-provider";
 import NextAuthProvider from "@/context/next-auth-provider";
+import { TailwindIndicator } from "@/components/tailwind-indicator";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
           <body className={inter.className}>
             <Navbar />
             {children}
+            <TailwindIndicator />
           </body>
         </NextAuthProvider>
       </RootStyleRegistry>
