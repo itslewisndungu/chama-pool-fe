@@ -10,7 +10,7 @@ export function LoanApplicationsHeader() {
   return (
     <Tabs value={path} onTabChange={router.push}>
       <Tabs.List>
-        <Tabs.Tab value="/loans/applications/active-application">
+        <Tabs.Tab value="/loans/applications/pending-application">
           Pending Application
         </Tabs.Tab>
         <Tabs.Tab value="/loans/applications/past-applications">
