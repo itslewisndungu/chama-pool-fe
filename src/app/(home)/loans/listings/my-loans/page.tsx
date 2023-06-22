@@ -1,4 +1,4 @@
-import { Loan, LoanStatus } from "@/app/(home)/loans/listings/Loan";
+import { Loan, LoanStatus } from "@/app/(home)/loans/Loan";
 import { LoansList } from "@/app/(home)/loans/listings/loans-list";
 
 const getMyLoans = async (): Promise<Loan[]> => {
