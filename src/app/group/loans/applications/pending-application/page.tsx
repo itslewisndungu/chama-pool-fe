@@ -1,5 +1,5 @@
-import { NoActiveApplication } from "@/app/(home)/loans/applications/pending-application/no-active-application";
-import { ActiveApplicationSummary } from "@/app/(home)/loans/applications/pending-application/application-summary";
+import { NoActiveApplication } from "@/app/group/loans/applications/pending-application/no-active-application";
+import { ActiveApplicationSummary } from "@/app/group/loans/applications/pending-application/application-summary";
 
 type LoanApplication = {};
 

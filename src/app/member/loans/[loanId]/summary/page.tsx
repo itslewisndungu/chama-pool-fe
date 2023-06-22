@@ -1,7 +1,7 @@
-import { RepaymentProgressCard } from "@/app/(home)/loans/[loanId]/summary/repayment-progress-card";
-import { TimelineCard } from "@/app/(home)/loans/[loanId]/summary/timeline-card";
-import { LoanSummary } from "@/app/(home)/loans/[loanId]/summary/loan-summary";
-import { MemberSummary } from "@/app/(home)/loans/[loanId]/summary/member-summary";
+import { RepaymentProgressCard } from "@/app/member/loans/[loanId]/summary/repayment-progress-card";
+import { TimelineCard } from "@/app/member/loans/[loanId]/summary/timeline-card";
+import { LoanSummary } from "@/app/member/loans/[loanId]/summary/loan-summary";
+import { MemberSummary } from "@/app/member/loans/[loanId]/summary/member-summary";
 
 export default function LoanSummaryPage() {
   return (

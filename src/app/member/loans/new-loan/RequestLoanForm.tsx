@@ -3,7 +3,7 @@
 import { useForm } from "@mantine/form";
 import { Button, NumberInput, Text, Textarea } from "@mantine/core";
 import { IconCash, IconCheck } from "@tabler/icons-react";
-import { LoanApplication } from "@/app/(home)/loans/new-loan/AcceptLoanConditions";
+import { LoanApplication } from "@/app/member/loans/new-loan/AcceptLoanConditions";
 import { useState } from "react";
 import { notifications } from "@mantine/notifications";
 import { useRouter } from "next/navigation";

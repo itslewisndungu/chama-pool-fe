@@ -1,9 +1,9 @@
 "use client";
 
-import { LoansListHeader } from "@/app/(home)/loans/listings/loans-header";
-import { LoansListTable } from "@/app/(home)/loans/listings/loans-list-table";
+import { LoansListHeader } from "@/app/group/loans/listings/loans-header";
+import { LoansListTable } from "@/app/group/loans/listings/loans-list-table";
 import { useState } from "react";
-import { Loan, LoanStatus } from "@/app/(home)/loans/Loan";
+import { Loan, LoanStatus } from "@/app/group/loans/Loan";
 import { sortTableData } from "@/lib/utils";
 
 type Props = {

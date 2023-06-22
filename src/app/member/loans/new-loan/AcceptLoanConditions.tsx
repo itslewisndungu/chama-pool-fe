@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button, Checkbox } from "@mantine/core";
 import { IconChevronRight } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
-import { LoanApplicationModal } from "@/app/(home)/loans/new-loan/LoanApplicationModal";
+import { LoanApplicationModal } from "@/app/member/loans/new-loan/LoanApplicationModal";
 
 export type LoanApplication = {
   amount: number;

@@ -15,7 +15,7 @@ import {
   IconChevronDown,
   IconChevronUp,
 } from "@tabler/icons-react";
-import { Loan } from "@/app/(home)/loans/Loan";
+import { Loan } from "@/app/member/loans/Loan";
 import Link from "next/link";
 
 const useStyles = createStyles(theme => ({

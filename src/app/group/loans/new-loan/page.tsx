@@ -1,5 +1,5 @@
-import { MemberNotEligible } from "@/app/(home)/loans/new-loan/MemberNotEligible";
-import { MemberEligible } from "@/app/(home)/loans/new-loan/MemberEligible";
+import { MemberNotEligible } from "@/app/group/loans/new-loan/MemberNotEligible";
+import { MemberEligible } from "@/app/group/loans/new-loan/MemberEligible";
 
 type LoanEligibility =
   | {

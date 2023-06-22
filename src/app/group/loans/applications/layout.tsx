@@ -1,4 +1,4 @@
-import { LoanApplicationsHeader } from "@/app/(home)/loans/applications/loan-applications-header";
+import { LoanApplicationsHeader } from "@/app/group/loans/applications/loan-applications-header";
 
 export default function LoanApplicationsPage({
   children,

@@ -1,4 +1,4 @@
-import { AcceptLoanConditions } from "@/app/(home)/loans/new-loan/AcceptLoanConditions";
+import { AcceptLoanConditions } from "@/app/member/loans/new-loan/AcceptLoanConditions";
 import { getFormattedCurrency } from "@/lib/utils";
 
 type Props = {

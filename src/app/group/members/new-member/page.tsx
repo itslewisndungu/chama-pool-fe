@@ -1,4 +1,4 @@
-import { NewMemberForm } from '@/app/(home)/members/new-member/NewMemberForm';
+import { NewMemberForm } from "@/app/group/members/new-member/NewMemberForm";
 
 export default function Page() {
   return (

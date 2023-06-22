@@ -1,8 +1,7 @@
 "use client";
 
 import { Modal } from "@mantine/core";
-import { RequestLoanForm } from "@/app/(home)/loans/new-loan/RequestLoanForm";
-import { LoanApplication } from "@/app/(home)/loans/new-loan/AcceptLoanConditions";
+import { RequestLoanForm } from "@/app/member/loans/new-loan/RequestLoanForm";
 
 type Props = {
   opened: boolean;
