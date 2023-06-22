@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 import RootStyleRegistry from "../context/mantine-provider";
 import NextAuthProvider from "@/context/next-auth-provider";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], display: "swap" });
 
 export const metadata = {
   title: "Create Next App",
