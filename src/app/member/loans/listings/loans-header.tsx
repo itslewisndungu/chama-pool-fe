@@ -1,6 +1,6 @@
 import { NativeSelect, TextInput } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
-import { LoanStatus } from "@/app/member/loans/Loan";
+import { LoanStatus } from "@/types/loans";
 
 type Props = {
   searchValue(v: string): void;

@@ -31,13 +31,13 @@ export function RequestLoanForm({ close }: Props) {
     try {
       await applyForLoan(values as LoanApplication);
       notifications.show({
-        title: "Loan application successful",
+        title: "Loans application successful",
         message:
           "Your loan application has been received and is being processed. You will be notified when it has been approved.",
         autoClose: 10000,
         icon: <IconCheck />,
       });
-      router.push("/loans/applications/pending-application");
+      router.push("/loans/applications/[applicationId]");
     } catch (e) {
       setError("An unknown error occurred. Lets try that again");
     } finally {

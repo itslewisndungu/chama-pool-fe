@@ -1,21 +1,21 @@
 import {
-  createStyles,
-  Table,
-  ScrollArea,
-  UnstyledButton,
-  Group,
-  Text,
-  Center,
-  rem,
   Badge,
   Button,
+  Center,
+  createStyles,
+  Group,
+  rem,
+  ScrollArea,
+  Table,
+  Text,
+  UnstyledButton,
 } from "@mantine/core";
 import {
-  IconSelector,
   IconChevronDown,
   IconChevronUp,
+  IconSelector,
 } from "@tabler/icons-react";
-import { Loan } from "@/types/loans";
+import { LoanApplication, LoanApplicationStatus } from "@/types/loans";
 import Link from "next/link";
 
 const useStyles = createStyles(theme => ({
@@ -43,9 +43,9 @@ const useStyles = createStyles(theme => ({
 }));
 
 interface Props {
-  data: Loan[];
-  setSorting: (field: keyof Loan) => void;
-  sortBy: keyof Loan | null;
+  data: LoanApplication[];
+  setSorting: (field: keyof LoanApplication) => void;
+  sortBy: keyof LoanApplication | null;
   reverseSortDirection: boolean;
 }
 
@@ -79,21 +79,36 @@ function Th({ children, reversed, sorted, onSort }: ThProps) {
   );
 }
 
-export const LoansListTable = ({
+export const LoanApplicationsTable = ({
   data,
   setSorting,
   sortBy,
   reverseSortDirection,
 }: Props) => {
-  const rows = data.map(row => (
+  const rows = data.map((row, idx) => (
     <tr key={row.id}>
+      <td>{idx + 1}</td>
       <td>{row.memberName}</td>
-      <td>{row.amountLoaned}</td>
+      <td>{row.amount}</td>
       <td>
-        <Badge>{row.loanStatus}</Badge>
+        <Badge
+          color={
+            row.status === LoanApplicationStatus.AWAITING_APPROVAL
+              ? "blue"
+              : row.status === LoanApplicationStatus.APPROVED
+              ? "green"
+              : "red"
+          }
+        >
+          {row.status}
+        </Badge>
       </td>
       <td>
-        <Button variant={"light"} component={Link} href={"/loans/1/summary"}>
+        <Button
+          variant={"subtle"}
+          component={Link}
+          href={`/group/loans/applications/${row.id}`}
+        >
           View Details
         </Button>
       </td>
@@ -110,6 +125,11 @@ export const LoansListTable = ({
       >
         <thead>
           <tr>
+            <th>
+              <Text fw={500} fz="sm">
+                #
+              </Text>
+            </th>
             <Th
               sorted={sortBy === "memberName"}
               reversed={reverseSortDirection}
@@ -118,18 +138,18 @@ export const LoansListTable = ({
               Member name
             </Th>
             <Th
-              sorted={sortBy === "amountLoaned"}
+              sorted={sortBy === "amount"}
               reversed={reverseSortDirection}
-              onSort={() => setSorting("amountLoaned")}
+              onSort={() => setSorting("amount")}
             >
-              Amount loaned
+              Amount requested
             </Th>
             <Th
-              sorted={sortBy === "loanStatus"}
+              sorted={sortBy === "status"}
               reversed={reverseSortDirection}
-              onSort={() => setSorting("loanStatus")}
+              onSort={() => setSorting("status")}
             >
-              Loan status
+              Application status
             </Th>
             <th>
               <Text fw={500} fz="sm">
@@ -145,7 +165,7 @@ export const LoansListTable = ({
             <tr>
               <td colSpan={4} align={"center"}>
                 <p className={"text-xl md:text-2xl font-light text-gray-800"}>
-                  No loans found according to the search criteria
+                  No loan application found according to the search criteria
                 </p>
               </td>
             </tr>

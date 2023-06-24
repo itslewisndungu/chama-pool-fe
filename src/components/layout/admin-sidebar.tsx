@@ -9,29 +9,32 @@ import {
 } from "@tabler/icons-react";
 import { LinksGroup } from "@/components/LinkGroups";
 
-const mockdata = [
+const routes = [
   {
     label: "Dashboard",
     icon: IconGauge,
-    link: "/dashboard",
+    link: "/group/dashboard",
   },
   {
     label: "Members",
     icon: IconUsers,
     links: [
-      { label: "Invite new member", link: "/members/new-member" },
-      { label: "Member directory", link: "/members/directory" },
+      { label: "Invite new member", link: "/group/members/new-member" },
+      { label: "Member directory", link: "/group/members/directory" },
     ],
   },
   {
     label: "Meetings",
     icon: IconCalendar,
-    link: "/meetings",
+    link: "/group/meetings",
   },
   {
     label: "Loans",
     icon: IconBuildingBank,
-    links: [{ label: "New loan", link: "/loans/new-loan" }],
+    links: [
+      { label: "Loan Applications", link: "/group/loans/applications" },
+      { label: "Group loans", link: "/group/loans/listings/group-loans" },
+    ],
   },
 ];
 
@@ -51,7 +54,7 @@ const useStyles = createStyles(theme => ({
 
 export function AdminSidebar() {
   const { classes } = useStyles();
-  const links = mockdata.map(item => <LinksGroup {...item} key={item.label} />);
+  const links = routes.map(item => <LinksGroup {...item} key={item.label} />);
 
   return (
     <Navbar

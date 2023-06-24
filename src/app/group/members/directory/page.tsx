@@ -1,8 +1,9 @@
 import React from "react";
 import { getServerSession } from "next-auth/next";
-import { useSession } from "next-auth/react";
 import MembersTable from "./MembersTable";
 import { User } from "@/types/User";
+import { authOptions } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 type Props = {};
 
@@ -14,30 +15,26 @@ const getMembersList = async (token: string) => {
     },
   });
 
-  const res = await fetch(req, { next: { revalidate: 10 } });
-  const members = (await res.json()) as User[];
-
-  return members.map(m => {
-    return {
-      firstName: m.firstName,
-      lastName: m.lastName,
-      username: m.username,
-      phoneNumber: m.phoneNumber,
-    };
-  });
+  const res = await fetch(req);
+  return (await res.json()) as User[];
 };
 
 export default async function Page({}: Props) {
-  const session = useSession({
-    required: true,
-    onUnauthenticated() {
-      return { redirect: "/login" };
-    },
-  });
+  const session = await getServerSession(authOptions);
 
-  const token = session.data?.accessToken;
+  if (!session) {
+    return redirect("/login");
+  }
 
-  const members = await getMembersList(token!);
+  const token = session.accessToken;
+
+  let members: User[];
+
+  try {
+    members = await getMembersList(token);
+  } catch (err) {
+    members = [];
+  }
 
   return (
     <section className={"max-w-5xl"}>

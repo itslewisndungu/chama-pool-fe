@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 import {
   createStyles,
   Table,
@@ -12,27 +12,27 @@ import {
   TextInput,
   rem,
   Button,
-} from '@mantine/core';
-import { keys } from '@mantine/utils';
+} from "@mantine/core";
+import { keys } from "@mantine/utils";
 import {
   IconSelector,
   IconChevronDown,
   IconChevronUp,
   IconSearch,
-} from '@tabler/icons-react';
+} from "@tabler/icons-react";
 
 const useStyles = createStyles(theme => ({
   th: {
-    padding: '0 !important',
+    padding: "0 !important",
   },
 
   control: {
-    width: '100%',
+    width: "100%",
     padding: `${theme.spacing.xs} ${theme.spacing.md}`,
 
-    '&:hover': {
+    "&:hover": {
       backgroundColor:
-        theme.colorScheme === 'dark'
+        theme.colorScheme === "dark"
           ? theme.colors.dark[6]
           : theme.colors.gray[0],
     },
@@ -116,7 +116,7 @@ function sortData(
 }
 
 export default function MembersTable({ data }: TableSortProps) {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [sortedData, setSortedData] = useState(data);
   const [sortBy, setSortBy] = useState<keyof RowData | null>(null);
   const [reverseSortDirection, setReverseSortDirection] = useState(false);
@@ -161,35 +161,35 @@ export default function MembersTable({ data }: TableSortProps) {
         horizontalSpacing="md"
         verticalSpacing="xs"
         miw={700}
-        sx={{ tableLayout: 'fixed' }}
+        sx={{ tableLayout: "fixed" }}
       >
         <thead>
           <tr>
             <Th
-              sorted={sortBy === 'firstName'}
+              sorted={sortBy === "firstName"}
               reversed={reverseSortDirection}
-              onSort={() => setSorting('firstName')}
+              onSort={() => setSorting("firstName")}
             >
               First Name
             </Th>
             <Th
-              sorted={sortBy === 'lastName'}
+              sorted={sortBy === "lastName"}
               reversed={reverseSortDirection}
-              onSort={() => setSorting('lastName')}
+              onSort={() => setSorting("lastName")}
             >
-              Name
+              Last Name
             </Th>
             <Th
-              sorted={sortBy === 'username'}
+              sorted={sortBy === "username"}
               reversed={reverseSortDirection}
-              onSort={() => setSorting('username')}
+              onSort={() => setSorting("username")}
             >
               Username
             </Th>
             <Th
-              sorted={sortBy === 'phoneNumber'}
+              sorted={sortBy === "phoneNumber"}
               reversed={reverseSortDirection}
-              onSort={() => setSorting('phoneNumber')}
+              onSort={() => setSorting("phoneNumber")}
             >
               Phone Number
             </Th>
@@ -201,10 +201,10 @@ export default function MembersTable({ data }: TableSortProps) {
             rows
           ) : (
             <tr>
-              <td colSpan={Object.keys(data[0]).length}>
-                <Text weight={500} align="center">
-                  Nothing found
-                </Text>
+              <td colSpan={5} align={"center"}>
+                <p className={"text-xl md:text-2xl font-light text-gray-800"}>
+                  No members found
+                </p>
               </td>
             </tr>
           )}

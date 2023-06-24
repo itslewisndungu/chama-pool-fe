@@ -3,7 +3,7 @@
 import { LoansListHeader } from "@/app/member/loans/listings/loans-header";
 import { LoansListTable } from "@/app/member/loans/listings/loans-list-table";
 import { useState } from "react";
-import { Loan, LoanStatus } from "@/app/member/loans/Loan";
+import { Loan, LoanStatus } from "@/types/loans";
 import { sortTableData } from "@/lib/utils";
 
 type Props = {

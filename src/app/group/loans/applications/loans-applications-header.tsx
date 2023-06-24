@@ -1,13 +1,15 @@
 import { NativeSelect, TextInput } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
-import { LoanStatus } from "@/types/loans";
+import { LoanApplicationStatus } from "@/types/loans";
 
 type Props = {
   searchValue(v: string): void;
-  filterValue: (filteredValue: LoanStatus | LoanStatus[] | undefined) => void;
+  filterValue: (
+    filteredValue: LoanApplicationStatus | LoanApplicationStatus[] | undefined
+  ) => void;
 };
 
-export const LoansListHeader = ({ searchValue, filterValue }: Props) => {
+export const LoanApplicationsHeader = ({ searchValue, filterValue }: Props) => {
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     searchValue(event.currentTarget.value);
   };
@@ -16,14 +18,14 @@ export const LoansListHeader = ({ searchValue, filterValue }: Props) => {
     const { value } = event.currentTarget;
 
     switch (value) {
-      case "active-loans":
-        filterValue([LoanStatus.ACTIVE, LoanStatus.OVERDUE]);
+      case "active-applications":
+        filterValue([LoanApplicationStatus.AWAITING_APPROVAL]);
         break;
-      case "repaid-loans":
-        filterValue(LoanStatus.REPAID);
-        break;
-      case "pending-loans":
-        filterValue([LoanStatus.PENDING, LoanStatus.AWAITING_DISBURSEMENT]);
+      case "past-applications":
+        filterValue([
+          LoanApplicationStatus.APPROVED,
+          LoanApplicationStatus.REJECTED,
+        ]);
         break;
       default:
         filterValue(undefined);
@@ -38,17 +40,20 @@ export const LoansListHeader = ({ searchValue, filterValue }: Props) => {
         <NativeSelect
           onChange={handleFilterChange}
           data={[
-            { label: "All loans", value: "all-loans" },
-            { label: "Active Loans", value: "active-loans", selected: true },
-            { label: "Repaid Loans", value: "repaid-loans" },
-            { label: "Pending Loans", value: "pending-loans" },
+            { label: "All applications", value: "all-loans" },
+            {
+              label: "Active Application",
+              value: "active-applications",
+              selected: true,
+            },
+            { label: "Past Applications", value: "past-applications" },
           ]}
         />
       </div>
 
       <TextInput
         className="flex-1"
-        placeholder="Search loan"
+        placeholder="Search loan application"
         icon={<IconSearch size="0.9rem" stroke={1.5} />}
         onChange={handleSearchChange}
       />

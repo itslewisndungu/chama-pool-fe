@@ -15,7 +15,7 @@ import {
   IconChevronDown,
   IconChevronUp,
 } from "@tabler/icons-react";
-import { Loan } from "@/app/member/loans/Loan";
+import { Loan } from "@/types/loans";
 import Link from "next/link";
 
 const useStyles = createStyles(theme => ({
@@ -93,7 +93,11 @@ export const LoansListTable = ({
         <Badge>{row.loanStatus}</Badge>
       </td>
       <td>
-        <Button variant={"light"} component={Link} href={"/loans/1/summary"}>
+        <Button
+          variant={"subtle"}
+          component={Link}
+          href={"/group/loans/1/summary"}
+        >
           View Details
         </Button>
       </td>

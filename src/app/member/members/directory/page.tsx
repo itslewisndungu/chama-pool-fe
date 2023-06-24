@@ -1,8 +1,9 @@
 import React from "react";
 import { getServerSession } from "next-auth/next";
-import { useSession } from "next-auth/react";
 import MembersTable from "./MembersTable";
 import { User } from "@/types/User";
+import { authOptions } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 type Props = {};
 
@@ -28,14 +29,12 @@ const getMembersList = async (token: string) => {
 };
 
 export default async function Page({}: Props) {
-  const session = useSession({
-    required: true,
-    onUnauthenticated() {
-      return { redirect: "/login" };
-    },
-  });
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return redirect("/login");
+  }
 
-  const token = session.data?.accessToken;
+  const token = session.accessToken;
 
   const members = await getMembersList(token!);
 

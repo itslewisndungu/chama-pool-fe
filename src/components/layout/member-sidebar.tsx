@@ -9,29 +9,48 @@ import {
 } from "@tabler/icons-react";
 import { LinksGroup } from "@/components/LinkGroups";
 
-const mockdata = [
+const routes = [
   {
     label: "Dashboard",
     icon: IconGauge,
-    link: "/dashboard",
+    link: "/member/dashboard",
   },
   {
     label: "Members",
     icon: IconUsers,
+    links: [{ label: "Member directory", link: "/member/members/directory" }],
+  },
+  {
+    label: "Profile",
+    icon: IconUsers,
     links: [
-      { label: "Invite new member", link: "/members/new-member" },
-      { label: "Member directory", link: "/members/directory" },
+      { label: "Your profile", link: "/member/dashboard" },
+      { label: "Contributions", link: "/member/dashboard" },
+      { label: "Fines", link: "/member/dashboard" },
     ],
   },
   {
     label: "Meetings",
     icon: IconCalendar,
-    link: "/meetings",
+    link: "/member/meetings",
   },
   {
     label: "Loans",
     icon: IconBuildingBank,
-    links: [{ label: "New loan", link: "/loans/new-loan" }],
+    links: [
+      {
+        label: "My loans",
+        link: "/member/loans/listings/my-loans",
+      },
+      {
+        label: "Loans applications",
+        link: "/member/loans/applications/pending-application",
+      },
+      {
+        label: "Apply for loan",
+        link: "/member/loans/new-loan",
+      },
+    ],
   },
 ];
 
@@ -51,7 +70,7 @@ const useStyles = createStyles(theme => ({
 
 export function MemberSidebar() {
   const { classes } = useStyles();
-  const links = mockdata.map(item => <LinksGroup {...item} key={item.label} />);
+  const links = routes.map(item => <LinksGroup {...item} key={item.label} />);
 
   return (
     <Navbar

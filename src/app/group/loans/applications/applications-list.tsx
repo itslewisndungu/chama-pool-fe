@@ -1,34 +1,34 @@
 "use client";
 
-import { LoansListHeader } from "@/app/group/loans/listings/loans-header";
-import { LoansListTable } from "@/app/group/loans/listings/loans-list-table";
 import { useState } from "react";
+import { LoanApplication, LoanApplicationStatus } from "@/types/loans";
 import { sortTableData } from "@/lib/utils";
-import { Loan, LoanStatus } from "@/types/loans";
+import { LoanApplicationsHeader } from "@/app/group/loans/applications/loans-applications-header";
+import { LoanApplicationsTable } from "@/app/group/loans/applications/loan-applications-table";
 
 type Props = {
-  loans: Loan[];
+  applications: LoanApplication[];
 };
 
-export function LoansList({ loans: data }: Props) {
+export function ApplicationsList({ applications: data }: Props) {
   const [sortedData, setSortedData] = useState(data);
   const [search, setSearch] = useState("");
-  const [sortBy, setSortBy] = useState<keyof Loan | null>(null);
+  const [sortBy, setSortBy] = useState<keyof LoanApplication | null>(null);
   const [reverseSortDirection, setReverseSortDirection] = useState(false);
 
-  const setSorting = (field: keyof Loan) => {
+  const setSorting = (field: keyof LoanApplication) => {
     const reversed = field === sortBy ? !reverseSortDirection : false;
     setReverseSortDirection(reversed);
     setSortBy(field);
     setSortedData(
-      sortTableData<Loan>(data, { sortBy: field, reversed, search })
+      sortTableData<LoanApplication>(data, { sortBy: field, reversed, search })
     );
   };
 
   const handleSearch = (searchedValue: string) => {
     setSearch(searchedValue);
     setSortedData(
-      sortTableData<Loan>(data, {
+      sortTableData<LoanApplication>(data, {
         sortBy,
         reversed: reverseSortDirection,
         search: searchedValue,
@@ -37,7 +37,7 @@ export function LoansList({ loans: data }: Props) {
   };
 
   const handleFilter = (
-    filteredValue: LoanStatus | LoanStatus[] | undefined
+    filteredValue: LoanApplicationStatus | LoanApplicationStatus[] | undefined
   ) => {
     let searchedValue = "";
 
@@ -53,7 +53,7 @@ export function LoansList({ loans: data }: Props) {
 
     setSearch(searchedValue);
     setSortedData(
-      sortTableData<Loan>(data, {
+      sortTableData<LoanApplication>(data, {
         sortBy,
         reversed: reverseSortDirection,
         search: searchedValue,
@@ -63,8 +63,11 @@ export function LoansList({ loans: data }: Props) {
 
   return (
     <>
-      <LoansListHeader searchValue={handleSearch} filterValue={handleFilter} />
-      <LoansListTable
+      <LoanApplicationsHeader
+        searchValue={handleSearch}
+        filterValue={handleFilter}
+      />
+      <LoanApplicationsTable
         data={sortedData}
         setSorting={setSorting}
         sortBy={sortBy}

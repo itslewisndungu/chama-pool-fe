@@ -1,8 +1,8 @@
-import { Loan, LoanStatus } from "@/app/member/loans/Loan";
-import { LoansList } from "@/app/member/loans/listings/loans-list";
+import { Loan, LoanStatus } from "@/types/loans";
+import { LoansList } from "./loans-list";
 
-const getMyLoans = async (): Promise<Loan[]> => {
-  const loans = [
+const getGroupLoans = async (): Promise<Loan[]> => {
+  return [
     {
       id: 1,
       memberId: 1,
@@ -44,20 +44,14 @@ const getMyLoans = async (): Promise<Loan[]> => {
       reasonForLoan: "To buy a new car",
     },
   ];
-
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(loans);
-    }, 1000);
-  });
 };
 
-export default async function MyLoansPage() {
-  const loans = await getMyLoans();
+export default async function MemberLoansPage() {
+  const loans = await getGroupLoans();
 
   return (
     <>
-      <h1>My loans</h1>
+      <h1>List member loans</h1>
       <LoansList loans={loans} />
     </>
   );
