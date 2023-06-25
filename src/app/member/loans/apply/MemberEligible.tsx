@@ -1,11 +1,20 @@
-import { AcceptLoanConditions } from "@/app/member/loans/new-loan/AcceptLoanConditions";
+"use client";
+
 import { getFormattedCurrency } from "@/lib/utils";
+import { useState } from "react";
+import { useDisclosure } from "@mantine/hooks";
+import { Button, Checkbox } from "@mantine/core";
+import { IconChevronRight } from "@tabler/icons-react";
+import { LoanApplicationModal } from "@/app/member/loans/apply/LoanApplicationModal";
 
 type Props = {
   amount: number;
 };
 
 export function MemberEligible({ amount }: Props) {
+  const [accepted, setAccepted] = useState(false);
+  const [modalOpened, { open, close }] = useDisclosure(false);
+
   return (
     <div className={"max-w-[70ch] mt-8"}>
       <p className={"text-xl md:text-2xl font-light text-gray-800"}>
@@ -23,8 +32,32 @@ export function MemberEligible({ amount }: Props) {
         members feel that there has been a credible change of behaviour and that
         the defaulter has become disciplined enough.
       </p>
+      <div className={"flex flex-col gap-6 pt-4 "}>
+        <Checkbox
+          label={"I agree to terms and conditions"}
+          checked={accepted}
+          onChange={event => setAccepted(event.currentTarget.checked)}
+        />
 
-      <AcceptLoanConditions />
+        {accepted ? (
+          <span>
+            <Button
+              className={"px-12"}
+              rightIcon={<IconChevronRight size={20} />}
+              disabled={!accepted}
+              onClick={open}
+            >
+              Apply for loan
+            </Button>
+          </span>
+        ) : null}
+
+        <LoanApplicationModal
+          onClose={close}
+          opened={modalOpened}
+          amount={amount}
+        />
+      </div>
     </div>
   );
 }

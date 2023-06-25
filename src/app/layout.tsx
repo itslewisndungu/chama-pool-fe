@@ -5,7 +5,7 @@ import RootStyleRegistry from "../context/mantine-provider";
 import NextAuthProvider from "@/context/next-auth-provider";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 
-const inter = Inter({ subsets: ["latin"], display: "swap" });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Create Next App",

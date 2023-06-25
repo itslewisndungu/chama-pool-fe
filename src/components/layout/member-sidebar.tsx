@@ -48,7 +48,7 @@ const routes = [
       },
       {
         label: "Apply for loan",
-        link: "/member/loans/new-loan",
+        link: "/member/loans/apply",
       },
     ],
   },

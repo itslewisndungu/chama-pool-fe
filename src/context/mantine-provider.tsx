@@ -1,10 +1,18 @@
 "use client";
 
 import { CacheProvider } from "@emotion/react";
-import { useEmotionCache, MantineProvider } from "@mantine/core";
+import {
+  useEmotionCache,
+  MantineProvider,
+  MantineThemeOverride,
+} from "@mantine/core";
 import { useServerInsertedHTML } from "next/navigation";
 import { ModalsProvider } from "@mantine/modals";
 import { Notifications } from "@mantine/notifications";
+
+const theme: MantineThemeOverride = {
+  fontFamily: "Inter, sans-serif",
+};
 
 const RootStyleRegistry = ({ children }: { children: React.ReactNode }) => {
   const cache = useEmotionCache();
@@ -21,7 +29,7 @@ const RootStyleRegistry = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <CacheProvider value={cache}>
-      <MantineProvider withGlobalStyles withNormalizeCSS>
+      <MantineProvider withGlobalStyles withNormalizeCSS theme={theme}>
         <ModalsProvider>
           <Notifications />
           {children}

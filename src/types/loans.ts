@@ -29,6 +29,18 @@ export enum LoanApprovalStatus {
   "REJECTED" = "REJECTED",
 }
 
+export type LoanEligibility =
+  | {
+      isEligible: true;
+      amountEligible: number;
+      reason?: string;
+    }
+  | {
+      isEligible: false;
+      amountEligible?: number;
+      reason: string;
+    };
+
 export type LoanApplication = {
   id: number;
   applicationDate: Date;
@@ -36,9 +48,9 @@ export type LoanApplication = {
   memberName: string;
   memberPhoneNumber: string;
   amount: number;
-  reasonForApplication: string;
+  reasonForLoan: string;
   status: LoanApplicationStatus;
-  approvals: {
+  approval: {
     chairman: {
       status: LoanApprovalStatus;
       message?: string;

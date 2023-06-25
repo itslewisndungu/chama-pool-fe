@@ -68,7 +68,7 @@ export function ApplicationsList({ applications: data }: Props) {
         filterValue={handleFilter}
       />
       <LoanApplicationsTable
-        data={sortedData}
+        applications={sortedData}
         setSorting={setSorting}
         sortBy={sortBy}
         reverseSortDirection={reverseSortDirection}

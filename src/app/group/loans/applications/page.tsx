@@ -4,8 +4,11 @@ import {
   LoanApplicationStatus,
   LoanApprovalStatus,
 } from "@/types/loans";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
+import { signIn } from "next-auth/react";
 
-const getApplications = async (): Promise<LoanApplication[]> => {
+const mockGetApplications = async (): Promise<LoanApplication[]> => {
   const applications: LoanApplication[] = [
     {
       id: 1,
@@ -15,8 +18,8 @@ const getApplications = async (): Promise<LoanApplication[]> => {
       memberPhoneNumber: "0700000000",
       amount: 10000,
       status: LoanApplicationStatus.AWAITING_APPROVAL,
-      reasonForApplication: "Kujibamba",
-      approvals: {
+      reasonForLoan: "Kujibamba",
+      approval: {
         chairman: {
           status: LoanApprovalStatus.AWAITING_APPROVAL,
           message: "",
@@ -39,8 +42,8 @@ const getApplications = async (): Promise<LoanApplication[]> => {
       memberPhoneNumber: "0700000000",
       amount: 10000,
       status: LoanApplicationStatus.APPROVED,
-      reasonForApplication: "Kujibamba",
-      approvals: {
+      reasonForLoan: "Kujibamba",
+      approval: {
         chairman: {
           status: LoanApprovalStatus.APPROVED,
           message: "",
@@ -63,8 +66,8 @@ const getApplications = async (): Promise<LoanApplication[]> => {
       memberPhoneNumber: "0700000000",
       amount: 10000,
       status: LoanApplicationStatus.REJECTED,
-      reasonForApplication: "Kujibamba",
-      approvals: {
+      reasonForLoan: "Kujibamba",
+      approval: {
         chairman: {
           status: LoanApprovalStatus.REJECTED,
           message: "",
@@ -88,8 +91,25 @@ const getApplications = async (): Promise<LoanApplication[]> => {
   });
 };
 
+const getApplications = async (token: string): Promise<LoanApplication[]> => {
+  const req = new Request("http://localhost:8080/loans/applications", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const res = await fetch(req);
+  return (await res.json()) as LoanApplication[];
+};
+
 export default async function ApplicationsPage() {
-  const applications = await getApplications();
+  // const applications = await mockGetApplications();
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return signIn();
+  }
+
+  const applications = await getApplications(session.accessToken);
 
   return (
     <>

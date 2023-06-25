@@ -6,8 +6,11 @@ import { LoanApprovalStatus } from "@/types/loans";
 import { useState } from "react";
 import { notifications } from "@mantine/notifications";
 import { IconCheck } from "@tabler/icons-react";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 type Props = {
+  loanId: number;
   approved: LoanApprovalStatus;
   message?: string;
   close(): void;
@@ -18,7 +21,7 @@ type LoanApproval = {
   message?: string;
 };
 
-const updateApplicationStatusForm = async (approval: LoanApproval) => {
+const mockUpdateApplicationStatusForm = async (approval: LoanApproval) => {
   return new Promise<any>((resolve, reject) => {
     setTimeout(() => {
       if (approval.approval === LoanApprovalStatus.APPROVED) {
@@ -30,11 +33,45 @@ const updateApplicationStatusForm = async (approval: LoanApproval) => {
   });
 };
 
+const updateApplicationStatus = async (
+  loanId: number,
+  approval: LoanApproval,
+  token: string
+) => {
+  const approved = approval.approval === LoanApprovalStatus.APPROVED;
+
+  const req = new Request(
+    `http://localhost:8080/loans/applications/${loanId}/approve`,
+    {
+      method: "POST",
+      body: JSON.stringify({
+        approved,
+        message: approval?.message,
+      }),
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  return (await fetch(req).then(res => res.json())) as LoanApproval;
+};
+
 export function UpdateApplicationStatusForm({
+  loanId,
   approved,
   message,
   close,
 }: Props) {
+  const router = useRouter();
+  const { data: session } = useSession({
+    required: true,
+    onUnauthenticated() {
+      return signIn();
+    },
+  });
+
   const form = useForm<LoanApproval>({
     initialValues: {
       approval:
@@ -52,7 +89,7 @@ export function UpdateApplicationStatusForm({
     setLoading(true);
 
     try {
-      await updateApplicationStatusForm(values);
+      await updateApplicationStatus(loanId, values, session?.accessToken!);
       notifications.show({
         title: "Loans approval successful",
         message:
@@ -60,6 +97,7 @@ export function UpdateApplicationStatusForm({
         autoClose: 10000,
         icon: <IconCheck />,
       });
+      router.refresh();
       close();
     } catch (e) {
       console.log(`Error approving loan because ${e}`);

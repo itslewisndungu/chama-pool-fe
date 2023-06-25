@@ -15,11 +15,11 @@ const StatusBadge = ({ status }: { status: LoanApprovalStatus }) => {
   return (
     <Badge
       color={
-        status === LoanApprovalStatus.AWAITING_APPROVAL
-          ? "blue"
+        status === LoanApprovalStatus.REJECTED
+          ? "red"
           : LoanApprovalStatus.APPROVED
           ? "teal"
-          : "red"
+          : "blue"
       }
     >
       {status}
@@ -27,16 +27,16 @@ const StatusBadge = ({ status }: { status: LoanApprovalStatus }) => {
   );
 };
 
-export function ActiveApplicationSummary({ application }: Props) {
-  const { approvals } = application;
+export function ApplicationSummary({ application }: Props) {
+  const { approval } = application;
   const { data: session } = useSession();
   const [opened, { close, open }] = useDisclosure(false);
 
   const role = session?.user.roles.includes("CHAIRMAN")
-    ? ("chairman" as keyof typeof approvals)
+    ? ("chairman" as keyof typeof approval)
     : session?.user.roles.includes("SECRETARY")
-    ? ("secretary" as keyof typeof approvals)
-    : ("treasurer" as keyof typeof approvals);
+    ? ("secretary" as keyof typeof approval)
+    : ("treasurer" as keyof typeof approval);
 
   return (
     <>
@@ -55,7 +55,7 @@ export function ActiveApplicationSummary({ application }: Props) {
             <span className={"text-gray-800 text-sm"}>
               Reason requesting loan:
             </span>
-            <span>{application.reasonForApplication}</span>
+            <span>{application.reasonForLoan}</span>
           </p>
         </div>
 
@@ -75,9 +75,9 @@ export function ActiveApplicationSummary({ application }: Props) {
             <tr>
               <td className={"font-bold text-gray-800"}>Chairman</td>
               <td>
-                <StatusBadge status={approvals.chairman.status} />
+                <StatusBadge status={approval.chairman.status} />
               </td>
-              <td>{approvals.chairman?.message ?? "No message yet"}</td>
+              <td>{approval.chairman?.message ?? "No message yet"}</td>
               <td>
                 {session?.user.roles.includes("CHAIRMAN") ? (
                   <Button onClick={open}>Update approval status</Button>
@@ -88,9 +88,9 @@ export function ActiveApplicationSummary({ application }: Props) {
             <tr>
               <td className={"font-bold text-gray-800"}>Treasurer</td>
               <td>
-                <StatusBadge status={approvals.treasurer.status} />
+                <StatusBadge status={approval.treasurer.status} />
               </td>
-              <td>{approvals.treasurer?.message ?? "No message yet"}</td>
+              <td>{approval.treasurer?.message ?? "No message yet"}</td>
               <td>
                 {session?.user.roles.includes("TREASURER") ? (
                   <Button onClick={open}>Update approval status</Button>
@@ -100,9 +100,9 @@ export function ActiveApplicationSummary({ application }: Props) {
             <tr>
               <td className={"font-bold text-gray-800"}>Secretary</td>
               <td>
-                <StatusBadge status={approvals.secretary.status} />
+                <StatusBadge status={approval.secretary.status} />
               </td>
-              <td>{approvals.secretary?.message ?? "No message yet"}</td>
+              <td>{approval.secretary?.message ?? "No message yet"}</td>
               <td>
                 {session?.user.roles.includes("SECRETARY") ? (
                   <Button onClick={open}>Update approval status</Button>
@@ -124,9 +124,10 @@ export function ActiveApplicationSummary({ application }: Props) {
         }
       >
         <UpdateApplicationStatusForm
+          loanId={application.id}
           close={close}
-          approved={approvals[role].status}
-          message={approvals[role].message}
+          approved={approval[role].status}
+          message={approval[role].message}
         />
       </Modal>
     </>

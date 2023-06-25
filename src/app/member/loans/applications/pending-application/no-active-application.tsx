@@ -13,7 +13,7 @@ export function NoActiveApplication() {
       <Button
         className={"justify-self-center"}
         component={Link}
-        href={"/loans/new-loan"}
+        href={"/member/loans/apply"}
       >
         Apply for a loan
       </Button>

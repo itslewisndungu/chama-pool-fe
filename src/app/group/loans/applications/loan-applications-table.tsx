@@ -43,7 +43,7 @@ const useStyles = createStyles(theme => ({
 }));
 
 interface Props {
-  data: LoanApplication[];
+  applications: LoanApplication[];
   setSorting: (field: keyof LoanApplication) => void;
   sortBy: keyof LoanApplication | null;
   reverseSortDirection: boolean;
@@ -80,34 +80,34 @@ function Th({ children, reversed, sorted, onSort }: ThProps) {
 }
 
 export const LoanApplicationsTable = ({
-  data,
+  applications,
   setSorting,
   sortBy,
   reverseSortDirection,
 }: Props) => {
-  const rows = data.map((row, idx) => (
-    <tr key={row.id}>
+  const rows = applications.map((application, idx) => (
+    <tr key={application.id}>
       <td>{idx + 1}</td>
-      <td>{row.memberName}</td>
-      <td>{row.amount}</td>
+      <td>{application.memberName}</td>
+      <td>{application.amount}</td>
       <td>
         <Badge
           color={
-            row.status === LoanApplicationStatus.AWAITING_APPROVAL
+            application.status === LoanApplicationStatus.AWAITING_APPROVAL
               ? "blue"
-              : row.status === LoanApplicationStatus.APPROVED
+              : application.status === LoanApplicationStatus.APPROVED
               ? "green"
               : "red"
           }
         >
-          {row.status}
+          {application.status}
         </Badge>
       </td>
       <td>
         <Button
           variant={"subtle"}
           component={Link}
-          href={`/group/loans/applications/${row.id}`}
+          href={`/group/loans/applications/${application.id}`}
         >
           View Details
         </Button>

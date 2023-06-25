@@ -1,14 +1,15 @@
 "use client";
 
 import { Modal } from "@mantine/core";
-import { RequestLoanForm } from "@/app/member/loans/new-loan/RequestLoanForm";
+import { RequestLoanForm } from "@/app/member/loans/apply/RequestLoanForm";
 
 type Props = {
   opened: boolean;
   onClose(): void;
+  amount: number;
 };
 
-export function LoanApplicationModal({ opened, onClose }: Props) {
+export function LoanApplicationModal({ opened, onClose, amount }: Props) {
   return (
     <Modal
       opened={opened}
@@ -19,7 +20,7 @@ export function LoanApplicationModal({ opened, onClose }: Props) {
         </h2>
       }
     >
-      <RequestLoanForm close={onClose} />
+      <RequestLoanForm close={onClose} amountEligible={amount} />
     </Modal>
   );
 }
