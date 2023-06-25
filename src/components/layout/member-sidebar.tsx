@@ -40,7 +40,7 @@ const routes = [
     links: [
       {
         label: "My loans",
-        link: "/member/loans/listings/my-loans",
+        link: "/member/loans/my-loans",
       },
       {
         label: "Loans applications",
