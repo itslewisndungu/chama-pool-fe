@@ -65,7 +65,7 @@ export function LoansList({ loans: data }: Props) {
     <>
       <LoansListHeader searchValue={handleSearch} filterValue={handleFilter} />
       <LoansListTable
-        data={sortedData}
+        loans={sortedData}
         setSorting={setSorting}
         sortBy={sortBy}
         reverseSortDirection={reverseSortDirection}

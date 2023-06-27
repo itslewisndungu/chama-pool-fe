@@ -2,10 +2,14 @@ export type Loan = {
   id: number;
   memberId: number;
   memberName: string;
-  amountLoaned: number;
-  loanStatus: LoanStatus;
+  amount: number;
+  amountPayable: number;
+  interest: number;
+  interestEarned: number;
+  status: LoanStatus;
   startDate?: Date;
   endDate?: Date;
+  dueDate?: Date;
   reasonForLoan: string;
 };
 

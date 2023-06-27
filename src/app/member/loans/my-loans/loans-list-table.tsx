@@ -17,6 +17,7 @@ import {
 } from "@tabler/icons-react";
 import { Loan } from "@/types/loans";
 import Link from "next/link";
+import { getFormattedCurrency } from "@/lib/utils";
 
 const useStyles = createStyles(theme => ({
   th: {
@@ -43,7 +44,7 @@ const useStyles = createStyles(theme => ({
 }));
 
 interface Props {
-  data: Loan[];
+  loans: Loan[];
   setSorting: (field: keyof Loan) => void;
   sortBy: keyof Loan | null;
   reverseSortDirection: boolean;
@@ -80,20 +81,25 @@ function Th({ children, reversed, sorted, onSort }: ThProps) {
 }
 
 export const LoansListTable = ({
-  data,
+  loans,
   setSorting,
   sortBy,
   reverseSortDirection,
 }: Props) => {
-  const rows = data.map(row => (
-    <tr key={row.id}>
-      <td>{row.memberName}</td>
-      <td>{row.amountLoaned}</td>
+  const rows = loans.map((loan, idx) => (
+    <tr key={loan.id}>
+      <td>{idx + 1}</td>
+      <td>{loan.memberName}</td>
+      <td>{getFormattedCurrency(loan.amount)}</td>
       <td>
-        <Badge>{row.loanStatus}</Badge>
+        <Badge>{loan.status}</Badge>
       </td>
       <td>
-        <Button variant={"light"} component={Link} href={"/loans/1/summary"}>
+        <Button
+          variant={"subtle"}
+          component={Link}
+          href={`/member/loans/${loan.id}/summary`}
+        >
           View Details
         </Button>
       </td>
@@ -110,6 +116,7 @@ export const LoansListTable = ({
       >
         <thead>
           <tr>
+            <th>#</th>
             <Th
               sorted={sortBy === "memberName"}
               reversed={reverseSortDirection}
@@ -118,16 +125,16 @@ export const LoansListTable = ({
               Member name
             </Th>
             <Th
-              sorted={sortBy === "amountLoaned"}
+              sorted={sortBy === "amount"}
               reversed={reverseSortDirection}
-              onSort={() => setSorting("amountLoaned")}
+              onSort={() => setSorting("amount")}
             >
               Amount loaned
             </Th>
             <Th
-              sorted={sortBy === "loanStatus"}
+              sorted={sortBy === "status"}
               reversed={reverseSortDirection}
-              onSort={() => setSorting("loanStatus")}
+              onSort={() => setSorting("status")}
             >
               Loan status
             </Th>

@@ -88,9 +88,9 @@ export const LoansListTable = ({
   const rows = data.map(row => (
     <tr key={row.id}>
       <td>{row.memberName}</td>
-      <td>{row.amountLoaned}</td>
+      <td>{row.amount}</td>
       <td>
-        <Badge>{row.loanStatus}</Badge>
+        <Badge>{row.status}</Badge>
       </td>
       <td>
         <Button
@@ -122,16 +122,16 @@ export const LoansListTable = ({
               Member name
             </Th>
             <Th
-              sorted={sortBy === "amountLoaned"}
+              sorted={sortBy === "amount"}
               reversed={reverseSortDirection}
-              onSort={() => setSorting("amountLoaned")}
+              onSort={() => setSorting("amount")}
             >
               Amount loaned
             </Th>
             <Th
-              sorted={sortBy === "loanStatus"}
+              sorted={sortBy === "status"}
               reversed={reverseSortDirection}
-              onSort={() => setSorting("loanStatus")}
+              onSort={() => setSorting("status")}
             >
               Loan status
             </Th>
