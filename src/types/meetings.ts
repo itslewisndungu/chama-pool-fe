@@ -12,3 +12,10 @@ export enum MeetingCategory {
   EMERGENCY = "EMERGENCY",
   MONTHLY_MEETING = "MONTHLY_MEETING",
 }
+
+export type MeetingAttendance = {
+  memberId: number;
+  memberName: string;
+  isPresent: boolean;
+  apology?: string;
+};
