@@ -1,7 +1,8 @@
 "use client";
 
-import { Button } from "@mantine/core";
+import { Button, Modal } from "@mantine/core";
 import { IconCalendar, IconCalendarEvent, IconPlus } from "@tabler/icons-react";
+import Link from "next/link";
 
 type Props = {};
 
@@ -10,7 +11,13 @@ const MeetingsHeader = (props: Props) => {
     <div className="flex justify-between items-center">
       <h1 className="my-0">Meetings</h1>
       <div>
-        <Button rightIcon={<IconCalendarEvent />}>Schedule meeting</Button>
+        <Button
+          rightIcon={<IconCalendarEvent />}
+          component={Link}
+          href={"/group/meetings/schedule"}
+        >
+          Schedule meeting
+        </Button>
       </div>
     </div>
   );

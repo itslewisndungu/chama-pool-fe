@@ -15,7 +15,7 @@ import {
   IconChevronDown,
   IconChevronUp,
 } from "@tabler/icons-react";
-import { Meeting } from "./MeetingsList";
+import { Meeting } from "@/types/meetings";
 
 const useStyles = createStyles(theme => ({
   th: {
@@ -42,7 +42,7 @@ const useStyles = createStyles(theme => ({
 }));
 
 interface Props {
-  data: Meeting[];
+  meetings: Meeting[];
   setSorting: (field: keyof Meeting) => void;
   sortBy: keyof Meeting | null;
   reverseSortDirection: boolean;
@@ -79,16 +79,18 @@ function Th({ children, reversed, sorted, onSort }: ThProps) {
 }
 
 const MeetingsListTable = ({
-  data,
+  meetings,
   setSorting,
   sortBy,
   reverseSortDirection,
 }: Props) => {
-  const rows = data.map(row => (
-    <tr key={row.id}>
-      <td>{row.date}</td>
-      <td>{row.agenda}</td>
-      <td>{row.kind}</td>
+  const rows = meetings.map((meeting, idx) => (
+    <tr key={meeting.id}>
+      <td className={"text-gray-700"}>{idx + 1}</td>
+      <td>{meeting.date}</td>
+      <td>{meeting.title}</td>
+      <td>{meeting.agenda}</td>
+      <td>{meeting.kind}</td>
     </tr>
   ));
 
@@ -102,12 +104,20 @@ const MeetingsListTable = ({
       >
         <thead>
           <tr>
+            <th className={"w-[4rem]"}>#</th>
             <Th
               sorted={sortBy === "date"}
               reversed={reverseSortDirection}
               onSort={() => setSorting("date")}
             >
               Date
+            </Th>
+            <Th
+              sorted={sortBy === "title"}
+              reversed={reverseSortDirection}
+              onSort={() => setSorting("title")}
+            >
+              Meeting Title
             </Th>
             <Th
               sorted={sortBy === "agenda"}
@@ -130,7 +140,7 @@ const MeetingsListTable = ({
             rows
           ) : (
             <tr>
-              <td colSpan={Object.keys(data[0]).length}>
+              <td colSpan={Object.keys(meetings[0]).length}>
                 <Text weight={500} align="center">
                   Nothing found
                 </Text>
