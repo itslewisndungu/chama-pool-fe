@@ -1,7 +1,7 @@
 export type Meeting = {
   id: number;
   title: string;
-  date: string;
+  date: Date;
   agenda?: string;
   attendees?: number;
   kind: MeetingCategory;
@@ -18,4 +18,10 @@ export type MeetingAttendance = {
   memberName: string;
   isPresent: boolean;
   apology?: string;
+};
+
+export type MeetingContribution = {
+  memberId: number;
+  memberName: string;
+  amount: number;
 };

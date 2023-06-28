@@ -1,23 +1,28 @@
-"use client";
 import {
-  Table,
+  Button,
+  TextInput,
+  Text,
   Checkbox,
+  Drawer,
   ScrollArea,
   Group,
-  Text,
+  Table,
   rem,
-  TextInput,
-  Button,
 } from "@mantine/core";
 import { MeetingAttendance } from "@/types/meetings";
 import { useForm } from "@mantine/form";
-import { IconPencil, IconEraser } from "@tabler/icons-react";
+import { IconCrosshair, IconEraser, IconPencil } from "@tabler/icons-react";
 
-interface Props {
+type Props = {
+  opened: boolean;
+  close: () => void;
   attendances: MeetingAttendance[];
-}
-
-export function AttendanceTable({ attendances }: Props) {
+};
+export default function AttendanceUpdateModal({
+  opened,
+  close,
+  attendances,
+}: Props) {
   const form = useForm({
     initialValues: {
       attendances: attendances,
@@ -50,7 +55,14 @@ export function AttendanceTable({ attendances }: Props) {
   });
 
   return (
-    <>
+    <Drawer
+      position={"bottom"}
+      opened={opened}
+      onClose={close}
+      scrollAreaComponent={ScrollArea.Autosize}
+      title={<h3 className={"m-0"}>Edit member attendance</h3>}
+      size={"100%"}
+    >
       <form onSubmit={form.onSubmit(console.log)} onReset={form.onReset}>
         <ScrollArea>
           <Table miw={800} verticalSpacing="sm">
@@ -73,14 +85,22 @@ export function AttendanceTable({ attendances }: Props) {
 
           <Button
             type={"reset"}
-            color={"red"}
             variant={"light"}
             rightIcon={<IconEraser size={20} />}
           >
             Reset
           </Button>
+
+          <Button
+            color={"red"}
+            onClick={close}
+            variant={"light"}
+            rightIcon={<IconCrosshair size={20} />}
+          >
+            Cancel
+          </Button>
         </div>
       </form>
-    </>
+    </Drawer>
   );
 }

@@ -16,6 +16,7 @@ import {
   IconChevronUp,
 } from "@tabler/icons-react";
 import { Meeting } from "@/types/meetings";
+import { getFormattedDate } from "@/lib/utils";
 
 const useStyles = createStyles(theme => ({
   th: {
@@ -87,7 +88,7 @@ const MeetingsListTable = ({
   const rows = meetings.map((meeting, idx) => (
     <tr key={meeting.id}>
       <td className={"text-gray-700"}>{idx + 1}</td>
-      <td>{meeting.date}</td>
+      <td>{getFormattedDate(meeting.date)}</td>
       <td>{meeting.title}</td>
       <td>{meeting.agenda}</td>
       <td>{meeting.kind}</td>
