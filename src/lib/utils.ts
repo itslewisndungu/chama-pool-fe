@@ -60,11 +60,13 @@ export const sortTableData = <T>(
 };
 
 export const getFormattedDate = (date: Date) => {
-  const formattedDate = new Date(date).toLocaleDateString("en-KE", {
+  const meetingDate = new Date(date);
+  const formattedDate = meetingDate.toLocaleDateString("en-KE", {
     month: "long",
     year: "numeric",
   });
-  const day = date.getDate();
+
+  const day = meetingDate.getDate();
   const suffix = getDaySuffix(day);
 
   return `${day}${suffix} ${formattedDate}`;
