@@ -1,33 +1,8 @@
-import { MeetingContribution } from "@/types/meetings";
+import { MeetingAttendance, MeetingContribution } from "@/types/meetings";
 import ContributionsList from "@/app/group/meetings/[meetingId]/contributions/ContributionsList";
-
-const mockData = [
-  {
-    memberId: 3,
-    amount: 1500,
-    memberName: " Lewis Ndungu",
-  },
-  {
-    memberId: 2,
-    amount: 1500,
-    memberName: " Lewis Ndungu",
-  },
-  {
-    memberId: 4,
-    amount: 1500,
-    memberName: " Lewis Ndungu",
-  },
-  {
-    memberId: 1,
-    amount: 1500,
-    memberName: " Lewis Ndungu",
-  },
-  {
-    memberId: 5,
-    amount: 1500,
-    memberName: " Lewis Ndungu",
-  },
-] satisfies MeetingContribution[];
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 type Props = {
   params: {
@@ -35,12 +10,30 @@ type Props = {
   };
 };
 
-const getContributions = async (): Promise<MeetingContribution[]> => {
-  return new Promise(resolve => setTimeout(() => resolve(mockData), 1000));
+const getContributions = async (id: number, token: string) => {
+  const req = new Request(
+    `http://localhost:8080/meetings/${id}/contributions`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return (await fetch(req).then(res => res.json())) as MeetingContribution[];
 };
 
 export default async function Page({ params: { meetingId } }: Props) {
-  const contributions = await getContributions();
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return redirect("/login");
+  }
 
-  return <ContributionsList contributions={contributions} />;
+  const contributions = await getContributions(meetingId, session.accessToken);
+
+  return (
+    <ContributionsList contributions={contributions} meetingId={meetingId} />
+  );
 }

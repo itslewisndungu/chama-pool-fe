@@ -5,12 +5,14 @@ import { Button, Group, rem, Table, Text } from "@mantine/core";
 import { ContributionsUpdateModal } from "@/app/group/meetings/[meetingId]/contributions/ContributionsUpdateModal";
 import { useDisclosure } from "@mantine/hooks";
 import { getFormattedCurrency } from "@/lib/utils";
+import Props from "@/app/group/meetings/[meetingId]/contributions/page";
 
 type Props = {
   contributions: MeetingContribution[];
+  meetingId: number;
 };
 
-export default function ContributionsList({ contributions }: Props) {
+export default function ContributionsList({ contributions, meetingId }: Props) {
   const [opened, { open, close }] = useDisclosure(false);
 
   return (
@@ -42,8 +44,11 @@ export default function ContributionsList({ contributions }: Props) {
         </tbody>
       </Table>
 
-      <Button onClick={open}>Update contributions</Button>
+      <Button onClick={open} className={"mt-4"}>
+        Update contributions
+      </Button>
       <ContributionsUpdateModal
+        meetingId={meetingId}
         contributions={contributions}
         opened={opened}
         close={close}

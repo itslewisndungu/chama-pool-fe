@@ -3,12 +3,14 @@ import { Table, Group, Text, rem, Button } from "@mantine/core";
 import { MeetingAttendance } from "@/types/meetings";
 import { useDisclosure } from "@mantine/hooks";
 import AttendanceUpdateModal from "@/app/group/meetings/[meetingId]/attendance/AttendanceUpdateModal";
+import Props from "@/app/group/meetings/[meetingId]/attendance/page";
 
 interface Props {
   attendances: MeetingAttendance[];
+  meetingId: number;
 }
 
-export function Attendance({ attendances }: Props) {
+export function Attendance({ attendances, meetingId }: Props) {
   const [opened, { open, close }] = useDisclosure(false);
 
   const fields = attendances.map((attendance, idx) => {
@@ -62,6 +64,7 @@ export function Attendance({ attendances }: Props) {
         Update attendance
       </Button>
       <AttendanceUpdateModal
+        meetingId={meetingId}
         opened={opened}
         close={close}
         attendances={attendances}

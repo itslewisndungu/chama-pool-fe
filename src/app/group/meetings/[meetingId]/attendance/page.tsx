@@ -1,40 +1,22 @@
 import { MeetingAttendance } from "@/types/meetings";
 import { Attendance } from "@/app/group/meetings/[meetingId]/attendance/Attendance";
-
-const mockData = [
-  {
-    memberId: 1,
-    memberName: "Robert Wolfkisser",
-    isPresent: false,
-    apology: "I'm sick",
-  },
-  {
-    memberId: 2,
-    memberName: "Jill Jailbreaker",
-    isPresent: false,
-    apology: "No apology",
-  },
-  {
-    memberId: 3,
-    memberName: "Henry Silkeater",
-    isPresent: true,
-  },
-  {
-    memberId: 4,
-    memberName: "Bill Horsefighter",
-    isPresent: true,
-  },
-  {
-    memberId: 5,
-    memberName: "Jeremy Footviewer",
-    isPresent: true,
-  },
-] satisfies MeetingAttendance[];
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 const getMeetingAttendance = async (
-  meetingId: number
+  id: number,
+  token: string
 ): Promise<MeetingAttendance[]> => {
-  return new Promise(resolve => setTimeout(() => resolve(mockData), 1000));
+  const req = new Request(`http://localhost:8080/meetings/${id}/attendance`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return (await fetch(req).then(res => res.json())) as MeetingAttendance[];
 };
 
 type Props = {
@@ -44,7 +26,12 @@ type Props = {
 };
 
 export default async function Page({ params: { meetingId } }: Props) {
-  const attendance = await getMeetingAttendance(meetingId);
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return redirect("/login");
+  }
 
-  return <Attendance attendances={attendance} />;
+  const attendance = await getMeetingAttendance(meetingId, session.accessToken);
+
+  return <Attendance attendances={attendance} meetingId={meetingId} />;
 }

@@ -11,23 +11,87 @@ import {
 } from "@mantine/core";
 import { MeetingAttendance } from "@/types/meetings";
 import { useForm } from "@mantine/form";
-import { IconCrosshair, IconEraser, IconPencil } from "@tabler/icons-react";
+import {
+  IconCheck,
+  IconCrosshair,
+  IconEraser,
+  IconPencil,
+} from "@tabler/icons-react";
+import { useState, useTransition } from "react";
+import { getSession, signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { notifications } from "@mantine/notifications";
 
 type Props = {
   opened: boolean;
   close: () => void;
   attendances: MeetingAttendance[];
+  meetingId: number;
 };
+
+const updateMeetingAttendance = async (
+  v: {
+    attendances: MeetingAttendance[];
+  },
+  meetingId: number,
+  token: string
+) => {
+  const req = new Request(
+    `http://localhost:8080/meetings/${meetingId}/attendance`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(v),
+    }
+  );
+
+  return await fetch(req).then(res => res.json());
+};
+
 export default function AttendanceUpdateModal({
   opened,
   close,
   attendances,
+  meetingId,
 }: Props) {
   const form = useForm({
     initialValues: {
       attendances: attendances,
     },
   });
+
+  const [error, setError] = useState<string>();
+  let [pending, startTransition] = useTransition();
+  const router = useRouter();
+
+  const { data: session } = useSession({
+    required: true,
+    onUnauthenticated() {
+      return signIn();
+    },
+  });
+
+  const handleSubmit = (v: { attendances: MeetingAttendance[] }) => {
+    startTransition(async () => {
+      try {
+        await updateMeetingAttendance(v, meetingId, session!.accessToken);
+        router.refresh();
+        notifications.show({
+          title: "Meeting attendance successfully recorded",
+          message: "",
+          autoClose: 10000,
+          icon: <IconCheck />,
+        });
+        close();
+      } catch (e) {
+        console.log(e);
+        setError("Could not update attendance.");
+      }
+    });
+  };
 
   const fields = form.values.attendances.map((item, idx) => {
     return (
@@ -63,29 +127,37 @@ export default function AttendanceUpdateModal({
       title={<h3 className={"m-0"}>Edit member attendance</h3>}
       size={"100%"}
     >
-      <form onSubmit={form.onSubmit(console.log)} onReset={form.onReset}>
-        <ScrollArea>
-          <Table miw={800} verticalSpacing="sm">
-            <thead>
-              <tr>
-                <th style={{ width: rem(40) }}>#</th>
-                <th>Member</th>
-                <th>Member Present</th>
-                <th>Apology</th>
-              </tr>
-            </thead>
-            <tbody>{fields}</tbody>
-          </Table>
-        </ScrollArea>
+      <form
+        onSubmit={form.onSubmit(v => handleSubmit(v))}
+        onReset={form.onReset}
+      >
+        <Table miw={800} verticalSpacing="sm">
+          <thead>
+            <tr>
+              <th style={{ width: rem(40) }}>#</th>
+              <th>Member</th>
+              <th>Member Present</th>
+              <th>Apology</th>
+            </tr>
+          </thead>
+          <tbody>{fields}</tbody>
+        </Table>
+
+        {error ? <p className="m-0 text-red-600 text-sm">{error}</p> : null}
 
         <div className={"flex gap-4 m-4 items-center"}>
-          <Button type={"submit"} rightIcon={<IconPencil size={20} />}>
+          <Button
+            type={"submit"}
+            rightIcon={<IconPencil size={20} />}
+            loading={pending}
+          >
             Record attendance
           </Button>
 
           <Button
             type={"reset"}
             variant={"light"}
+            disabled={pending}
             rightIcon={<IconEraser size={20} />}
           >
             Reset
@@ -94,7 +166,8 @@ export default function AttendanceUpdateModal({
           <Button
             color={"red"}
             onClick={close}
-            variant={"light"}
+            className={"ml-auto"}
+            disabled={pending}
             rightIcon={<IconCrosshair size={20} />}
           >
             Cancel
