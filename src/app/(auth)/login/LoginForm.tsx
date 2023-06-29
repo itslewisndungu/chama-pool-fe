@@ -89,6 +89,7 @@ export const LoginForm = () => {
               Password
             </Text>
             <PasswordInput
+              autoComplete={"current-password"}
               id={"password"}
               placeholder={"Enter your password"}
               size={"md"}
