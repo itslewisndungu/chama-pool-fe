@@ -4,7 +4,7 @@ export type Meeting = {
   date: Date;
   agenda?: string;
   attendees?: number;
-  kind: MeetingCategory;
+  category: MeetingCategory;
 };
 
 export enum MeetingCategory {

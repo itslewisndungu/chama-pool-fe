@@ -16,7 +16,7 @@ const getMeeting = async (meetingId: number): Promise<Meeting> => {
     title: "Monthly meeting",
     date: new Date("12-10-2021"),
     id: meetingId,
-    kind: MeetingCategory.MONTHLY_MEETING,
+    category: MeetingCategory.MONTHLY_MEETING,
   };
 
   return new Promise(resolve => setTimeout(() => resolve(meeting), 1000));
@@ -43,7 +43,7 @@ export default async function MeetingDetailsLayout({
         </p>
         <p className={"m-0"}>
           <span className="text-sm text-gray-700 font-bold">Meeting kind:</span>{" "}
-          {meeting.kind}
+          {meeting.category}
         </p>
         {meeting.agenda ? (
           <p className={"m-0"}>

@@ -6,9 +6,9 @@ import { Meeting, MeetingCategory } from "@/types/meetings";
 import { getFormattedDate } from "@/lib/utils";
 import { IconCheck, IconPlus } from "@tabler/icons-react";
 import Link from "next/link";
-import { useEffect, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { signIn, useSession } from "next-auth/react";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { notifications } from "@mantine/notifications";
 
 type FormInputs = {

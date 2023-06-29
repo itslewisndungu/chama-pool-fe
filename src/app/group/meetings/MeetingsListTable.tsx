@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  Badge,
   createStyles,
   Table,
   ScrollArea,
@@ -9,14 +10,17 @@ import {
   Text,
   Center,
   rem,
+  Button,
 } from "@mantine/core";
 import {
   IconSelector,
   IconChevronDown,
   IconChevronUp,
+  IconCalendarEvent,
 } from "@tabler/icons-react";
 import { Meeting } from "@/types/meetings";
 import { getFormattedDate } from "@/lib/utils";
+import Link from "next/link";
 
 const useStyles = createStyles(theme => ({
   th: {
@@ -88,10 +92,16 @@ const MeetingsListTable = ({
   const rows = meetings.map((meeting, idx) => (
     <tr key={meeting.id}>
       <td className={"text-gray-700"}>{idx + 1}</td>
-      <td>{getFormattedDate(meeting.date)}</td>
-      <td>{meeting.title}</td>
+      <td>{getFormattedDate(new Date(meeting.date))}</td>
+      <td>
+        <Link className={"underline"} href={`/group/meetings/${meeting.id}`}>
+          {meeting.title}
+        </Link>
+      </td>
       <td>{meeting.agenda}</td>
-      <td>{meeting.kind}</td>
+      <td>
+        <Badge>{meeting.category}</Badge>
+      </td>
     </tr>
   ));
 
@@ -128,11 +138,11 @@ const MeetingsListTable = ({
               Agenda
             </Th>
             <Th
-              sorted={sortBy === "kind"}
+              sorted={sortBy === "category"}
               reversed={reverseSortDirection}
-              onSort={() => setSorting("kind")}
+              onSort={() => setSorting("category")}
             >
-              Kind
+              Category
             </Th>
           </tr>
         </thead>
@@ -141,10 +151,8 @@ const MeetingsListTable = ({
             rows
           ) : (
             <tr>
-              <td colSpan={Object.keys(meetings[0]).length}>
-                <Text weight={500} align="center">
-                  Nothing found
-                </Text>
+              <td colSpan={3} className={""}>
+                <p className={"lead"}>No meetings found</p>
               </td>
             </tr>
           )}
