@@ -11,15 +11,9 @@ import {
 } from "@mantine/core";
 import { MeetingAttendance } from "@/types/meetings";
 import { useForm } from "@mantine/form";
-import {
-  IconCheck,
-  IconCrosshair,
-  IconEraser,
-  IconPencil,
-  IconX,
-} from "@tabler/icons-react";
+import { IconCheck, IconEraser, IconPencil, IconX } from "@tabler/icons-react";
 import { useState, useTransition } from "react";
-import { getSession, signIn, useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { notifications } from "@mantine/notifications";
 

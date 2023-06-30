@@ -1,4 +1,4 @@
-import { MeetingAttendance, MeetingContribution } from "@/types/meetings";
+import { MeetingContribution } from "@/types/meetings";
 import ContributionsList from "@/app/group/meetings/[meetingId]/contributions/ContributionsList";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";

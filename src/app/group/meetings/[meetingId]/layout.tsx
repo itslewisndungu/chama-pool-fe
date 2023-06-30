@@ -14,18 +14,6 @@ type Props = {
   };
 };
 
-const getMockMeeting = async (meetingId: number): Promise<Meeting> => {
-  const meeting = {
-    agenda: "Monthly meeting",
-    title: "Monthly meeting",
-    date: new Date("12-10-2021"),
-    id: meetingId,
-    category: MeetingCategory.MONTHLY_MEETING,
-  };
-
-  return new Promise(resolve => setTimeout(() => resolve(meeting), 1000));
-};
-
 const getMeeting = async (
   meetingId: number,
   token: string
@@ -51,7 +39,6 @@ export default async function MeetingDetailsLayout({
     return redirect("/login");
   }
 
-  // const meeting = await getMockMeeting(params.meetingId);
   const meeting = await getMeeting(params.meetingId, session.accessToken);
 
   return (

@@ -10,13 +10,7 @@ import {
   Table,
   Text,
 } from "@mantine/core";
-import {
-  IconCheck,
-  IconCrosshair,
-  IconEraser,
-  IconPencil,
-  IconX,
-} from "@tabler/icons-react";
+import { IconCheck, IconEraser, IconPencil, IconX } from "@tabler/icons-react";
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
