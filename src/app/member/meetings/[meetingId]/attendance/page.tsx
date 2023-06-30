@@ -1,10 +1,21 @@
+import { MeetingAttendance } from "@/types/meetings";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { MemberRole } from "@/types/MemberRole";
-import { getMeetingAttendance } from "@/lib/api/utils";
-import { Attendance } from "@/components/meetings/Attendance";
 import { MeetingNotInitiated } from "@/components/meetings/MeetingNotInitiated";
+import { Attendance } from "@/components/meetings/Attendance";
+
+const getMeetingAttendance = async (id: number, token: string) => {
+  const req = new Request(`http://localhost:8080/meetings/${id}/attendance`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return (await fetch(req).then(res => res.json())) as MeetingAttendance[];
+};
 
 type Props = {
   params: {
@@ -18,17 +29,6 @@ export default async function Page({ params: { meetingId } }: Props) {
     return redirect("/login");
   }
 
-  const isChairman = session.user.roles.some(
-    role => role === MemberRole.CHAIRMAN
-  );
-
-  const isAdmin = session.user.roles.some(
-    role =>
-      role === MemberRole.TREASURER ||
-      role === MemberRole.SECRETARY ||
-      isChairman
-  );
-
   const attendance = await getMeetingAttendance(meetingId, session.accessToken);
 
   return (
@@ -37,10 +37,10 @@ export default async function Page({ params: { meetingId } }: Props) {
         <Attendance
           attendances={attendance}
           meetingId={meetingId}
-          isAdmin={isAdmin}
+          isAdmin={false}
         />
       ) : (
-        <MeetingNotInitiated meetingId={meetingId} isChairman={isChairman} />
+        <MeetingNotInitiated meetingId={meetingId} isChairman={false} />
       )}
     </>
   );

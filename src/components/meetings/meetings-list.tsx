@@ -2,7 +2,6 @@
 
 import MeetingsListHeader from "./MeetingsListHeader";
 import MeetingsListTable from "./MeetingsListTable";
-import { keys } from "@mantine/utils";
 import { useState } from "react";
 import { Meeting, MeetingCategory } from "@/types/meetings";
 import { sortTableData } from "@/lib/utils";
@@ -11,7 +10,7 @@ type Props = {
   meetings: Meeting[];
 };
 
-const MeetingsList = ({ meetings }: Props) => {
+export const MeetingsList = ({ meetings }: Props) => {
   const [sortedData, setSortedData] = useState(meetings);
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState<keyof Meeting | null>(null);
@@ -72,5 +71,3 @@ const MeetingsList = ({ meetings }: Props) => {
     </>
   );
 };
-
-export default MeetingsList;

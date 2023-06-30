@@ -1,6 +1,6 @@
 "use client";
-import { InitiateMeetingButton } from "@/app/group/meetings/[meetingId]/InitiateMeetingButton";
-import initiateMeeting from "@/app/group/meetings/[meetingId]/initiate-meeting";
+import initiateMeeting from "@/lib/initiate-meeting";
+import { InitiateMeetingButton } from "@/components/meetings/InitiateMeetingButton";
 
 type Params = {
   meetingId: number;

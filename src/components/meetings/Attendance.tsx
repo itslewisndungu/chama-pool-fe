@@ -2,15 +2,16 @@
 import { Table, Group, Text, rem, Button } from "@mantine/core";
 import { MeetingAttendance } from "@/types/meetings";
 import { useDisclosure } from "@mantine/hooks";
-import AttendanceUpdateModal from "@/app/group/meetings/[meetingId]/attendance/AttendanceUpdateModal";
 import Props from "@/app/group/meetings/[meetingId]/attendance/page";
+import AttendanceUpdateModal from "@/components/meetings/AttendanceUpdateModal";
 
 interface Props {
   attendances: MeetingAttendance[];
   meetingId: number;
+  isAdmin: boolean;
 }
 
-export function Attendance({ attendances, meetingId }: Props) {
+export function Attendance({ attendances, meetingId, isAdmin }: Props) {
   const [opened, { open, close }] = useDisclosure(false);
 
   const fields = attendances.map((attendance, idx) => {
@@ -60,15 +61,19 @@ export function Attendance({ attendances, meetingId }: Props) {
         <tbody>{fields}</tbody>
       </Table>
 
-      <Button variant={"light"} className={"mt-4"} onClick={open}>
-        Update attendance
-      </Button>
-      <AttendanceUpdateModal
-        meetingId={meetingId}
-        opened={opened}
-        close={close}
-        attendances={attendances}
-      />
+      {isAdmin ? (
+        <>
+          <Button className={"mt-4"} onClick={open}>
+            Update attendance
+          </Button>
+          <AttendanceUpdateModal
+            meetingId={meetingId}
+            opened={opened}
+            close={close}
+            attendances={attendances}
+          />
+        </>
+      ) : null}
     </>
   );
 }

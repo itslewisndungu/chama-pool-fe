@@ -26,7 +26,10 @@ const routes = [
   {
     label: "Meetings",
     icon: IconCalendar,
-    link: "/group/meetings",
+    links: [
+      { label: "Meetings list", link: "/group/meetings" },
+      { label: "Schedule meeting", link: "/group/meetings/schedule" },
+    ],
   },
   {
     label: "Loans",

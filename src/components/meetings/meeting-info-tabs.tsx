@@ -10,12 +10,8 @@ export function MeetingInfoTabs({ meetingId: id }: { meetingId: number }) {
   return (
     <Tabs value={path} onTabChange={router.push}>
       <Tabs.List>
-        <Tabs.Tab value={`/group/meetings/${id}/attendance`}>
-          Meeting attendance
-        </Tabs.Tab>
-        <Tabs.Tab value={`/group/meetings/${id}/contributions`}>
-          Group contributions
-        </Tabs.Tab>
+        <Tabs.Tab value={`attendance`}>Meeting attendance</Tabs.Tab>
+        <Tabs.Tab value={`contributions`}>Group contributions</Tabs.Tab>
       </Tabs.List>
     </Tabs>
   );

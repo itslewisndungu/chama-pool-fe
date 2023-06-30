@@ -2,17 +2,22 @@
 
 import { MeetingContribution } from "@/types/meetings";
 import { Button, Group, rem, Table, Text } from "@mantine/core";
-import { ContributionsUpdateModal } from "@/app/group/meetings/[meetingId]/contributions/ContributionsUpdateModal";
 import { useDisclosure } from "@mantine/hooks";
 import { getFormattedCurrency } from "@/lib/utils";
 import Props from "@/app/group/meetings/[meetingId]/contributions/page";
+import { ContributionsUpdateModal } from "@/components/meetings/ContributionsUpdateModal";
 
 type Props = {
   contributions: MeetingContribution[];
   meetingId: number;
+  isAdmin: boolean;
 };
 
-export default function ContributionsList({ contributions, meetingId }: Props) {
+export default function ContributionsList({
+  contributions,
+  meetingId,
+  isAdmin,
+}: Props) {
   const [opened, { open, close }] = useDisclosure(false);
 
   return (
@@ -44,15 +49,19 @@ export default function ContributionsList({ contributions, meetingId }: Props) {
         </tbody>
       </Table>
 
-      <Button onClick={open} className={"mt-4"}>
-        Update contributions
-      </Button>
-      <ContributionsUpdateModal
-        meetingId={meetingId}
-        contributions={contributions}
-        opened={opened}
-        close={close}
-      />
+      {isAdmin ? (
+        <>
+          <Button onClick={open} className={"mt-4"}>
+            Update contributions
+          </Button>
+          <ContributionsUpdateModal
+            meetingId={meetingId}
+            contributions={contributions}
+            opened={opened}
+            close={close}
+          />
+        </>
+      ) : null}
     </>
   );
 }

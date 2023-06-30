@@ -1,31 +1,16 @@
 import { ReactNode } from "react";
-import { Meeting } from "@/types/meetings";
 import { getFormattedDate } from "@/lib/utils";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { MeetingInfoTabs } from "@/components/meetings/meeting-info-tabs";
+import { getMeeting } from "@/lib/api/utils";
 
 type Props = {
   children: ReactNode;
   params: {
     meetingId: number;
   };
-};
-
-const getMeeting = async (
-  meetingId: number,
-  token: string
-): Promise<Meeting> => {
-  const req = new Request(`http://localhost:8080/meetings/${meetingId}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  return (await fetch(req).then(res => res.json())) as Meeting;
 };
 
 export default async function MeetingDetailsLayout({
@@ -50,14 +35,17 @@ export default async function MeetingDetailsLayout({
           </span>{" "}
           {meeting.title}
         </p>
+
         <p className={"m-0"}>
           <span className="text-sm text-gray-700 font-bold">Meeting date:</span>{" "}
           {getFormattedDate(meeting.date)}
         </p>
+
         <p className={"m-0 capitalize"}>
           <span className="text-sm text-gray-700 font-bold">Meeting kind:</span>{" "}
           {meeting.category.split("_").join(" ").toLowerCase()}
         </p>
+
         {meeting.agenda ? (
           <p className={"m-0"}>
             <span className="text-sm text-gray-700 font-bold">
@@ -66,7 +54,8 @@ export default async function MeetingDetailsLayout({
             {meeting.agenda}
           </p>
         ) : null}
-      </div>{" "}
+      </div>
+
       <section className={"m-4"}>
         <MeetingInfoTabs meetingId={params.meetingId} />
         {children}
