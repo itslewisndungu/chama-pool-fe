@@ -3,11 +3,10 @@ import { Attendance } from "@/app/group/meetings/[meetingId]/attendance/Attendan
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { MemberRole } from "@/types/MemberRole";
+import { MeetingNotInitiated } from "@/app/group/meetings/[meetingId]/MeetingNotInitiated";
 
-const getMeetingAttendance = async (
-  id: number,
-  token: string
-): Promise<MeetingAttendance[]> => {
+const getMeetingAttendance = async (id: number, token: string) => {
   const req = new Request(`http://localhost:8080/meetings/${id}/attendance`, {
     method: "GET",
     headers: {
@@ -31,7 +30,19 @@ export default async function Page({ params: { meetingId } }: Props) {
     return redirect("/login");
   }
 
+  const isChairman = session.user.roles.some(
+    role => role === MemberRole.CHAIRMAN
+  );
+
   const attendance = await getMeetingAttendance(meetingId, session.accessToken);
 
-  return <Attendance attendances={attendance} meetingId={meetingId} />;
+  return (
+    <>
+      {attendance.length !== 0 ? (
+        <Attendance attendances={attendance} meetingId={meetingId} />
+      ) : (
+        <MeetingNotInitiated meetingId={meetingId} isChairman={isChairman} />
+      )}
+    </>
+  );
 }

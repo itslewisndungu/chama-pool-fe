@@ -3,6 +3,8 @@ import ContributionsList from "@/app/group/meetings/[meetingId]/contributions/Co
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { MeetingNotInitiated } from "@/app/group/meetings/[meetingId]/MeetingNotInitiated";
+import { MemberRole } from "@/types/MemberRole";
 
 type Props = {
   params: {
@@ -31,9 +33,22 @@ export default async function Page({ params: { meetingId } }: Props) {
     return redirect("/login");
   }
 
+  const isChairman = session.user.roles.some(
+    role => role === MemberRole.CHAIRMAN
+  );
+
   const contributions = await getContributions(meetingId, session.accessToken);
 
   return (
-    <ContributionsList contributions={contributions} meetingId={meetingId} />
+    <>
+      {contributions.length !== 0 ? (
+        <ContributionsList
+          contributions={contributions}
+          meetingId={meetingId}
+        />
+      ) : (
+        <MeetingNotInitiated meetingId={meetingId} isChairman={isChairman} />
+      )}
+    </>
   );
 }

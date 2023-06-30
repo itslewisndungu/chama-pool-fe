@@ -5,6 +5,7 @@ export type Meeting = {
   agenda?: string;
   attendees?: number;
   category: MeetingCategory;
+  initiated: boolean;
 };
 
 export enum MeetingCategory {
