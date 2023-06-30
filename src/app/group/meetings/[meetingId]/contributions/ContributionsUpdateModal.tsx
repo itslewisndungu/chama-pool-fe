@@ -15,6 +15,7 @@ import {
   IconCrosshair,
   IconEraser,
   IconPencil,
+  IconX,
 } from "@tabler/icons-react";
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
@@ -161,7 +162,7 @@ export function ContributionsUpdateModal({
               onClick={close}
               className={"ml-auto"}
               disabled={pending}
-              rightIcon={<IconCrosshair size={20} />}
+              rightIcon={<IconX size={20} />}
             >
               Cancel
             </Button>

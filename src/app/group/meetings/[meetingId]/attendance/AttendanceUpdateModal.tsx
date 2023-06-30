@@ -16,6 +16,7 @@ import {
   IconCrosshair,
   IconEraser,
   IconPencil,
+  IconX,
 } from "@tabler/icons-react";
 import { useState, useTransition } from "react";
 import { getSession, signIn, useSession } from "next-auth/react";
@@ -168,7 +169,7 @@ export default function AttendanceUpdateModal({
             onClick={close}
             className={"ml-auto"}
             disabled={pending}
-            rightIcon={<IconCrosshair size={20} />}
+            rightIcon={<IconX size={20} />}
           >
             Cancel
           </Button>
