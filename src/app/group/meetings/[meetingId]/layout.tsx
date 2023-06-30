@@ -1,11 +1,10 @@
 import { ReactNode } from "react";
-import { Meeting, MeetingCategory } from "@/types/meetings";
+import { Meeting } from "@/types/meetings";
 import { getFormattedDate } from "@/lib/utils";
 import { MeetingInfoTabs } from "@/app/group/meetings/[meetingId]/meeting-info-tabs";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { Badge } from "@mantine/core";
 
 type Props = {
   children: ReactNode;
