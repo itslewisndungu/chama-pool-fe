@@ -18,7 +18,7 @@ export default async function AddressPage() {
 
   return (
     <>
-      <h1 className={"m-0"}>Home address</h1>
+      <h1>Home address</h1>
 
       <AddressForm address={address} />
     </>

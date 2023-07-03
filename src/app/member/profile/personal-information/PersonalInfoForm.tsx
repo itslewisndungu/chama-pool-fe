@@ -1,3 +1,5 @@
+"use client"
+
 import { TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { DateInput } from "@mantine/dates";
@@ -20,7 +22,7 @@ export function PersonalInfoForm({ user }: Props) {
   });
 
   return (
-    <div className={"grid grid-cols-2 gap-y-4 gap-x-8"}>
+    <div className={"grid grid-cols-2 gap-y-4 gap-x-8 max-w-4xl mx-auto"}>
       <TextInput
         label={"First Name"}
         id={"firstName"}
@@ -42,7 +44,7 @@ export function PersonalInfoForm({ user }: Props) {
       />
 
       <TextInput
-        label={"phoneNumber"}
+        label={"Phone Number"}
         id={"phoneNumber"}
         placeholder={"eg. 0712345678"}
         size="md"
@@ -51,7 +53,7 @@ export function PersonalInfoForm({ user }: Props) {
       />
 
       <TextInput
-        label={"nationalId"}
+        label={"National Id"}
         id={"nationalId"}
         placeholder={"eg. 11122585"}
         size="md"

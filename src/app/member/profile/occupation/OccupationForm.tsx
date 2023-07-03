@@ -1,3 +1,5 @@
+"use client"
+
 import { TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
@@ -17,7 +19,7 @@ export function OccupationForm({ occupation }: Params) {
   });
 
   return (
-    <div className={"grid grid-cols-2 gap-y-4 gap-x-8"}>
+    <div className={"grid grid-cols-2 gap-y-4 gap-x-8 max-w-4xl mx-auto"}>
       <TextInput
         label="Organization"
         id={"organization"}

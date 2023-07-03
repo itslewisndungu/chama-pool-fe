@@ -18,7 +18,7 @@ export default async function OccupationPage() {
 
   return (
     <>
-      <h1 className={"m-0"}>Occupation</h1>
+      <h1>Occupation</h1>
       <OccupationForm occupation={occupation} />
     </>
   );

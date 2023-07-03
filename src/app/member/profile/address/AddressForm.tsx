@@ -1,3 +1,5 @@
+"use client"
+
 import { Textarea, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
@@ -18,7 +20,7 @@ export function AddressForm({ address }: Props) {
   });
 
   return (
-    <div className={"grid grid-cols-2 gap-y-4 gap-x-8"}>
+    <div className={"grid md:grid-cols-2 gap-y-4 gap-x-8 max-w-4xl mx-auto"}>
       <TextInput
         label="Home county"
         id={"county"}
@@ -43,6 +45,7 @@ export function AddressForm({ address }: Props) {
         placeholder={"eg. Simon"}
         size={"md"}
         required={true}
+        className={"col-span-2"}
         {...form.getInputProps("constituency")}
       />
 
@@ -51,6 +54,7 @@ export function AddressForm({ address }: Props) {
         id={"locationDescription"}
         placeholder={"Across the road from the police station"}
         size={"md"}
+        className={"col-span-2"}
         {...form.getInputProps("locationDescription")}
       />
     </div>

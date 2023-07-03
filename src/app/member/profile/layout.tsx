@@ -14,8 +14,8 @@ export default async function ProfileLayout({
   const path = usePathname();
 
   return (
-    <div className={"flex"}>
-      <Tabs value={path} onTabChange={router.push} orientation="vertical">
+    <div className={""}>
+      <Tabs value={path} onTabChange={router.push} className={"mt-[-1rem]"}>
         <Tabs.List>
           <Tabs.Tab value="/member/profile/personal-information">
             Personal Information

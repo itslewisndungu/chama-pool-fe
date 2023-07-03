@@ -21,7 +21,7 @@ export default async function PersonalInfoPage() {
 
   return (
     <>
-      <h1 className={"m-0"}>Personal Information</h1>
+      <h1>Personal Information</h1>
 
       <PersonalInfoForm user={user} />
     </>

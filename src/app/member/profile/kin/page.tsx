@@ -18,7 +18,7 @@ export default async function NextOfKinPage() {
 
   return (
     <>
-      <h1 className={"m-0"}>Next of kin</h1>
+      <h1>Next of kin</h1>
 
       <NextOfKinForm kin={kin} />
     </>
