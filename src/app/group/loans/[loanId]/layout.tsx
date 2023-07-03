@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { LoanDetailHeader } from "./loan-detail-header";
+import { LoanDetailHeader } from "@/components/loans/loan-detail-header";
 
 export default function Layout({
   children,

@@ -14,12 +14,8 @@ export function LoanDetailHeader({ loanId }: Props) {
   return (
     <Tabs value={path} onTabChange={router.push}>
       <Tabs.List>
-        <Tabs.Tab value={`/member/loans/${loanId}/summary`}>
-          Loan summary
-        </Tabs.Tab>
-        <Tabs.Tab value={`/member/loans/${loanId}/installments`}>
-          Loan installments
-        </Tabs.Tab>
+        <Tabs.Tab value={`summary`}>Loan summary</Tabs.Tab>
+        <Tabs.Tab value={`installments`}>Loan installments</Tabs.Tab>
       </Tabs.List>
     </Tabs>
   );

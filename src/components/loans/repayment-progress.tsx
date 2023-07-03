@@ -12,8 +12,8 @@ type Params = {
 export function RepaymentProgress({ loan }: Params) {
   return loan.status === LoanStatus.AWAITING_DISBURSEMENT ? (
     <p>
-      Your loan in still awaiting disbursement. Pick your cheque during your
-      next meeting
+      This still awaiting disbursement. The check will be picked during the next
+      meeting.
     </p>
   ) : (
     <div className={"flex flex-col md:flex-row gap-8 px-4"}>
