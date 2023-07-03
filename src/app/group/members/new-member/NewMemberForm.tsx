@@ -11,27 +11,15 @@ const inviteMember = async (memberDetails: InvitedMember, token: string) => {
   const user = await inviteMemberToGroup(memberDetails, token).then(res =>
     res.json()
   );
-
-  console.log({ user });
 };
 
 export const NewMemberForm = () => {
   const form = useForm<InvitedMember>({
     initialValues: {
-      constituency: "",
-      county: "",
       firstName: "",
       lastName: "",
       phoneNumber: "",
       nationalId: "",
-      nextOfKinFirstName: "",
-      nextOfKinLastName: "",
-      nextOfKinMobileNumber: "",
-      nextOfKinNationalId: "",
-      organization: "",
-      position: "",
-      salary: 0.0,
-      subCounty: "",
     },
   });
 
@@ -117,176 +105,6 @@ export const NewMemberForm = () => {
             required={true}
             autoComplete="bday"
             // {...form.getInputProps('nationalId')}
-          />
-        </span>
-      </div>
-
-      <div className={"grid grid-cols-2 gap-y-4 gap-x-8"}>
-        <Title order={2} className={"col-span-2"} weight={"normal"}>
-          Next of Kin
-        </Title>
-
-        <span className="space-y-2">
-          <Text
-            component="label"
-            htmlFor={"kinFirstName"}
-            className={"text-lg"}
-          >
-            First Name
-          </Text>
-          <Input
-            id={"kinFirstName"}
-            placeholder={"eg. Simon"}
-            size="md"
-            required={true}
-            {...form.getInputProps("nextOfKinLastName")}
-          />
-        </span>
-
-        <span className="space-y-2">
-          <Text component="label" htmlFor={"kinLastName"} className={"text-lg"}>
-            Last Name
-          </Text>
-          <Input
-            id={"kinLastName"}
-            placeholder={"eg. Ndung'u"}
-            size="md"
-            required={true}
-            {...form.getInputProps("nextOfKinFirstName")}
-          />
-        </span>
-
-        <span className="space-y-2">
-          <Text
-            component="label"
-            htmlFor={"kinPhoneNumber"}
-            className={"text-lg"}
-          >
-            Phone number
-          </Text>
-          <Input
-            id={"kinPhoneNumber"}
-            placeholder={"eg. 0712345678"}
-            size="md"
-            required={true}
-            {...form.getInputProps("nextOfKinMobileNumber")}
-          />
-        </span>
-
-        <span className="space-y-2">
-          <Text
-            component="label"
-            htmlFor={"kinNationalId"}
-            className={"text-lg"}
-          >
-            National ID
-          </Text>
-          <Input
-            id={"kinNationalId"}
-            placeholder={"eg. 11122585"}
-            size="md"
-            required={true}
-            {...form.getInputProps("nextOfKinNationalId")}
-          />
-        </span>
-      </div>
-
-      <div className={"grid grid-cols-2 gap-y-4 gap-x-8"}>
-        <Title order={2} className={"col-span-2"} weight={"normal"}>
-          Occupation
-        </Title>
-
-        <span className="space-y-2">
-          <Text
-            component="label"
-            htmlFor={"organization"}
-            className={"text-lg"}
-          >
-            Organization
-          </Text>
-          <Input
-            id={"organization"}
-            placeholder={"eg. Simon"}
-            size={"md"}
-            required={true}
-            autoComplete="organization"
-            {...form.getInputProps("organization")}
-          />
-        </span>
-
-        <span className="space-y-2">
-          <Text component="label" htmlFor={"position"} className={"text-lg"}>
-            Position
-          </Text>
-          <Input
-            id={"position"}
-            placeholder={"eg. Ndung'u"}
-            size={"md"}
-            required={true}
-            autoComplete="organization-title"
-          />
-        </span>
-
-        <span className="space-y-2">
-          <Text component="label" htmlFor={"salary"} className={"text-lg"}>
-            Salary
-          </Text>
-          <Input
-            id={"salary"}
-            placeholder={"eg. 0712345678"}
-            size={"md"}
-            required={true}
-            type="number"
-            {...form.getInputProps("salary")}
-          />
-        </span>
-      </div>
-
-      <div className={"grid grid-cols-2 gap-y-4 gap-x-8"}>
-        <Title order={2} className={"col-span-2"} weight={"normal"}>
-          Home location
-        </Title>
-
-        <span className="space-y-2">
-          <Text component="label" htmlFor={"county"} className={"text-lg"}>
-            Home county
-          </Text>
-          <Input
-            id={"county"}
-            placeholder={"eg. Simon"}
-            size={"md"}
-            required={true}
-            {...form.getInputProps("county")}
-          />
-        </span>
-
-        <span className="space-y-2">
-          <Text component="label" htmlFor={"subCounty"} className={"text-lg"}>
-            Sub-county
-          </Text>
-          <Input
-            id={"subCounty"}
-            placeholder={"eg. Simon"}
-            size={"md"}
-            required={true}
-            {...form.getInputProps("subCounty")}
-          />
-        </span>
-
-        <span className="space-y-2">
-          <Text
-            component="label"
-            htmlFor={"constituency"}
-            className={"text-lg"}
-          >
-            Constituency
-          </Text>
-          <Input
-            id={"constituency"}
-            placeholder={"eg. Simon"}
-            size={"md"}
-            required={true}
-            {...form.getInputProps("constituency")}
           />
         </span>
       </div>
