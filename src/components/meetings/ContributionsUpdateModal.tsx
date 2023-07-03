@@ -1,4 +1,4 @@
-import { MeetingContribution } from "@/types/meetings";
+import { Meeting, MeetingContribution } from "@/types/meetings";
 import { useForm } from "@mantine/form";
 import {
   Button,
@@ -50,9 +50,19 @@ export function ContributionsUpdateModal({
   close,
   meetingId,
 }: Props) {
+  const initialFormValues = contributions.map(c => {
+    return {
+      amountContributed: c.amount,
+      amount: 0,
+      memberId: c.memberId,
+      memberName: c.memberName,
+    };
+  });
+
+
   const form = useForm({
     initialValues: {
-      contributions: contributions,
+      contributions: initialFormValues,
     },
   });
 
@@ -99,6 +109,13 @@ export function ContributionsUpdateModal({
           </Group>
         </td>
         <td>
+          <Group spacing="sm">
+            <Text size="sm" weight={500}>
+              {contribution.amountContributed}
+            </Text>
+          </Group>
+        </td>
+        <td>
           <NumberInput {...form.getInputProps(`contributions.${idx}.amount`)} />
         </td>
       </tr>
@@ -112,7 +129,7 @@ export function ContributionsUpdateModal({
         opened={opened}
         onClose={close}
         scrollAreaComponent={ScrollArea.Autosize}
-        title={<h3 className={"m-0"}>Edit member attendance</h3>}
+        title={<span className={"m-0"}>Edit member contributions</span>}
         size={"100%"}
       >
         <form
@@ -124,7 +141,8 @@ export function ContributionsUpdateModal({
               <tr>
                 <th style={{ width: rem(60) }}>#</th>
                 <th>Member</th>
-                <th>Amount</th>
+                <th>Amount contributed</th>
+                <th>Amount to add</th>
               </tr>
             </thead>
             <tbody>{fields}</tbody>
