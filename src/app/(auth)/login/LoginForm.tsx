@@ -33,8 +33,7 @@ export const LoginForm = () => {
   });
 
   const searchParams = useSearchParams();
-  // TODO: Check if the user is and admin and redirect to admin dashboard, otherwise redirect to member dashboard
-  const callbackUrl = searchParams.get("callbackUrl") || "/member/dashboard";
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
 
   const handleSubmit = async (credentials: LoginCredentials) => {
     const { username, password } = credentials;
