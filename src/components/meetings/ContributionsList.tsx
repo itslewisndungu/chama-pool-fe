@@ -27,7 +27,7 @@ export default function ContributionsList({
           <tr>
             <th style={{ width: rem(100) }}>#</th>
             <th>Member</th>
-            <th>Amount</th>
+            <th>Amount Contributed</th>
           </tr>
         </thead>
         <tbody>

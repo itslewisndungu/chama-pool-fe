@@ -119,7 +119,7 @@ export default function AttendanceUpdateModal({
       opened={opened}
       onClose={close}
       scrollAreaComponent={ScrollArea.Autosize}
-      title={<h3 className={"m-0"}>Edit member attendance</h3>}
+      title={"Edit member attendance"}
       size={"100%"}
     >
       <form
