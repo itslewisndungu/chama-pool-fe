@@ -3,4 +3,5 @@ export type InvitedMember = {
   lastName: string;
   nationalId: string;
   phoneNumber: string;
+  dateOfBirth: Date;
 };
