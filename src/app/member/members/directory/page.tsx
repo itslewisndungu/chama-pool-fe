@@ -1,7 +1,7 @@
 import React from "react";
 import { getServerSession } from "next-auth/next";
 import MembersTable from "./MembersTable";
-import { User } from "@/types/User";
+import { UserProfile } from "@/types/user";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
@@ -16,7 +16,7 @@ const getMembersList = async (token: string) => {
   });
 
   const res = await fetch(req, { next: { revalidate: 10 } });
-  const members = (await res.json()) as User[];
+  const members = (await res.json()) as UserProfile[];
 
   return members.map(m => {
     return {

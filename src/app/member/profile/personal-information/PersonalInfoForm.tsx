@@ -1,25 +1,19 @@
-"use client"
+"use client";
 
 import { TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { DateInput } from "@mantine/dates";
-
-type PersonalInfo = {
-  firstname: string;
-  lastname: string;
-  phoneNumber: string;
-  nationalId: string;
-  dateOfBirth: Date;
-};
+import { UserProfile } from "@/types/user";
 
 type Props = {
-  user: PersonalInfo;
+  user: UserProfile;
 };
 
 export function PersonalInfoForm({ user }: Props) {
-  const form = useForm({
-    initialValues: user,
-  });
+    console.log(user)
+
+  const form = useForm<UserProfile>({
+    initialValues: user  });
 
   return (
     <div className={"grid grid-cols-2 gap-y-4 gap-x-8 max-w-4xl mx-auto"}>
@@ -30,7 +24,7 @@ export function PersonalInfoForm({ user }: Props) {
         size={"md"}
         required={true}
         autoComplete={"given-name"}
-        {...form.getInputProps("firstname")}
+        {...form.getInputProps("firstName")}
       />
 
       <TextInput
@@ -59,16 +53,6 @@ export function PersonalInfoForm({ user }: Props) {
         size="md"
         required={true}
         {...form.getInputProps("nationalId")}
-      />
-
-      <DateInput
-        label={"Date of Birth"}
-        id={"dateOfBirth"}
-        placeholder={"22/10/2023"}
-        size="md"
-        required={true}
-        autoComplete="bday"
-        {...form.getInputProps("dateOfBirth")}
       />
     </div>
   );

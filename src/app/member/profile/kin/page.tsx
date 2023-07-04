@@ -1,26 +1,28 @@
 import { NextOfKinForm } from "@/app/member/profile/kin/NextOfKinForm";
+import { authOptions } from "@/lib/auth";
+import { NextOfKin } from "@/types/user";
+import { getServerSession } from "next-auth/next";
+import { redirect } from "next/navigation";
 
-const getKin = async () => {
-  const kin = {
-    firstName: "Simon",
-    lastName: "Ndung'u",
-    mobileNumber: "0712345678",
-    nationalId: "11122585",
-  };
-
-  return new Promise<typeof kin>(resolve => {
-    setTimeout(() => resolve(kin), 1000);
+const getKin = async (username: string, token: string) => {
+  const req = new Request(`http://localhost:8080/members/${username}/kin`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
+
+  return (await fetch(req).then(res => res.json())) as NextOfKin;
 };
 
 export default async function NextOfKinPage() {
-  const kin = await getKin();
+  const session = await getServerSession(authOptions);
 
-  return (
-    <>
-      <h1>Next of kin</h1>
+  if (!session) {
+    return redirect("/login");
+  }
 
-      <NextOfKinForm kin={kin} />
-    </>
-  );
+  const kin = await getKin(session.user.username, session.accessToken);
+
+  return <NextOfKinForm kin={kin} />;
 }

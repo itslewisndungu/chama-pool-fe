@@ -1,29 +1,31 @@
 import { PersonalInfoForm } from "@/app/member/profile/personal-information/PersonalInfoForm";
+import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth/next";
+import { UserProfile } from "@/types/user";
+import { redirect } from "next/navigation";
 
-const getPersonalInfo = async () => {
-  const user = {
-    firstname: "Lewis",
-    lastname: "Ndungu",
-    phoneNumber: "0740283007",
-    nationalId: "38259057",
-    dateOfBirth: new Date("04/10/1998"),
-  };
-
-  return new Promise<typeof user>(resolve => {
-    setTimeout(() => {
-      resolve(user);
-    }, 1000);
+const getPersonalInfo = async (username: string, token: string) => {
+  const req = new Request(`http://localhost:8080/members/${username}/profile`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
+
+  return (await fetch(req).then(res => res.json())) as UserProfile;
 };
 
 export default async function PersonalInfoPage() {
-  const user = await getPersonalInfo();
+  const session = await getServerSession(authOptions);
 
-  return (
-    <>
-      <h1>Personal Information</h1>
+  if (!session) {
+    return redirect("/login");
+  }
 
-      <PersonalInfoForm user={user} />
-    </>
+  const user = await getPersonalInfo(
+    session.user.username,
+    session.accessToken
   );
+
+  return <PersonalInfoForm user={user} />;
 }

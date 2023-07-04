@@ -1,14 +1,8 @@
 "use client"
 
+import { Address } from "@/types/user";
 import { Textarea, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
-
-type Address = {
-  county: string;
-  subCounty: string;
-  constituency: string;
-  locationDescription: string;
-};
 
 type Props = {
   address: Address;

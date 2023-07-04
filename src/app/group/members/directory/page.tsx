@@ -1,7 +1,7 @@
 import React from "react";
 import { getServerSession } from "next-auth/next";
 import MembersTable from "./MembersTable";
-import { User } from "@/types/User";
+import { UserProfile } from "@/types/user";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
@@ -16,7 +16,7 @@ const getMembersList = async (token: string) => {
   });
 
   const res = await fetch(req);
-  return (await res.json()) as User[];
+  return (await res.json()) as UserProfile[];
 };
 
 export default async function Page({}: Props) {
@@ -28,7 +28,7 @@ export default async function Page({}: Props) {
 
   const token = session.accessToken;
 
-  let members: User[];
+  let members: UserProfile[];
 
   try {
     members = await getMembersList(token);

@@ -1,15 +1,10 @@
-export type User = {
+export type UserProfile = {
   username: string;
   phoneNumber: string;
   firstName: string;
-  constituency: string;
-  county: string;
   lastName: string;
   nationalId: string;
-  nextOfKin?: NextOfKin;
-  address?: Address;
-  occupation?: Occupation;
-  roles: string[]
+  roles: string[];
 };
 
 export type NextOfKin = {
@@ -20,11 +15,13 @@ export type NextOfKin = {
 };
 
 export type Address = {
-  salary: number;
+  constituency: string;
+  county: string;
   subCounty: string;
 };
 
 export type Occupation = {
+  salary: number;
   organization: string;
   phoneNumber: string;
   position: string;
