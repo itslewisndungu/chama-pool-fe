@@ -1,13 +1,13 @@
 "use client";
 
-import { inviteMemberToGroup } from "@/lib/api/invite-member";
 import { InvitedMember } from "@/types/InvitedMember";
-import { Button, Input, Text, TextInput, Title } from "@mantine/core";
+import { Button, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { IconUserPlus } from "@tabler/icons-react";
+import { IconCheck, IconUserPlus } from "@tabler/icons-react";
 import { signIn, useSession } from "next-auth/react";
 import { DateInput } from "@mantine/dates";
 import { useState, useTransition } from "react";
+import { notifications } from "@mantine/notifications";
 
 const inviteMember = async (memberDetails: InvitedMember, token: string) => {
   const req = new Request("http://localhost:8080/members/invites", {
@@ -40,7 +40,12 @@ export const NewMemberForm = () => {
 
     try {
       const member = await inviteMember(memberDetails, session?.accessToken!);
-      console.log(member);
+      notifications.show({
+        title: "Member invited",
+        message: `${member.firstName} ${member.lastName} has been invited to the group`,
+        color: "teal",
+        icon: <IconCheck />,
+      });
     } catch (e) {
       console.error(`Failed to invite member because of ${e}`);
       setError("An unknown error occurred. Lets try that again");
