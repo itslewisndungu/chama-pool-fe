@@ -14,8 +14,8 @@ export default async function ProfileLayout({
   const path = usePathname();
 
   return (
-    <div className={""}>
-      <Tabs value={path} onTabChange={router.push} className={"mt-[-1rem]"}>
+    <>
+      <Tabs value={path} onTabChange={router.push} className={"mb-11"}>
         <Tabs.List>
           <Tabs.Tab value="/member/profile/personal-information">
             Personal Information
@@ -27,6 +27,6 @@ export default async function ProfileLayout({
       </Tabs>
 
       <section>{children}</section>
-    </div>
+    </>
   );
 }
