@@ -19,6 +19,10 @@ import {
   IconUserCircle,
 } from "@tabler/icons-react";
 import { signIn, signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+import { MemberRole } from "@/types/MemberRole";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 const useStyles = createStyles(theme => ({
   header: {
@@ -72,8 +76,20 @@ export default function Navbar({}: Props) {
   const { classes, theme, cx } = useStyles();
   const [opened, { toggle }] = useDisclosure(false);
   const [userMenuOpened, setUserMenuOpened] = useState(false);
+  const page = usePathname();
 
   const { data: session } = useSession();
+
+  const isAdmin =
+    session &&
+    session.user.roles.some(
+      role =>
+        role === MemberRole.SECRETARY ||
+        role === MemberRole.TREASURER ||
+        role === MemberRole.CHAIRMAN
+    );
+
+  const inAdminPage = page.startsWith("/group");
 
   return (
     <header className={classes.header}>
@@ -124,6 +140,27 @@ export default function Navbar({}: Props) {
                 <Menu.Item icon={<IconSettings size="0.9rem" stroke={1.5} />}>
                   Account details
                 </Menu.Item>
+
+                {isAdmin ? (
+                  inAdminPage ? (
+                    <Menu.Item
+                      component={Link}
+                      href={"/member/dashboard"}
+                      icon={<IconSettings size="0.9rem" stroke={1.5} />}
+                    >
+                      Switch to members page
+                    </Menu.Item>
+                  ) : (
+                    <Menu.Item
+                      component={Link}
+                      href={"/group/dashboard"}
+                      icon={<IconSettings size="0.9rem" stroke={1.5} />}
+                    >
+                      Switch to admin
+                    </Menu.Item>
+                  )
+                ) : null}
+
                 <Menu.Item
                   onClick={() =>
                     signOut({ redirect: true, callbackUrl: "/login" })
