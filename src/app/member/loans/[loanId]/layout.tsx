@@ -10,7 +10,7 @@ export default function Layout({
 }) {
   return (
     <>
-      <h1 className={"mt-0"}>Loan details</h1>
+      <h1 className={"m-0"}>Loan details</h1>
       <LoanDetailHeader loanId={params.loanId} />
       {children}
     </>

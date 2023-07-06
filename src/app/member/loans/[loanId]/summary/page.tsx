@@ -18,7 +18,7 @@ export default async function LoanSummaryPage({ params: { loanId } }: Params) {
   }
 
   const loan = await getLoan(session.accessToken, loanId);
-  const isTreasurer = isUserTreasurer(session.user.roles);
+  const isTreasurer = isUserTreasurer(session!.user.roles);
 
-  return <Loan loan={loan} isTreasurer={isTreasurer}/>;
+  return <Loan loan={loan} isTreasurer={isTreasurer} />;
 }

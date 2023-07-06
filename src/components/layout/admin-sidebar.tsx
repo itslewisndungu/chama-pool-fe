@@ -36,7 +36,7 @@ const routes = [
     icon: IconBuildingBank,
     links: [
       { label: "Loan Applications", link: "/group/loans/applications" },
-      { label: "Group loans", link: "/group/loans/listings" },
+      { label: "Group loans", link: "/group/loans" },
     ],
   },
 ];

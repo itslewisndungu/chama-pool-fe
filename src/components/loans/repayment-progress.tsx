@@ -7,7 +7,7 @@ import {
   getRemainingLoanDays,
 } from "@/lib/utils";
 import { Loan, LoanStatus } from "@/types/loans";
-import { DisburseLoanButton } from "@/app/group/loans/listings/disburse-loan-button";
+import { DisburseLoanButton } from "@/components/loans/disburse-loan-button";
 
 type Params = {
   loan: Loan;

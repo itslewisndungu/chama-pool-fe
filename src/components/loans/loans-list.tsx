@@ -1,7 +1,7 @@
 "use client";
 
-import { LoansListHeader } from "@/app/group/loans/loans-header";
-import { LoansListTable } from "@/app/group/loans/loans-list-table";
+import { LoansListHeader } from "@/components/loans/loans-header";
+import { LoansListTable } from "@/components/loans/loans-list-table";
 import { useState } from "react";
 import { sortTableData } from "@/lib/utils";
 import { Loan, LoanStatus } from "@/types/loans";

@@ -8,7 +8,6 @@ type Props = { application: LoanApplication };
 
 export function ActiveApplicationSummary({ application }: Props) {
   const { approval } = application;
-  console.log({ application });
 
   return (
     <section className={"space-y-4 m-5"}>

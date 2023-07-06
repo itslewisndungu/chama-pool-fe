@@ -3,10 +3,10 @@
 import { LoanInstallment } from "@/types/loans";
 import { useEffect, useState } from "react";
 import { sortTableData } from "@/lib/utils";
-import { InstallmentsListTable } from "@/app/group/loans/[loanId]/installments/InstallmentsTable";
+import { InstallmentsListTable } from "@/components/loans/InstallmentsTable";
 import { Button } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { InstallmentForm } from "@/app/group/loans/[loanId]/installments/InstallmentForm";
+import { InstallmentForm } from "@/components/loans/InstallmentForm";
 import { useRouter } from "next/navigation";
 
 type Props = {

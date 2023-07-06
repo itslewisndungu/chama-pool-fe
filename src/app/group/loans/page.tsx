@@ -1,5 +1,5 @@
-import { Loan, LoanStatus } from "@/types/loans";
-import { LoansList } from "./loans-list";
+import { Loan } from "@/types/loans";
+import { LoansList } from "@/components/loans/loans-list";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
@@ -17,7 +17,6 @@ const getGroupLoans = async (token: string): Promise<Loan[]> => {
 
 export default async function MemberLoansPage() {
   const session = await getServerSession(authOptions);
-
   if (!session) {
     return redirect("/login");
   }

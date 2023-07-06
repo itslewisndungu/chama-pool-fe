@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { LoanInstallment } from "@/types/loans";
-import { LoanInstallmentsList } from "@/app/group/loans/[loanId]/installments/InstallmentsList";
+import { LoanInstallmentsList } from "@/components/loans/InstallmentsList";
 import { isUserAdmin } from "@/lib/utils";
 
 const getLoanInstallments = async (loanId: number, token: string) => {

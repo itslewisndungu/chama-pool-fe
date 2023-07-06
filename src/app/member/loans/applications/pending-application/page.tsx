@@ -39,7 +39,6 @@ export default async function PendingApplicationPage() {
   }
 
   const application = await getActiveLoanApplication(session.accessToken);
-  console.log({ application });
 
   return (
     <>

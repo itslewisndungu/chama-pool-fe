@@ -1,8 +1,8 @@
 import { Loan, LoanStatus } from "@/types/loans";
-import { LoansList } from "@/app/member/loans/my-loans/loans-list";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { LoansList } from "@/components/loans/loans-list";
 
 const getMyLoans = async (token: string): Promise<Loan[]> => {
   const req = new Request("http://localhost:8080/loans/my-loans", {
