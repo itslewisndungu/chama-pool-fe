@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@mantine/core";
 import { disburseLoan } from "@/lib/api/disburse-loan";
 import { notifications } from "@mantine/notifications";

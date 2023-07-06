@@ -23,7 +23,7 @@ export const LoansListHeader = ({ searchValue, filterValue }: Props) => {
         filterValue(LoanStatus.REPAID);
         break;
       case "pending-loans":
-        filterValue([LoanStatus.PENDING, LoanStatus.AWAITING_DISBURSEMENT]);
+        filterValue([LoanStatus.AWAITING_DISBURSEMENT]);
         break;
       default:
         filterValue(undefined);
