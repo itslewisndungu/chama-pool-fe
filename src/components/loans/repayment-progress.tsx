@@ -1,20 +1,32 @@
-"use client";
-
-import { Text, Progress, Card, Button } from "@mantine/core";
+import { Text, Progress, Card, Button, Loader } from "@mantine/core";
 import Link from "next/link";
-import { getFormattedCurrency, getFormattedDate } from "@/lib/utils";
+import {
+  calculateRemainingDaysPercentage,
+  getFormattedCurrency,
+  getFormattedDate,
+  getRemainingLoanDays,
+} from "@/lib/utils";
 import { Loan, LoanStatus } from "@/types/loans";
+import { DisburseLoanButton } from "@/app/group/loans/listings/disburse-loan-button";
 
 type Params = {
   loan: Loan;
+  isSecretary: boolean;
 };
 
-export function RepaymentProgress({ loan }: Params) {
+export function RepaymentProgress({ loan, isSecretary }: Params) {
   return loan.status === LoanStatus.AWAITING_DISBURSEMENT ? (
-    <p>
-      This still awaiting disbursement. The check will be picked during the next
-      meeting.
-    </p>
+    isSecretary ? (
+      <div className={"grid justify-items-center"}>
+        <p className={"lead"}>This still awaiting disbursement.</p>
+        <DisburseLoanButton loanId={loan.id} />
+      </div>
+    ) : (
+      <p className={"lead"}>
+        This still awaiting disbursement. The check will be picked during the
+        next meeting.
+      </p>
+    )
   ) : (
     <div className={"flex flex-col md:flex-row gap-8 px-4"}>
       <Card withBorder radius="md" padding="xl" className={"flex-1"}>
@@ -22,11 +34,13 @@ export function RepaymentProgress({ loan }: Params) {
           Amount
         </Text>
         <Text fz="lg" fw={500}>
-          {getFormattedCurrency(10_000)} repaid.
+          {getFormattedCurrency(loan.amountPayable - loan.balance)} repaid.
         </Text>
 
         <Progress
-          value={(10_000 * 100) / 19_500}
+          value={
+            ((loan.amountPayable - loan.balance) * 100) / loan.amountPayable
+          }
           mt="md"
           size="lg"
           radius="xl"
@@ -37,7 +51,7 @@ export function RepaymentProgress({ loan }: Params) {
           }
         >
           <p className={"m-0 text-sm"}>
-            Outstanding balance: {getFormattedCurrency(9500)}
+            Outstanding balance: <span className="font-bold">{getFormattedCurrency(loan.balance)}</span>
           </p>
           <Button
             variant={"light"}
@@ -55,14 +69,22 @@ export function RepaymentProgress({ loan }: Params) {
           Timeline
         </Text>
         <Text fz="lg" fw={500}>
-          13 days remaining to repay loan.
+          {getRemainingLoanDays(loan.dueDate)}
         </Text>
-        <Progress value={70} mt="md" size="lg" radius="xl" />
+
+        <Progress
+          value={calculateRemainingDaysPercentage(loan.dueDate, loan.startDate)}
+          mt="md"
+          size="lg"
+          radius="xl"
+        />
 
         <p className={"self-end mt-5 text-sm"}>
-          {loan.dueDate
-            ? getFormattedDate(loan.dueDate)
-            : "Loan has not yet been disbursed"}
+          {loan.dueDate ? (
+            <p>Loan is due on {getFormattedDate(loan.dueDate)}</p>
+          ) : (
+            "Loan has not yet been disbursed"
+          )}
         </p>
       </Card>
     </div>

@@ -4,13 +4,14 @@ export type Loan = {
   memberName: string;
   amount: number;
   amountPayable: number;
-  interest: number;
+  interestRate: number;
   interestEarned: number;
   status: LoanStatus;
   startDate?: Date;
   endDate?: Date;
   dueDate?: Date;
   reasonForLoan: string;
+  balance: number;
 };
 
 export enum LoanStatus {
@@ -72,26 +73,7 @@ export type LoanApplication = {
 
 export type LoanInstallment = {
   id: number;
+  loanId: number;
   amount: number;
   date: Date;
 };
-/*
- {
- "amount": 1000,
- "status": "APPROVED",
- "reasonForLoan": "I need to buy a new laptop",
- "approvals": {
- "chairman": {
- "status": "APPROVED",
- "message": "Looks good to me"
- },
-"secretary": {
- "status": "REJECTED",
- "message": "I don't think you need a new laptop",
-},
- "treasurer": {
- "status": "APPROVED",
- "message": "I think you need a new laptop"
- }
- }
- */

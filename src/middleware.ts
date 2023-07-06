@@ -3,6 +3,7 @@ import type { NextRequest } from "next/server";
 import { getSession } from "next-auth/react";
 import { MemberRole } from "./types/MemberRole";
 import { IncomingMessage } from "http";
+import { isUserAdmin } from "@/lib/utils";
 
 export async function middleware(request: NextRequest) {
   const requestForNextAuth: Partial<IncomingMessage> = {
@@ -17,12 +18,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  const isAdmin = session.user.roles.some(
-    role =>
-      role === MemberRole.SECRETARY ||
-      role === MemberRole.TREASURER ||
-      role === MemberRole.CHAIRMAN
-  );
+  const isAdmin = isUserAdmin(session.user.roles);
 
   if (isAdmin) {
     return NextResponse.redirect(new URL("/group/dashboard", request.url));

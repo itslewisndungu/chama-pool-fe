@@ -3,19 +3,17 @@
 import { GroupNotification } from "@/types/notifications";
 import {
   ActionIcon,
-  Card,
-  Text,
   Drawer,
   Indicator,
   Tooltip,
-  Badge,
   ScrollArea,
 } from "@mantine/core";
 import { IconBell } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
-import { getFormattedDate } from "@/lib/utils";
 import { markAllNotificationsAsRead } from "@/lib/api/mark-all-notifications-as-read";
 import { useRouter } from "next/navigation";
+import { NotificationCard } from "./NotificationCard";
+import { useEffect, useState } from "react";
 
 type Props = {
   unreadCount: number;
@@ -26,8 +24,19 @@ export function NotificationsButton(props: Props) {
   const [opened, { open, close }] = useDisclosure(false);
   const router = useRouter();
 
+  const [unreadCount, setUnreadCount] = useState(props.unreadCount);
+  const [notifications, setNotifications] = useState(props.notifications);
+
+  const unreadnotifications = notifications.filter((n) => !n.read)
+  const readnotifications = notifications.filter((n) => n.read)
+
+  useEffect(() => {
+    setNotifications(props.notifications);
+    setUnreadCount(props.unreadCount);
+  }, [props.notifications, props.unreadCount]);
+
   const closeNotifications = () => {
-    if (props.unreadCount > 0) {
+    if (unreadCount > 0) {
       markAllNotificationsAsRead();
       router.refresh();
     }
@@ -38,8 +47,8 @@ export function NotificationsButton(props: Props) {
     <>
       <Tooltip label={"Notifications"}>
         <Indicator
-          disabled={props.unreadCount === 0}
-          label={props.unreadCount}
+          disabled={unreadCount === 0}
+          label={unreadCount}
           color={"cyan"}
           size={20}
         >
@@ -56,50 +65,19 @@ export function NotificationsButton(props: Props) {
         title="Your Notifications"
         scrollAreaComponent={ScrollArea.Autosize}
       >
-        <NotificationsList notifications={props.notifications} />
+        <div className={"grid gap-2"}>
+          {notifications.length === 0 ? (
+            <p className="lead">You have no notifications</p>
+          ) : (
+            notifications.map(notification => (
+              <NotificationCard
+                notification={notification}
+                key={notification.title + notification.message}
+              />
+            ))
+          )}
+        </div>
       </Drawer>
     </>
-  );
-}
-
-function NotificationsList({
-  notifications,
-}: {
-  notifications: GroupNotification[];
-}) {
-  return (
-    <div className={"grid gap-2"}>
-      {notifications.length === 0 ? (
-        <p className="lead">You have no notifications</p>
-      ) : (
-        notifications.map(notification => (
-          <NotificationCard
-            notification={notification}
-            key={notification.title + notification.message}
-          />
-        ))
-      )}
-    </div>
-  );
-}
-
-function NotificationCard({
-  notification,
-}: {
-  notification: GroupNotification;
-}) {
-  return (
-    <Card withBorder={true} radius="md" padding={"sm"}>
-      <div className={"flex justify-between"}>
-        <Text weight={500}>{notification.title}</Text>
-        <Badge>{notification.type}</Badge>
-      </div>
-
-      <p className={"my-1 text-sm"}>{notification.message}</p>
-
-      <p className={"m-0 text-xs text-gray-700"}>
-        {getFormattedDate(new Date(notification.date))}
-      </p>
-    </Card>
   );
 }

@@ -15,8 +15,9 @@ import {
   IconChevronDown,
   IconChevronUp,
 } from "@tabler/icons-react";
-import { Loan } from "@/types/loans";
+import { LoanInstallment } from "@/types/loans";
 import Link from "next/link";
+import { getFormattedCurrency, getFormattedDate } from "@/lib/utils";
 
 const useStyles = createStyles(theme => ({
   th: {
@@ -43,9 +44,9 @@ const useStyles = createStyles(theme => ({
 }));
 
 type Props = {
-  loans: Loan[];
-  setSorting: (field: keyof Loan) => void;
-  sortBy: keyof Loan | null;
+  installments: LoanInstallment[];
+  setSorting: (field: keyof LoanInstallment) => void;
+  sortBy: keyof LoanInstallment | null;
   reverseSortDirection: boolean;
 };
 
@@ -53,6 +54,7 @@ interface ThProps {
   children: React.ReactNode;
   reversed: boolean;
   sorted: boolean;
+
   onSort(): void;
 }
 
@@ -79,28 +81,17 @@ function Th({ children, reversed, sorted, onSort }: ThProps) {
   );
 }
 
-export const LoansListTable = ({
-  loans,
+export const InstallmentsListTable = ({
+  installments,
   setSorting,
   sortBy,
   reverseSortDirection,
 }: Props) => {
-  const loansRows = loans.map(loan => (
-    <tr key={loan.id}>
-      <td>{loan.memberName}</td>
-      <td>{loan.amount}</td>
-      <td>
-        <Badge>{loan.status}</Badge>
-      </td>
-      <td>
-        <Button
-          variant={"subtle"}
-          component={Link}
-          href={`/group/loans/${loan.id}/summary`}
-        >
-          View Details
-        </Button>
-      </td>
+  const loansRows = installments.map((installment, idx) => (
+    <tr key={installment.id}>
+      <td>{idx + 1}</td>
+      <td>{getFormattedCurrency(installment.amount)}</td>
+      <td>{getFormattedDate(installment.date)}</td>
     </tr>
   ));
 
@@ -114,32 +105,21 @@ export const LoansListTable = ({
       >
         <thead>
           <tr>
-            <Th
-              sorted={sortBy === "memberName"}
-              reversed={reverseSortDirection}
-              onSort={() => setSorting("memberName")}
-            >
-              Member name
-            </Th>
+            <th style={{ width: rem(160) }}>#</th>
             <Th
               sorted={sortBy === "amount"}
               reversed={reverseSortDirection}
               onSort={() => setSorting("amount")}
             >
-              Amount loaned
+              Amount paid
             </Th>
             <Th
-              sorted={sortBy === "status"}
+              sorted={sortBy === "date"}
               reversed={reverseSortDirection}
-              onSort={() => setSorting("status")}
+              onSort={() => setSorting("date")}
             >
-              Loan status
+              Date paid
             </Th>
-            <th>
-              <Text fw={500} fz="sm">
-                Actions
-              </Text>
-            </th>
           </tr>
         </thead>
         <tbody>
@@ -147,9 +127,9 @@ export const LoansListTable = ({
             loansRows
           ) : (
             <tr>
-              <td colSpan={4} align={"center"}>
+              <td colSpan={3} align={"center"}>
                 <p className={"text-xl md:text-2xl font-light text-gray-800"}>
-                  No loans found according to the search criteria
+                  No loan installments paid
                 </p>
               </td>
             </tr>

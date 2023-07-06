@@ -17,7 +17,6 @@ export default async function LoanSummaryPage({ params: { loanId } }: Params) {
   }
 
   const loan = await getLoan(session.accessToken, loanId);
-  console.log({ loan });
 
   return <Loan loan={loan} />;
 }

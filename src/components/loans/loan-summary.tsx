@@ -1,5 +1,3 @@
-"use client";
-
 import { getFormattedCurrency } from "@/lib/utils";
 import { Badge } from "@mantine/core";
 import { Loan } from "@/types/loans";
@@ -15,6 +13,12 @@ export function LoanSummary({ loan }: Params) {
         <h2 className={"mb-0 font-light text-2xl"}>Loan Summary</h2>
         <div>
           <p className={"space-x-2"}>
+            <span className={"font-bold text-sm"}>Loan Status:</span>
+            <span>
+              <Badge color={"teal"}>{loan.status}</Badge>
+            </span>
+          </p>
+          <p className={"space-x-2"}>
             <span className={"font-bold text-sm"}>Amount borrowed:</span>
             <span>{getFormattedCurrency(loan.amount)}</span>
           </p>
@@ -24,7 +28,7 @@ export function LoanSummary({ loan }: Params) {
           </p>
           <p className={"space-x-2"}>
             <span className={"font-bold text-sm"}>Loan interest rate:</span>
-            <span>{loan.interest} %</span>
+            <span>{loan.interestRate} %</span>
           </p>
           <p className={"space-x-2"}>
             <span className={"font-bold text-sm"}>Interest earned:</span>
@@ -33,12 +37,6 @@ export function LoanSummary({ loan }: Params) {
           <p className={"space-x-2"}>
             <span className={"font-bold text-sm"}>Total amount payable</span>
             <span>{getFormattedCurrency(loan.amountPayable)} </span>
-          </p>
-          <p className={"space-x-2"}>
-            <span className={"font-bold text-sm"}>Loan Status:</span>
-            <span>
-              <Badge color={"teal"}>{loan.status}</Badge>
-            </span>
           </p>
         </div>
       </span>

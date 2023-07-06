@@ -8,39 +8,6 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { signIn } from "next-auth/react";
 
-const mockGetLoanApplication = async (
-  applicationId: number
-): Promise<LoanApplication | undefined> => {
-  return new Promise(resolve =>
-    setTimeout(
-      () =>
-        resolve({
-          id: applicationId,
-          applicationDate: new Date(),
-          memberId: 1,
-          memberName: "John Doe",
-          memberPhoneNumber: "0700000000",
-          amount: 10000,
-          reasonForLoan: "To buy a car",
-          status: LoanApplicationStatus.AWAITING_APPROVAL,
-          approval: {
-            chairman: {
-              status: LoanApprovalStatus.AWAITING_APPROVAL,
-            },
-            treasurer: {
-              status: LoanApprovalStatus.APPROVED,
-              message: "Go gerrit girls",
-            },
-            secretary: {
-              status: LoanApprovalStatus.AWAITING_APPROVAL,
-            },
-          },
-        }),
-      2000
-    )
-  );
-};
-
 const getLoanApplication = async (applicationId: string, token: string) => {
   const req = new Request(
     `http://localhost:8080/loans/applications/${applicationId}`,
@@ -65,7 +32,6 @@ export default async function PendingApplicationPage({
     return signIn();
   }
 
-  // const loanApplication = await mockGetLoanApplication(params.applicationId);
   const loanApplication = await getLoanApplication(
     params.applicationId,
     session.accessToken
