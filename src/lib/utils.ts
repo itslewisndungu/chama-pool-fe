@@ -21,7 +21,11 @@ export const getRemainingLoanDays = (dueDate: Date | undefined) => {
     timeUnit = difference === 1 ? "day" : "days";
   }
 
-  return `${difference} ${timeUnit} remaining to repay loan.`;
+  if (currentDate > loanDueDate) {
+    return `Loan overdue by ${difference} ${timeUnit}.`;
+  } else {
+    return `${difference} ${timeUnit} remaining to repay loan.`;
+  }
 };
 
 export const calculateRemainingDaysPercentage = (
@@ -88,10 +92,6 @@ const compareTableValues = (value1: unknown, value2: unknown) => {
   // Handle number values
   if (typeof value1 === "number" && typeof value2 === "number") {
     return value1 - value2;
-  }
-
-  if (typeof value1 === Date && typeof value2 === Date) {
-      return compareDates(value1, value2);
   }
 
   // Fallback to string comparison

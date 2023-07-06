@@ -4,8 +4,6 @@ import { IconCash } from "@tabler/icons-react";
 import { recordLoanInstallment } from "@/lib/api/disburse-loan";
 import { useTransition } from "react";
 import { notifications } from "@mantine/notifications";
-import { useRouter } from "next/navigation";
-import { revalidatePath } from 'next/cache'
 
 interface InstallmentFormProps {
   loanId: number;
@@ -20,7 +18,6 @@ export function InstallmentForm({
 }: InstallmentFormProps) {
   const form = useForm<{ amount: number }>({});
   const [pending, startTransition] = useTransition();
-  const router = useRouter();
 
   const handleSubmit = ({ amount }: { amount: number }) => {
     startTransition(async () => {
@@ -29,7 +26,6 @@ export function InstallmentForm({
         title: "Loan Installment Recorded",
         message: `KSH ${amount} has been recorded as an installment for loan ${loanId}`,
       });
-      // router.refresh();
       close();
     });
   };

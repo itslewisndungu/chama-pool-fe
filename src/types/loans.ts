@@ -15,7 +15,6 @@ export type Loan = {
 };
 
 export enum LoanStatus {
-  "PENDING" = "PENDING",
   "AWAITING_DISBURSEMENT" = "AWAITING_DISBURSEMENT",
   "OVERDUE" = "OVERDUE",
   "ACTIVE" = "ACTIVE",

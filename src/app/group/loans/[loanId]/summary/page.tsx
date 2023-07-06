@@ -3,7 +3,7 @@ import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { getLoan } from "@/lib/api/utils";
 import { Loan } from "@/components/loans/loan";
-import { isUserSecretary } from "@/lib/utils";
+import { isUserTreasurer } from "@/lib/utils";
 
 type Params = {
   params: {
@@ -18,7 +18,7 @@ export default async function LoanSummaryPage({ params: { loanId } }: Params) {
   }
 
   const loan = await getLoan(session.accessToken, loanId);
-  const isSecretary = isUserSecretary(session!.user.roles);
+  const isTreasurer = isUserTreasurer(session!.user.roles);
 
-  return <Loan loan={loan} isSecretary={isSecretary} />;
+  return <Loan loan={loan} isTreasurer={isTreasurer} />;
 }
