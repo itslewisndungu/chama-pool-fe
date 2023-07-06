@@ -2,8 +2,6 @@ import { GroupNotification } from "@/types/notifications";
 import { NotificationsButton } from "@/components/notifications/NotificationsButton";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
-import { redirect } from "next/navigation";
-import { resolve } from "path";
 
 interface res {
   notifications: GroupNotification[];

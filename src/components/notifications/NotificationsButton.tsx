@@ -11,7 +11,7 @@ import {
   Badge,
   ScrollArea,
 } from "@mantine/core";
-import { IconBell, IconNotification } from "@tabler/icons-react";
+import { IconBell } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
 import { getFormattedDate } from "@/lib/utils";
 import { markAllNotificationsAsRead } from "@/lib/api/mark-all-notifications-as-read";

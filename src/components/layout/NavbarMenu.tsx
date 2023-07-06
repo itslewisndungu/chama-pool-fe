@@ -4,20 +4,15 @@ import {
   Group,
   Text,
   Menu,
-  Burger,
   rem,
 } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 import {
   IconLogout,
-  IconLogin,
   IconSettings,
   IconChevronDown,
   IconUserCircle,
 } from "@tabler/icons-react";
-import { signIn, signOut, useSession } from "next-auth/react";
-import { useRouter } from "next/router";
-import { MemberRole } from "@/types/MemberRole";
+import { signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";

@@ -71,8 +71,6 @@ export default async function PendingApplicationPage({
     session.accessToken
   );
 
-  console.log(loanApplication);
-
   return (
     <>
       {loanApplication ? (
