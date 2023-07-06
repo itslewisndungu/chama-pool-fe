@@ -11,12 +11,12 @@ import { DisburseLoanButton } from "@/app/group/loans/listings/disburse-loan-but
 
 type Params = {
   loan: Loan;
-  isSecretary: boolean;
+  isTreasurer: boolean;
 };
 
-export function RepaymentProgress({ loan, isSecretary }: Params) {
+export function RepaymentProgress({ loan, isTreasurer }: Params) {
   return loan.status === LoanStatus.AWAITING_DISBURSEMENT ? (
-    isSecretary ? (
+    isTreasurer ? (
       <div className={"grid justify-items-center"}>
         <p className={"lead"}>This still awaiting disbursement.</p>
         <DisburseLoanButton loanId={loan.id} />
@@ -51,7 +51,8 @@ export function RepaymentProgress({ loan, isSecretary }: Params) {
           }
         >
           <p className={"m-0 text-sm"}>
-            Outstanding balance: <span className="font-bold">{getFormattedCurrency(loan.balance)}</span>
+            Outstanding balance: 
+            <span className="font-bold">{getFormattedCurrency(loan.balance)}</span>
           </p>
           <Button
             variant={"light"}

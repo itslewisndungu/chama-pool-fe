@@ -27,9 +27,6 @@ export function NotificationsButton(props: Props) {
   const [unreadCount, setUnreadCount] = useState(props.unreadCount);
   const [notifications, setNotifications] = useState(props.notifications);
 
-  const unreadnotifications = notifications.filter((n) => !n.read)
-  const readnotifications = notifications.filter((n) => n.read)
-
   useEffect(() => {
     setNotifications(props.notifications);
     setUnreadCount(props.unreadCount);
