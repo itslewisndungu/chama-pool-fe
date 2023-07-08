@@ -1,4 +1,4 @@
-import { Loan, LoanStatus } from "@/types/loans";
+import { Loan } from "@/types/loans";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
