@@ -1,27 +1,28 @@
 "use client";
 
 import { Group, Paper, Text } from "@mantine/core";
-import {
-  IconTransferOut,
-  IconReceipt2,
-  IconCoin,
-  IconArrowUpRight,
-  IconArrowDownRight,
-} from "@tabler/icons-react";
+import { IconTransferOut, IconReceipt2, IconCoin } from "@tabler/icons-react";
 import { getFormattedCurrency } from "@/lib/utils";
 
-interface StatsGridProps {
-  data: {
-    title: string;
-    icon: string;
-    value: string;
-    diff: number;
-  }[];
+type Props = {
+  summary: {
+    accountBalance: number;
+    totalIncome: number;
+    totalExpenses: number;
+  };
+};
+
+export function GroupFinancialSummary({ summary }: Props) {
+  return (
+    <section className="p-4 flex gap-4 flex-wrap">
+      <AccountBalanceStatCard balance={summary.accountBalance} />
+      <MonthlyRevenueStatCard revenue={summary.totalIncome} />
+      <MonthlyExpensesStatCard expenses={summary.totalExpenses} />
+    </section>
+  );
 }
 
-const AccountBalanceStatCard = () => {
-  const amount = getFormattedCurrency(1_200_000);
-
+const AccountBalanceStatCard = ({ balance }: { balance: number }) => {
   return (
     <Paper withBorder p="md" radius="md" className="flex-1">
       <Group position="apart">
@@ -32,7 +33,9 @@ const AccountBalanceStatCard = () => {
       </Group>
 
       <div className="pt-5">
-        <p className="text-xl md:text-2xl font-bold m-0">{amount}</p>
+        <p className="text-xl md:text-2xl font-bold m-0">
+          {getFormattedCurrency(balance)}
+        </p>
       </div>
 
       <Text fz="xs" c="dimmed" mt={7}>
@@ -42,80 +45,48 @@ const AccountBalanceStatCard = () => {
   );
 };
 
-const MonthlyRevenueStatCard = () => {
-  const amount = getFormattedCurrency(15_000);
-
+const MonthlyRevenueStatCard = ({ revenue }: { revenue: number }) => {
   return (
     <Paper withBorder p="md" radius="md" className="flex-1">
       <Group position="apart">
         <Text size="xs" color="dimmed" className="uppercase font-bold">
-          Monthly revenue
+          Total Revenue
         </Text>
         <IconReceipt2 className="text-gray-300" size="1.4rem" stroke={1.5} />
       </Group>
 
-      <div className="flex gap-2 mt-5">
-        <p className="text-xl md:text-2xl font-bold m-0">{amount}</p>
-
-        <Text
-          // color={stat.diff > 0 ? 'teal' : 'red'}
-          color={"red"}
-          fz="sm"
-          fw={500}
-          className="flex items-center"
-        >
-          <span>{13}%</span>
-          <IconArrowDownRight size="1rem" stroke={1.5} />
-        </Text>
+      <div className="pt-5">
+        <p className="text-xl md:text-2xl font-bold m-0">
+          {getFormattedCurrency(revenue)}
+        </p>
       </div>
 
       <Text fz="xs" c="dimmed" mt={7}>
-        Compared to previous month
+        Amount that the group has earned.
       </Text>
     </Paper>
   );
 };
 
-const MonthlyExpensesStatCard = () => {
-  const amount = getFormattedCurrency(1_000);
-
+const MonthlyExpensesStatCard = ({ expenses }: { expenses: number }) => {
   return (
     <Paper withBorder p="md" radius="md" className="flex-1">
       <Group position="apart">
         <Text size="xs" color="dimmed" className="uppercase font-bold">
-          Monthly expenses
+          Total Expenses
         </Text>
         <IconTransferOut className="text-gray-300" size="1.4rem" stroke={1.5} />
       </Group>
 
-      <div className="flex gap-2 mt-5">
-        <p className="text-xl md:text-2xl font-bold m-0">{amount}</p>
-
-        <Text
-          // color={stat.diff > 0 ? 'teal' : 'red'}
-          color={"teal"}
-          fz="sm"
-          fw={500}
-          className="flex items-center"
-        >
-          <span>{13}%</span>
-          <IconArrowUpRight size="1rem" stroke={1.5} />
-        </Text>
+      <div className="pt-5">
+        <p className="text-xl md:text-2xl font-bold m-0">
+          {getFormattedCurrency(expenses)}
+        </p>
       </div>
 
       <Text fz="xs" c="dimmed" mt={7}>
-        Compared to previous month
+        Expenses the group has incurred.
       </Text>
     </Paper>
   );
 };
-
-export function GroupFinancialSummary({ data }: StatsGridProps) {
-  return (
-    <section className="p-4 flex gap-4 flex-wrap">
-      <AccountBalanceStatCard />
-      <MonthlyRevenueStatCard />
-      <MonthlyExpensesStatCard />
-    </section>
-  );
-}

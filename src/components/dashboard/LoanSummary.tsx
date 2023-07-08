@@ -3,7 +3,20 @@
 import { Button, Paper, Text } from "@mantine/core";
 import { getFormattedCurrency } from "@/lib/utils";
 
-export function GroupLoansSummary() {
+type Props = {
+  summary: {
+    issuedLoans: number;
+    totalAmountBorrowed: number;
+    totalAmountRepaid: number;
+    activeLoans: number;
+    overdueLoans: number;
+    repaidLoans: number;
+    pendingLoans: number;
+    loanApplications: number;
+  };
+};
+
+export function GroupLoansSummary({ summary }: Props) {
   return (
     <section className={"p-4 flex gap-4 flex-wrap"}>
       <Paper withBorder p="md" radius="md" className="flex-1 space-y-4">
@@ -14,18 +27,18 @@ export function GroupLoansSummary() {
         <div>
           <p className={"m-0 space-x-2"}>
             <span className={"text-sm"}>Total number of loans issued:</span>
-            <span className={"font-semibold"}>{120}</span>
+            <span className={"font-semibold"}>{summary.issuedLoans} loans</span>
           </p>
           <p className={"m-0 space-x-2"}>
             <span className={"text-sm"}>Total Amount borrowed: </span>
             <span className={"font-semibold"}>
-              {getFormattedCurrency(520000)}
+              {getFormattedCurrency(summary.totalAmountBorrowed)}
             </span>
           </p>
           <p className={"m-0 space-x-2"}>
             <span className={"text-sm"}>Total Amount repaid: </span>
             <span className={"font-semibold"}>
-              {getFormattedCurrency(120000)}
+              {getFormattedCurrency(summary.totalAmountRepaid)}
             </span>
           </p>
         </div>
@@ -40,19 +53,29 @@ export function GroupLoansSummary() {
         <div>
           <p className={"m-0 space-x-2"}>
             <span className={" text-sm"}>Active loans:</span>
-            <span className={"font-semibold"}>{4}</span>
+            <span className={"font-semibold"}>{summary.activeLoans} loans</span>
           </p>
           <p className={"m-0 space-x-2"}>
             <span className={" text-sm"}>Overdue loans:</span>
-            <span className={"font-semibold"}>{1}</span>
+            <span className={"font-semibold"}>
+              {summary.overdueLoans} loans{" "}
+            </span>
           </p>
           <p className={"m-0 space-x-2"}>
             <span className={" text-sm"}>Repaid loans:</span>
-            <span className={"font-semibold"}>{5}</span>
+            <span className={"font-semibold"}>{summary.repaidLoans} loans</span>
+          </p>
+          <p className={"m-0 space-x-2"}>
+            <span className={" text-sm"}>Loans awaiting disbursement</span>
+            <span className={"font-semibold"}>
+              {summary.pendingLoans} loans
+            </span>
           </p>
           <p className={"m-0 space-x-2"}>
             <span className={" text-sm"}>Pending loan applications:</span>
-            <span className={"font-semibold"}>{2}</span>
+            <span className={"font-semibold"}>
+              {summary.loanApplications} loans
+            </span>
           </p>
         </div>
       </Paper>
