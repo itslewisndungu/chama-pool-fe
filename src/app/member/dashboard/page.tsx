@@ -2,10 +2,8 @@ import { GroupFinancialSummary } from "@/components/dashboard/GroupFinancialSumm
 import {
   GroupAccountSummary,
   MemberLoanSummary,
-  MeetingsSummary,
   MemberMeetingSummary,
 } from "@/types/dashboard";
-import { ScheduledMeetings } from "@/components/dashboard/ScheduledMeetings";
 import { MemberMeetingsSummary } from "@/app/member/dashboard/MemberMeetingsSummary";
 import { MemberLoansSummary } from "@/app/member/dashboard/MemberLoansSummary";
 import { getServerSession } from "next-auth/next";
