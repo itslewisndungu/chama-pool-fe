@@ -4,8 +4,8 @@ import {
   MemberLoanSummary,
   MemberMeetingSummary,
 } from "@/types/dashboard";
-import { MemberMeetingsSummary } from "@/app/member/dashboard/MemberMeetingsSummary";
-import { MemberLoansSummary } from "@/app/member/dashboard/MemberLoansSummary";
+import { MemberMeetingsSummary } from "@/components/dashboard/MemberMeetingsSummary";
+import { MemberLoansSummary } from "@/components/dashboard/MemberLoansSummary";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
