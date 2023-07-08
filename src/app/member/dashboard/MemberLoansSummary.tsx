@@ -2,13 +2,14 @@
 
 import { Button, Paper, Text } from "@mantine/core";
 import { getFormattedCurrency } from "@/lib/utils";
-import { LoanSummary } from "@/types/dashboard";
+import { MemberLoanSummary } from "@/types/dashboard";
+import Link from "next/link";
 
 type Props = {
-  summary: LoanSummary;
+  summary: MemberLoanSummary;
 };
 
-export function GroupLoansSummary({ summary }: Props) {
+export function MemberLoansSummary({ summary }: Props) {
   return (
     <section className={"p-4 flex gap-4 flex-wrap"}>
       <Paper withBorder p="md" radius="md" className="flex-1 space-y-4">
@@ -18,8 +19,10 @@ export function GroupLoansSummary({ summary }: Props) {
 
         <div>
           <p className={"m-0 space-x-2"}>
-            <span className={"text-sm"}>Total number of loans issued:</span>
-            <span className={"font-semibold"}>{summary.issuedLoans} loans</span>
+            <span className={"text-sm"}>Total number of loans borrowed:</span>
+            <span className={"font-semibold"}>
+              {summary.borrowedLoans} loans
+            </span>
           </p>
           <p className={"m-0 space-x-2"}>
             <span className={"text-sm"}>Total Amount borrowed: </span>
@@ -33,9 +36,17 @@ export function GroupLoansSummary({ summary }: Props) {
               {getFormattedCurrency(summary.totalAmountRepaid)}
             </span>
           </p>
+          <p className={"m-0 space-x-2"}>
+            <span className={"text-sm"}>Total Outstanding balances: </span>
+            <span className={"font-semibold"}>
+              {getFormattedCurrency(summary.totalAmountRepaid)}
+            </span>
+          </p>
         </div>
 
-        <Button>View all loans</Button>
+        <Button component={Link} href="/member/loans">
+          View all loans
+        </Button>
       </Paper>
 
       <Paper withBorder p="md" radius="md" className="flex-1 space-y-4 ">

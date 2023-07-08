@@ -4,35 +4,23 @@ import { ScheduledMeetings } from "@/components/dashboard/ScheduledMeetings";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import {
+  GroupAccountSummary,
+  LoanSummary,
+  MeetingsSummary,
+} from "@/types/dashboard";
 
 const getAccountSummary = async (token: string) => {
-  type AccountSummary = {
-    accountBalance: number;
-    totalIncome: number;
-    totalExpenses: number;
-  };
-
   const req = new Request("http://localhost:8080/chama/account-summary", {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
 
-  return (await fetch(req).then(res => res.json())) as AccountSummary;
+  return (await fetch(req).then(res => res.json())) as GroupAccountSummary;
 };
 
 const getLoansSummary = async (token: string) => {
-  type LoanSummary = {
-    issuedLoans: number;
-    totalAmountBorrowed: number;
-    totalAmountRepaid: number;
-    activeLoans: number;
-    overdueLoans: number;
-    repaidLoans: number;
-    pendingLoans: number;
-    loanApplications: number;
-  };
-
   const req = new Request("http://localhost:8080/chama/loans-summary", {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -43,12 +31,6 @@ const getLoansSummary = async (token: string) => {
 };
 
 const getMeetingsSummary = async (token: string) => {
-  type MeetingsSummary = {
-    meetings: number;
-    scheduledMeetings: number;
-    totalContributions: number;
-  };
-
   const req = new Request("http://localhost:8080/chama/meetings-summary", {
     headers: {
       Authorization: `Bearer ${token}`,

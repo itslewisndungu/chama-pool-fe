@@ -3,13 +3,10 @@
 import { Group, Paper, Text } from "@mantine/core";
 import { IconTransferOut, IconReceipt2, IconCoin } from "@tabler/icons-react";
 import { getFormattedCurrency } from "@/lib/utils";
+import { GroupAccountSummary } from "@/types/dashboard";
 
 type Props = {
-  summary: {
-    accountBalance: number;
-    totalIncome: number;
-    totalExpenses: number;
-  };
+  summary: GroupAccountSummary;
 };
 
 export function GroupFinancialSummary({ summary }: Props) {
