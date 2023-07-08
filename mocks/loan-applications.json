@@ -1,0 +1,73 @@
+{
+  "loanApplications": [
+    {
+      "id": 1,
+      "applicationDate": "12-10-2021",
+      "memberId": 1,
+      "memberName": "John Doe",
+      "memberPhoneNumber": "0700000000",
+      "amount": 10000,
+      "status": "AWAITING_APPROVAL",
+      "approvals": {
+        "chairman": {
+          "approved": false,
+          "message": ""
+        },
+        "treasurer": {
+          "approved": false,
+          "message": ""
+        },
+        "secretary": {
+          "approved": false,
+          "message": ""
+        }
+      }
+    },
+    {
+      "id": 2,
+      "applicationDate": "12-10-2025",
+      "memberId": 2,
+      "memberName": "Jane Doe",
+      "memberPhoneNumber": "0700000000",
+      "amount": 10000,
+      "status": "APPROVED",
+      "approvals": {
+        "chairman": {
+          "approved": true,
+          "message": ""
+        },
+        "treasurer": {
+          "approved": true,
+          "message": ""
+        },
+        "secretary": {
+          "approved": true,
+          "message": ""
+        }
+      }
+    },
+    {
+      "id": 3,
+      "applicationDate": "12-10-2025",
+      "memberId": 3,
+      "memberName": "John Doe",
+      "memberPhoneNumber": "0700000000",
+      "amount": 10000,
+      "status": "REJECTED",
+      "approvals": {
+        "chairman": {
+          "approved": false,
+          "message": ""
+        },
+        "treasurer": {
+          "approved": false,
+          "message": ""
+        },
+        "secretary": {
+          "approved": false,
+          "message": ""
+        }
+      }
+    }
+  ]
+}

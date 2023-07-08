@@ -1,10 +1,10 @@
-import { LoginCredentials } from '@/types/LoginCredentials';
+import { LoginCredentials } from "@/types/LoginCredentials";
 
 export async function userLogin(credentials: LoginCredentials) {
-  const loginRequest = new Request('http://localhost:8080/auth/login', {
-    method: 'POST',
+  const loginRequest = new Request("http://localhost:8080/auth/login", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(credentials),
   });
@@ -13,10 +13,10 @@ export async function userLogin(credentials: LoginCredentials) {
 }
 
 export async function getCurrentUser(token: string) {
-  const req = new Request('http://localhost:8080/auth/me', {
-    method: 'GET',
+  const req = new Request("http://localhost:8080/auth/me", {
+    method: "GET",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -25,7 +25,7 @@ export async function getCurrentUser(token: string) {
 }
 
 // export async function userLogout() {
-//   return axios.post('/auth/logout')
+//   return axios.post('/(auth)/logout')
 // }
 
 // export async function refreshUserToken() {
@@ -36,7 +36,7 @@ export async function getCurrentUser(token: string) {
 //   }
 
 //   return axios.post<Res<User>>(
-//     '/auth/refresh',
+//     '/(auth)/refresh',
 //     {},
 //     {
 //       headers: {
@@ -47,5 +47,5 @@ export async function getCurrentUser(token: string) {
 // }
 
 // export async function userSignup(credentials: LoginCredentials) {
-//   return axios.post<Res<User>>('/auth/signup', credentials)
+//   return axios.post<Res<User>>('/(auth)/signup', credentials)
 // }
