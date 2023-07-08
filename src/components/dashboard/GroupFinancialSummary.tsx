@@ -112,10 +112,10 @@ const MonthlyExpensesStatCard = () => {
 
 export function GroupFinancialSummary({ data }: StatsGridProps) {
   return (
-    <div className="p-4 flex gap-4 flex-wrap">
+    <section className="p-4 flex gap-4 flex-wrap">
       <AccountBalanceStatCard />
       <MonthlyRevenueStatCard />
       <MonthlyExpensesStatCard />
-    </div>
+    </section>
   );
 }

@@ -1,4 +1,5 @@
-import { GroupFinancialSummary } from "@/components/GroupFinancialSummary";
+import { GroupFinancialSummary } from "@/components/dashboard/GroupFinancialSummary";
+import { GroupLoansSummary } from "@/components/dashboard/LoanSummary";
 
 const getData = async () => {
   return [
@@ -29,6 +30,7 @@ export default async function Page() {
     <>
       <h1 className="text-xl font-bold m-0 text-gray-700">Financial Summary</h1>
       <GroupFinancialSummary data={data} />
+      <GroupLoansSummary />
     </>
   );
 }

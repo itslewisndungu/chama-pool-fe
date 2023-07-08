@@ -1,4 +1,4 @@
-import { GroupFinancialSummary } from "@/components/GroupFinancialSummary";
+import { GroupFinancialSummary } from "@/components/dashboard/GroupFinancialSummary";
 
 const getData = async () => {
   return [
