@@ -1,7 +1,7 @@
 export type Loan = {
-  id: number;
+  loanId: number;
   memberId: number;
-  memberName: string;
+  fullName: string;
   amount: number;
   amountPayable: number;
   interestRate: number;
