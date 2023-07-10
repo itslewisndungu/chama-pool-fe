@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { LoansList } from "@/components/loans/loans-list";
+import DownloadReportButton from "@/components/reports/DownloadReportButton";
 
 const getMyLoans = async (token: string): Promise<Loan[]> => {
   const req = new Request("http://localhost:8080/loans/my-loans", {
@@ -25,7 +26,14 @@ export default async function MyLoansPage() {
 
   return (
     <>
+      <div className={"flex justify-between items-center"}>
       <h1 className={"m-0"}>My loans</h1>
+        <h1>Group Loans</h1>
+        <DownloadReportButton
+          token={session.accessToken}
+          link={`http://localhost:8080/loans/member/report`}
+        />
+      </div>
       <LoansList loans={loans} />
     </>
   );

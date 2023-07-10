@@ -4,6 +4,7 @@ import MembersTable from "./MembersTable";
 import { UserProfile } from "@/types/user";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import DownloadReportButton from "@/components/reports/DownloadReportButton";
 
 type Props = {};
 
@@ -16,7 +17,7 @@ const getMembersList = async (token: string) => {
   });
 
   const res = await fetch(req);
-  return (await res.json()) as UserProfile[];
+  return (await res.json()) as {members: UserProfile[]};
 };
 
 export default async function Page({}: Props) {
@@ -31,14 +32,21 @@ export default async function Page({}: Props) {
   let members: UserProfile[];
 
   try {
-    members = await getMembersList(token);
+    const res = await getMembersList(token);
+    members = res.members;
   } catch (err) {
     members = [];
   }
 
   return (
     <section className={"max-w-5xl"}>
-      <h1 className={"mt-0"}>Members directory</h1>
+      <div className={"mb-4 flex justify-between items-center"}>
+        <h1 className={"m-0"}>Members directory</h1>
+        <DownloadReportButton
+          token={session.accessToken}
+          link={`http://localhost:8080/reports/group-members`}
+        />
+      </div>
       <MembersTable data={members} />
     </section>
   );

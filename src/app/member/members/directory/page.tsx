@@ -4,6 +4,7 @@ import MembersTable from "./MembersTable";
 import { UserProfile } from "@/types/user";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import DownloadReportButton from "@/components/reports/DownloadReportButton";
 
 type Props = {};
 
@@ -40,7 +41,13 @@ export default async function Page({}: Props) {
 
   return (
     <section className={"max-w-5xl"}>
-      <h1 className={"mt-0"}>Members directory</h1>
+      <div className={"flex justify-between items-center"}>
+        <h1 className={"mt-0"}>Members directory</h1>
+        <DownloadReportButton
+          token={session.accessToken}
+          link={`http://localhost:8080/reports/group-members`}
+        />
+      </div>
       <MembersTable data={members} />
     </section>
   );
