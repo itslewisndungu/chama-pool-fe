@@ -1,5 +1,5 @@
 import { keys } from "@mantine/utils";
-import { MemberRole } from "@/types/MemberRole";
+import { MemberRole } from "@/types/user";
 
 export const getRemainingLoanDays = (dueDate: Date | undefined) => {
   if (dueDate === undefined) return undefined;

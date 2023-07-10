@@ -1,6 +1,5 @@
 "use client";
 
-import { InvitedMember } from "@/types/InvitedMember";
 import { Button, PasswordInput, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import {
@@ -13,6 +12,7 @@ import { notifications } from "@mantine/notifications";
 import { useState, useTransition } from "react";
 import { LoginCredentials } from "@/types/LoginCredentials";
 import { useRouter } from "next/navigation";
+import { InvitedMember } from "@/types/user";
 
 type Props = {
   invitation: InvitedMember & { username: string; inviteId: number };
@@ -94,7 +94,9 @@ const AcceptInvitationForm = ({ invitation }: Props) => {
     <form onSubmit={form.onSubmit(v => startTransition(() => handleSubmit(v)))}>
       <TextInput
         label={"Username"}
-        description={"This is a generated username. Change it to suit your preference"}
+        description={
+          "This is a generated username. Change it to suit your preference"
+        }
         className={"mb-3"}
         id={"username"}
         size={"md"}

@@ -11,8 +11,8 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import { IconLogin } from "@tabler/icons-react";
 import { signIn, useSession } from "next-auth/react";
-import { MemberRole } from "@/types/MemberRole";
 import { NavbarMenu } from "@/components/layout/NavbarMenu";
+import { MemberRole } from "@/types/user";
 
 const useStyles = createStyles(theme => ({
   header: {

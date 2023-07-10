@@ -2,9 +2,9 @@ import { MeetingContribution } from "@/types/meetings";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { MemberRole } from "@/types/MemberRole";
 import { MeetingNotInitiated } from "@/components/meetings/MeetingNotInitiated";
 import ContributionsList from "@/components/meetings/ContributionsList";
+import { MemberRole } from "@/types/user";
 
 type Props = {
   params: {
