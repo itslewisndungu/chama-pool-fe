@@ -22,7 +22,7 @@ export function InstallmentForm({
   const form = useForm<{ amount: number }>({
     validate: {
       amount: a =>
-        a >= loanBalance
+        a > loanBalance
           ? "You cannot record an installment greater than the remaining loan balance"
           : null,
     },
