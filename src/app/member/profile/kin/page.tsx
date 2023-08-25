@@ -3,9 +3,10 @@ import { authOptions } from "@/lib/auth";
 import { NextOfKin } from "@/types/user";
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
+import { getEndpointPath } from "@/lib/utils";
 
 const getKin = async (username: string, token: string) => {
-  const req = new Request(`http://localhost:8080/members/${username}/kin`, {
+  const req = new Request(getEndpointPath(`/members/${username}/kin`), {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,

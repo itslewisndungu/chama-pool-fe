@@ -4,9 +4,10 @@ import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { LoansList } from "@/components/loans/loans-list";
 import DownloadReportButton from "@/components/reports/DownloadReportButton";
+import { getEndpointPath } from "@/lib/utils";
 
 const getMyLoans = async (token: string): Promise<Loan[]> => {
-  const req = new Request("http://localhost:8080/loans/my-loans", {
+  const req = new Request(getEndpointPath(`/loans/my-loans`), {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -30,7 +31,7 @@ export default async function MyLoansPage() {
         <h1 className={"m-0"}>My loans</h1>
         <DownloadReportButton
           token={session.accessToken}
-          link={`http://localhost:8080/loans/member/report`}
+          link={getEndpointPath(`/loans/member/report`)}
         />
       </div>
       <LoansList loans={loans} />

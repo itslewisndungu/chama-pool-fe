@@ -6,24 +6,22 @@ import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { ProfileLoansCard } from "@/components/members/ProfileLoansCard";
 import { UserProfile } from "@/types/user";
+import { getEndpointPath } from "@/lib/utils";
 
 const getMemberProfile = async (username: string, token: string) => {
-  const req = new Request(
-    `http://localhost:8080/members/${username}/profile`,
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const req = new Request(getEndpointPath(`/members/${username}/profile`), {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   return (await fetch(req).then(res => res.json())) as UserProfile;
 };
 
 const getMemberLoansSummary = async (username: string, token: string) => {
   const req = new Request(
-    `http://localhost:8080/members/${username}/loans-summary`,
+    getEndpointPath(`/members/${username}/loans-summary`),
     {
       method: "GET",
       headers: {
@@ -37,7 +35,7 @@ const getMemberLoansSummary = async (username: string, token: string) => {
 
 const getMeetingsSummary = async (username: string, token: string) => {
   const req = new Request(
-    `http://localhost:8080/members/${username}/meetings-summary`,
+    getEndpointPath(`/members/${username}/meetings-summary`),
     {
       method: "GET",
       headers: {
@@ -49,10 +47,9 @@ const getMeetingsSummary = async (username: string, token: string) => {
   return (await fetch(req).then(res => res.json())) as MemberMeetingSummary;
 };
 
-type Props = {
-};
+type Props = {};
 
-export default async function MemberProfilePage({ }: Props) {
+export default async function MemberProfilePage({}: Props) {
   const session = await getServerSession(authOptions);
   if (!session) {
     return redirect("/login");

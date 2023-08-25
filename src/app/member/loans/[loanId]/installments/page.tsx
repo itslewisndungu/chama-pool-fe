@@ -3,19 +3,16 @@ import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { LoanInstallment } from "@/types/loans";
 import { LoanInstallmentsList } from "@/components/loans/InstallmentsList";
-import { isUserAdmin } from "@/lib/utils";
+import { getEndpointPath, isUserAdmin } from "@/lib/utils";
 
 const getLoanInstallments = async (loanId: number, token: string) => {
-  const req = new Request(
-    `http://localhost:8080/loans/${loanId}/installments`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const req = new Request(getEndpointPath(`/loans/${loanId}/installments`), {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   return (await fetch(req).then(res => res.json())) as {
     installments: LoanInstallment[];

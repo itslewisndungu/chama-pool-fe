@@ -5,11 +5,12 @@ import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import DownloadReportButton from "@/components/reports/DownloadReportButton";
 import MembersTable from "@/components/members/MembersTable";
+import { getEndpointPath } from "@/lib/utils";
 
 type Props = {};
 
 const getMembersList = async (token: string) => {
-  const req = new Request("http://localhost:8080/members", {
+  const req = new Request(getEndpointPath(`/members`), {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -35,7 +36,7 @@ export default async function Page({}: Props) {
         <h1 className={"mt-0"}>Members directory</h1>
         <DownloadReportButton
           token={session.accessToken}
-          link={`http://localhost:8080/reports/group-members`}
+          link={getEndpointPath(`/reports/group-members`)}
         />
       </div>
       <MembersTable data={members.members} />

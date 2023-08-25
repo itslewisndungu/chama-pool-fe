@@ -7,6 +7,7 @@ import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
 import { notifications } from "@mantine/notifications";
+import { getEndpointPath } from "@/lib/utils";
 
 type MembershipFee = {
   memberId: number;
@@ -23,7 +24,7 @@ type Props = {
 
 const recordMembershipFeeRepayment = async (v: any, token: string) => {
   const req = new Request(
-    `http://localhost:8080/members/membership-fees/pay-bulk-installments`,
+    getEndpointPath(`/members/membership-fees/pay-bulk-installments`),
     {
       method: "POST",
       headers: {

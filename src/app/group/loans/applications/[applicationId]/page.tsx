@@ -7,10 +7,11 @@ import {
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { signIn } from "next-auth/react";
+import { getEndpointPath } from "@/lib/utils";
 
 const getLoanApplication = async (applicationId: string, token: string) => {
   const req = new Request(
-    `http://localhost:8080/loans/applications/${applicationId}`,
+    getEndpointPath(`/loans/applications/${applicationId}`),
     {
       method: "GET",
       headers: {

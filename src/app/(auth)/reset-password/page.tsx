@@ -5,9 +5,10 @@ import { Button, PasswordInput } from "@mantine/core";
 import { useState, useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { notifications } from "@mantine/notifications";
+import { getEndpointPath } from "@/lib/utils";
 
 const changePassword = async (token: string, password: string) => {
-  const req = new Request("http://localhost:8080/auth/change-password", {
+  const req = new Request(getEndpointPath(`/auth/change-password`), {
     method: "POST",
     body: JSON.stringify({ token, password }),
   });

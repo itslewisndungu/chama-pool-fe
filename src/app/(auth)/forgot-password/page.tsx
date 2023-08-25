@@ -4,10 +4,12 @@ import { useForm } from "@mantine/form";
 import { Button, TextInput } from "@mantine/core";
 import { useState, useTransition } from "react";
 import { notifications } from "@mantine/notifications";
-import {getEndpointPath} from "@/lib/utils";
+import { getEndpointPath } from "@/lib/utils";
 
 const resetPassword = async (username: string) => {
-  const path = getEndpointPath(`http://localhost:8080/auth/${username}/reset-password`)
+  const path = getEndpointPath(
+    getEndpointPath(`/auth/${username}/reset-password`)
+  );
   const req = new Request(path, {
     method: "POST",
     body: JSON.stringify({ username }),

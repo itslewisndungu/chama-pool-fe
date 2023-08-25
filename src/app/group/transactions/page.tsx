@@ -4,9 +4,10 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import DownloadReportButton from "@/components/reports/DownloadReportButton";
+import { getEndpointPath } from "@/lib/utils";
 
 const getTransactions = async (token: string) => {
-  const req = new Request("http://localhost:8080/transactions", {
+  const req = new Request(getEndpointPath(`/transactions`), {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -30,7 +31,7 @@ export default async function TransactionsPage() {
         <h1>Transactions</h1>
         <DownloadReportButton
           token={session.accessToken}
-          link={"http://localhost:8080/transactions/report"}
+          link={getEndpointPath(`/transactions/report`)}
         />
       </div>
       <TransactionsList transactions={transactions} />

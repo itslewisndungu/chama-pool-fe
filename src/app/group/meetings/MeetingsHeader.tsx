@@ -4,6 +4,7 @@ import { Button, Modal } from "@mantine/core";
 import { IconCalendar, IconCalendarEvent, IconPlus } from "@tabler/icons-react";
 import Link from "next/link";
 import DownloadReportButton from "@/components/reports/DownloadReportButton";
+import { getEndpointPath } from "@/lib/utils";
 
 type Props = { token: string };
 
@@ -20,7 +21,7 @@ const MeetingsHeader = ({ token }: Props) => {
           Schedule meeting
         </Button>
         <DownloadReportButton
-          link={"http://localhost:8080/meetings/report"}
+          link={getEndpointPath(`/meetings/report`)}
           token={token}
         />
       </div>

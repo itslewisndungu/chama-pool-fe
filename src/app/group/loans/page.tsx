@@ -4,9 +4,10 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import DownloadReportButton from "@/components/reports/DownloadReportButton";
+import { getEndpointPath } from "@/lib/utils";
 
 const getGroupLoans = async (token: string): Promise<Loan[]> => {
-  const req = new Request("http://localhost:8080/loans", {
+  const req = new Request(getEndpointPath(`/loans`), {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -30,7 +31,7 @@ export default async function MemberLoansPage() {
         <h1>Group Loans</h1>
         <DownloadReportButton
           token={session.accessToken}
-          link={"http://localhost:8080/loans/report"}
+          link={getEndpointPath(`/loans/report`)}
         />
       </div>
       <LoansList loans={loans} />

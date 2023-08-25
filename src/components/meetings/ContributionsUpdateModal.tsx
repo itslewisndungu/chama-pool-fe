@@ -15,6 +15,7 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
 import { notifications } from "@mantine/notifications";
+import { getEndpointPath } from "@/lib/utils";
 
 type Props = {
   meetingId: number;
@@ -29,7 +30,7 @@ const updateMeetingContributions = async (
   token: string
 ) => {
   const req = new Request(
-    `http://localhost:8080/meetings/${meetingId}/contributions`,
+    getEndpointPath(`/meetings/${meetingId}/contributions`),
     {
       method: "POST",
       headers: {
@@ -58,7 +59,6 @@ export function ContributionsUpdateModal({
       memberName: c.memberName,
     };
   });
-
 
   const form = useForm({
     initialValues: {

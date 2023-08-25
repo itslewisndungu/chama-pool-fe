@@ -9,9 +9,10 @@ import {
   LoanSummary,
   MeetingsSummary,
 } from "@/types/dashboard";
+import { getEndpointPath } from "@/lib/utils";
 
 const getAccountSummary = async (token: string) => {
-  const req = new Request("http://localhost:8080/chama/account-summary", {
+  const req = new Request(getEndpointPath(`/chama/account-summary`), {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -21,7 +22,7 @@ const getAccountSummary = async (token: string) => {
 };
 
 const getLoansSummary = async (token: string) => {
-  const req = new Request("http://localhost:8080/chama/loans-summary", {
+  const req = new Request(getEndpointPath(`/chama/loans-summary`), {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -31,7 +32,7 @@ const getLoansSummary = async (token: string) => {
 };
 
 const getMeetingsSummary = async (token: string) => {
-  const req = new Request("http://localhost:8080/chama/meetings-summary", {
+  const req = new Request(getEndpointPath(`/chama/meetings-summary`), {
     headers: {
       Authorization: `Bearer ${token}`,
     },

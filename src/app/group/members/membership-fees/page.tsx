@@ -2,6 +2,7 @@ import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
 import { RecordMembershipFeesForm } from "@/app/group/members/membership-fees/RecordMembershipFeesForm";
+import { getEndpointPath } from "@/lib/utils";
 
 type MembershipFee = {
   memberId: number;
@@ -14,7 +15,7 @@ type MembershipFee = {
 
 const getOutstandingMembershipFees = async (token: string) => {
   const req = new Request(
-    `http://localhost:8080/members/membership-fees/outstanding`,
+    getEndpointPath(`/members/membership-fees/outstanding`),
     {
       method: "GET",
       headers: {

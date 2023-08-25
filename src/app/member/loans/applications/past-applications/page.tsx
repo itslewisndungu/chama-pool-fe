@@ -3,10 +3,11 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { ApplicationsList } from "@/app/group/loans/applications/applications-list";
+import { getEndpointPath } from "@/lib/utils";
 
 const retrieveLoanApplications = async (token: string) => {
   const req = new Request(
-    "http://localhost:8080/loans/applications/my-applications",
+    getEndpointPath(`/loans/applications/my-applications`),
     {
       method: "GET",
       headers: {
