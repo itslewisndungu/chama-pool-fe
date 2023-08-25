@@ -5,12 +5,11 @@ import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import DownloadReportButton from "@/components/reports/DownloadReportButton";
 import MembersTable from "@/components/members/MembersTable";
-import { getEndpointPath } from "@/lib/utils";
 
 type Props = {};
 
 const getMembersList = async (token: string) => {
-  const req = new Request(getEndpointPath("/members"), {
+  const req = new Request("http://localhost:8080/members", {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,

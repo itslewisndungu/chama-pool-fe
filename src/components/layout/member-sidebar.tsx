@@ -24,9 +24,7 @@ const routes = [
     label: "Profile",
     icon: IconUsers,
     links: [
-      { label: "Your profile", link: "/member/dashboard" },
-      { label: "Contributions", link: "/member/dashboard" },
-      { label: "Fines", link: "/member/dashboard" },
+      { label: "Your profile", link: "/member/profile" },
     ],
   },
   {

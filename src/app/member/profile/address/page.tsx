@@ -3,10 +3,9 @@ import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth/next";
 import { Address } from "@/types/user";
 import { redirect } from "next/navigation";
-import { getEndpointPath } from "@/lib/utils";
 
 const getAddress = async (username: string, token: string) => {
-  const req = new Request(getEndpointPath(`/members/${username}/address`), {
+  const req = new Request(`http://localhost:8080/members/${username}/address`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,

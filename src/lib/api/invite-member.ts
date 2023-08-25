@@ -1,11 +1,10 @@
-import { InvitedMember } from "@/types/InvitedMember";
-import { getEndpointPath } from "@/lib/utils";
+import { InvitedMember } from "@/types/user";
 
 export async function inviteMemberToGroup(
   memberDetails: InvitedMember,
   token: string
 ) {
-  const req = new Request(getEndpointPath(`/members/invites`), {
+  const req = new Request("http://localhost:8080/members/invites", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

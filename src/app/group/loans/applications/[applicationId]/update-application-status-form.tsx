@@ -8,7 +8,6 @@ import { notifications } from "@mantine/notifications";
 import { IconCheck } from "@tabler/icons-react";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { getEndpointPath } from "@/lib/utils";
 
 type Props = {
   loanId: number;
@@ -22,18 +21,6 @@ type LoanApproval = {
   message?: string;
 };
 
-const mockUpdateApplicationStatusForm = async (approval: LoanApproval) => {
-  return new Promise<any>((resolve, reject) => {
-    setTimeout(() => {
-      if (approval.approval === LoanApprovalStatus.APPROVED) {
-        resolve(approval);
-      } else {
-        reject("An error occurred");
-      }
-    }, 1000);
-  });
-};
-
 const updateApplicationStatus = async (
   loanId: number,
   approval: LoanApproval,
@@ -42,7 +29,7 @@ const updateApplicationStatus = async (
   const approved = approval.approval === LoanApprovalStatus.APPROVED;
 
   const req = new Request(
-    getEndpointPath(`/loans/applications/${loanId}/approve`),
+    `http://localhost:8080/loans/applications/${loanId}/approve`,
     {
       method: "POST",
       body: JSON.stringify({
@@ -80,6 +67,12 @@ export function UpdateApplicationStatusForm({
           ? LoanApprovalStatus.APPROVED
           : LoanApprovalStatus.REJECTED,
       message: message,
+    },
+    validate: {
+      message: (value, formVals) =>
+        formVals.approval === LoanApprovalStatus.REJECTED && !value
+          ? "Please provide a reason for rejection"
+          : null,
     },
   });
 

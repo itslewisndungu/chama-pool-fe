@@ -4,28 +4,11 @@ import { LoanEligibility } from "@/types/loans";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { getEndpointPath } from "@/lib/utils";
-
-const mockIsMemberEligibleForLoan = async (
-  eligible: boolean = true
-): Promise<LoanEligibility> => {
-  if (eligible) {
-    return {
-      amountEligible: 10_000,
-      isEligible: true,
-    };
-  } else {
-    return {
-      isEligible: false,
-      reason: "You have an outstanding loan that needs to be paid first",
-    };
-  }
-};
 
 const isMemberEligibleForLoan = async (
   token: string
 ): Promise<LoanEligibility> => {
-  const req = new Request(getEndpointPath("/loans/eligibility"), {
+  const req = new Request("http://localhost:8080/loans/eligibility", {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -53,9 +36,15 @@ export default async function Page() {
       <h1 className="font-semibold m-0">Loan application</h1>
 
       {!isEligible ? (
-        <MemberNotEligible reason={reason} />
+        <MemberNotEligible
+          member={`${session.user.firstName} ${session.user.lastName}`}
+          reason={reason}
+        />
       ) : (
-        <MemberEligible amount={amountEligible} />
+        <MemberEligible
+          amount={amountEligible}
+          member={`${session.user.firstName} ${session.user.lastName}`}
+        />
       )}
     </section>
   );

@@ -8,7 +8,6 @@ import { notifications } from "@mantine/notifications";
 import { useRouter } from "next/navigation";
 import { LoanApplication } from "@/types/loans";
 import { useSession } from "next-auth/react";
-import { getEndpointPath } from "@/lib/utils";
 
 type Props = {
   amountEligible: number;
@@ -24,7 +23,7 @@ const applyForLoan = async (
   loanApplication: LoanApplicationFormData,
   token: string
 ) => {
-  const req = new Request(getEndpointPath("/loans/applications/apply"), {
+  const req = new Request("http://localhost:8080/loans/applications/apply", {
     method: "POST",
     body: JSON.stringify(loanApplication),
     headers: {

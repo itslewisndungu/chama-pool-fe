@@ -9,16 +9,17 @@ import { LoanApplicationModal } from "@/app/member/loans/apply/LoanApplicationMo
 
 type Props = {
   amount: number;
+  member: string;
 };
 
-export function MemberEligible({ amount }: Props) {
+export function MemberEligible({ amount, member }: Props) {
   const [accepted, setAccepted] = useState(false);
   const [modalOpened, { open, close }] = useDisclosure(false);
 
   return (
     <div className={"max-w-[70ch] mt-8"}>
       <p className={"text-xl md:text-2xl font-light text-gray-800"}>
-        Dear Lewis. You are eligible for a loan of{" "}
+        Dear {member}. You are eligible for a loan of{" "}
         {getFormattedCurrency(amount)}
       </p>
       <p className={"text-gray-900"}>

@@ -14,7 +14,7 @@ export function MemberLoansSummary({ summary }: Props) {
     <section className={"p-4 flex gap-4 flex-wrap"}>
       <Paper withBorder p="md" radius="md" className="flex-1 space-y-4">
         <Text size="xs" color="dimmed" className="uppercase font-bold">
-          My Loans
+          Loans
         </Text>
 
         <div>

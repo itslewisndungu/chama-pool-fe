@@ -21,6 +21,7 @@ import {
 } from "@tabler/icons-react";
 import { Member } from "@/types/user";
 import { sortTableData } from "@/lib/utils";
+import Link from "next/link";
 
 const useStyles = createStyles(theme => ({
   th: {
@@ -114,7 +115,9 @@ export default function MembersTable({ data }: TableSortProps) {
       <td>{row.username}</td>
       <td>{row.phoneNumber}</td>
       <td>
-        <Button variant="light">View details</Button>
+        <Button variant="light" component={Link}
+            href={`/member/members/${row.username}/profile`}
+        >View details</Button>
       </td>
     </tr>
   ));

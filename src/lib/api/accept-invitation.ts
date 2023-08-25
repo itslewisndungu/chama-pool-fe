@@ -1,5 +1,3 @@
-import { getEndpointPath } from "@/lib/utils";
-
 export async function acceptMemberInvitation(
   memberDetails: {
     username: string;
@@ -8,11 +6,11 @@ export async function acceptMemberInvitation(
   inviteId: number
 ) {
   const req = new Request(
-    getEndpointPath(`/members/invites/${inviteId}/accept`),
+    `http://localhost:8080/members/invites/${inviteId}/accept`,
     {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(memberDetails),
     }

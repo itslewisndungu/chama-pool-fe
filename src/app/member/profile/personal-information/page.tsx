@@ -3,10 +3,9 @@ import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth/next";
 import { UserProfile } from "@/types/user";
 import { redirect } from "next/navigation";
-import { getEndpointPath } from "@/lib/utils";
 
 const getPersonalInfo = async (username: string, token: string) => {
-  const req = new Request(getEndpointPath(`/members/${username}/profile`), {
+  const req = new Request(`http://localhost:8080/members/${username}/profile`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,

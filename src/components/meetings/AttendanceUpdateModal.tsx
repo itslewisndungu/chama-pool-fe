@@ -16,7 +16,6 @@ import { useState, useTransition } from "react";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { notifications } from "@mantine/notifications";
-import { getEndpointPath } from "@/lib/utils";
 
 type Props = {
   opened: boolean;
@@ -33,7 +32,7 @@ const updateMeetingAttendance = async (
   token: string
 ) => {
   const req = new Request(
-    getEndpointPath(`/meetings/${meetingId}/attendance`),
+    `http://localhost:8080/meetings/${meetingId}/attendance`,
     {
       method: "POST",
       headers: {

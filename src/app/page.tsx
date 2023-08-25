@@ -124,7 +124,7 @@ export default function HomePage() {
               ) : null}
             </Group>
           </div>
-          <Image src={image.src} className={classes.image} alt={""} />
+          <Image src={image.src} className={classes.image} />
         </div>
       </Container>
     </div>

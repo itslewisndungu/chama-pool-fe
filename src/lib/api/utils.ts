@@ -1,9 +1,8 @@
 import { Meeting, MeetingAttendance } from "@/types/meetings";
 import { Loan } from "@/types/loans";
-import { getEndpointPath } from "@/lib/utils";
 
 export const getMeetings = async (token: string) => {
-  const req = new Request(getEndpointPath("/meetings"), {
+  const req = new Request(`http://localhost:8080/meetings`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -13,7 +12,7 @@ export const getMeetings = async (token: string) => {
 };
 
 export const getMeetingAttendance = async (id: number, token: string) => {
-  const req = new Request(getEndpointPath(`/meetings/${id}/attendance`), {
+  const req = new Request(`http://localhost:8080/meetings/${id}/attendance`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -28,7 +27,7 @@ export const getMeeting = async (
   meetingId: number,
   token: string
 ): Promise<Meeting> => {
-  const req = new Request(getEndpointPath(`/meetings/${meetingId}`), {
+  const req = new Request(`http://localhost:8080/meetings/${meetingId}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -40,7 +39,7 @@ export const getMeeting = async (
 };
 
 export const getLoan = async (token: string, loanId: number) => {
-  const req = new Request(getEndpointPath(`/loans/${loanId}`), {
+  const req = new Request(`http://localhost:8080/loans/${loanId}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,

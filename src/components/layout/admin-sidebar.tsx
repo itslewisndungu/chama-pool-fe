@@ -19,8 +19,9 @@ const routes = [
     label: "Members",
     icon: IconUsers,
     links: [
-      { label: "Invite new member", link: "/group/members/new-member" },
       { label: "Member directory", link: "/group/members" },
+      { label: "Invite new member", link: "/group/members/new-member" },
+      { label: "Membership fees", link: "/group/members/membership-fees" },
     ],
   },
   {
@@ -37,6 +38,16 @@ const routes = [
     links: [
       { label: "Loan Applications", link: "/group/loans/applications" },
       { label: "Group loans", link: "/group/loans" },
+    ],
+  },
+  {
+    label: "Transactions",
+    icon: IconBuildingBank,
+    links: [
+      {
+        label: "Account Transactions",
+        link: "/group/transactions",
+      },
     ],
   },
 ];
