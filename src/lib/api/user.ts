@@ -24,3 +24,29 @@ export async function getCurrentUser(token: string) {
 
   return fetch(req);
 }
+
+// export async function userLogout() {
+//   return axios.post('/(auth)/logout')
+// }
+
+// export async function refreshUserToken() {
+//   const refreshToken = localStorage.getItem('rt-token')
+
+//   if (!refreshToken) {
+//     return Promise.reject('Refresh token not found. Please log in again')
+//   }
+
+//   return axios.post<Res<User>>(
+//     '/(auth)/refresh',
+//     {},
+//     {
+//       headers: {
+//         Authorization: `Bearer ${refreshToken}`,
+//       },
+//     }
+//   )
+// }
+
+// export async function userSignup(credentials: LoginCredentials) {
+//   return axios.post<Res<User>>('/(auth)/signup', credentials)
+// }

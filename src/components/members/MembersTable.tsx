@@ -13,13 +13,15 @@ import {
   rem,
   Button,
 } from "@mantine/core";
-import { keys } from "@mantine/utils";
 import {
   IconSelector,
   IconChevronDown,
   IconChevronUp,
   IconSearch,
 } from "@tabler/icons-react";
+import { Member } from "@/types/user";
+import { sortTableData } from "@/lib/utils";
+import Link from "next/link";
 
 const useStyles = createStyles(theme => ({
   th: {
@@ -45,21 +47,15 @@ const useStyles = createStyles(theme => ({
   },
 }));
 
-interface RowData {
-  firstName: string;
-  lastName: string;
-  username: string;
-  phoneNumber: string;
-}
-
 interface TableSortProps {
-  data: RowData[];
+  data: Member[];
 }
 
 interface ThProps {
   children: React.ReactNode;
   reversed: boolean;
   sorted: boolean;
+
   onSort(): void;
 }
 
@@ -86,53 +82,29 @@ function Th({ children, reversed, sorted, onSort }: ThProps) {
   );
 }
 
-function filterData(data: RowData[], search: string) {
-  const query = search.toLowerCase().trim();
-  return data.filter(item =>
-    keys(data[0]).some(key => item[key].toLowerCase().includes(query))
-  );
-}
-
-function sortData(
-  data: RowData[],
-  payload: { sortBy: keyof RowData | null; reversed: boolean; search: string }
-) {
-  const { sortBy } = payload;
-
-  if (!sortBy) {
-    return filterData(data, payload.search);
-  }
-
-  return filterData(
-    [...data].sort((a, b) => {
-      if (payload.reversed) {
-        return b[sortBy].localeCompare(a[sortBy]);
-      }
-
-      return a[sortBy].localeCompare(b[sortBy]);
-    }),
-    payload.search
-  );
-}
-
 export default function MembersTable({ data }: TableSortProps) {
-  const [search, setSearch] = useState("");
   const [sortedData, setSortedData] = useState(data);
-  const [sortBy, setSortBy] = useState<keyof RowData | null>(null);
+  const [search, setSearch] = useState("");
+  const [sortBy, setSortBy] = useState<keyof Member | null>(null);
   const [reverseSortDirection, setReverseSortDirection] = useState(false);
 
-  const setSorting = (field: keyof RowData) => {
+  const setSorting = (field: keyof Member) => {
     const reversed = field === sortBy ? !reverseSortDirection : false;
     setReverseSortDirection(reversed);
     setSortBy(field);
-    setSortedData(sortData(data, { sortBy: field, reversed, search }));
+    setSortedData(
+      sortTableData<Member>(data, { sortBy: field, reversed, search })
+    );
   };
 
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.currentTarget;
-    setSearch(value);
+  const handleSearch = (searchedValue: string) => {
+    setSearch(searchedValue);
     setSortedData(
-      sortData(data, { sortBy, reversed: reverseSortDirection, search: value })
+      sortTableData<Member>(data, {
+        sortBy,
+        reversed: reverseSortDirection,
+        search: searchedValue,
+      })
     );
   };
 
@@ -143,7 +115,9 @@ export default function MembersTable({ data }: TableSortProps) {
       <td>{row.username}</td>
       <td>{row.phoneNumber}</td>
       <td>
-        <Button variant="light">View details</Button>
+        <Button variant="light" component={Link}
+            href={`/member/members/${row.username}/profile`}
+        >View details</Button>
       </td>
     </tr>
   ));
@@ -155,7 +129,7 @@ export default function MembersTable({ data }: TableSortProps) {
         mb="md"
         icon={<IconSearch size="0.9rem" stroke={1.5} />}
         value={search}
-        onChange={handleSearchChange}
+        onChange={event => handleSearch(event.currentTarget.value)}
       />
       <Table
         horizontalSpacing="md"

@@ -1,6 +1,6 @@
-import { MemberRole } from '@/types/MemberRole';
+import { MemberRole } from "@/types/user";
 
-declare module 'next-auth' {
+declare module "next-auth" {
   interface Session {
     user: {
       id: number;
@@ -18,13 +18,13 @@ declare module 'next-auth' {
   }
 }
 
-declare module 'next-auth/jwt' {
+declare module "next-auth/jwt" {
   interface JWT {
     accessToken: string;
   }
 }
 
-declare module 'next-auth' {
+declare module "next-auth" {
   interface User {
     id: number;
     firstName: string;

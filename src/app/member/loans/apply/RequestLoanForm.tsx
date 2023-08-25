@@ -24,7 +24,7 @@ const applyForLoan = async (
   loanApplication: LoanApplicationFormData,
   token: string
 ) => {
-  const req = new Request(getEndpointPath("/loans/applications/apply"), {
+  const req = new Request(getEndpointPath(`/loans/applications/apply`), {
     method: "POST",
     body: JSON.stringify(loanApplication),
     headers: {

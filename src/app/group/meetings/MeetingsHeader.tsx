@@ -3,14 +3,16 @@
 import { Button, Modal } from "@mantine/core";
 import { IconCalendar, IconCalendarEvent, IconPlus } from "@tabler/icons-react";
 import Link from "next/link";
+import DownloadReportButton from "@/components/reports/DownloadReportButton";
+import { getEndpointPath } from "@/lib/utils";
 
-type Props = {};
+type Props = { token: string };
 
-const MeetingsHeader = (props: Props) => {
+const MeetingsHeader = ({ token }: Props) => {
   return (
     <div className="flex justify-between items-center">
       <h1 className="my-0">Meetings</h1>
-      <div>
+      <div className={"space-x-4"}>
         <Button
           rightIcon={<IconCalendarEvent />}
           component={Link}
@@ -18,6 +20,10 @@ const MeetingsHeader = (props: Props) => {
         >
           Schedule meeting
         </Button>
+        <DownloadReportButton
+          link={getEndpointPath(`/meetings/report`)}
+          token={token}
+        />
       </div>
     </div>
   );

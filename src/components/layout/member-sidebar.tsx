@@ -18,15 +18,13 @@ const routes = [
   {
     label: "Members",
     icon: IconUsers,
-    links: [{ label: "Member directory", link: "/member/members/directory" }],
+    links: [{ label: "Member directory", link: "/member/members" }],
   },
   {
     label: "Profile",
     icon: IconUsers,
     links: [
-      { label: "Your profile", link: "/member/dashboard" },
-      { label: "Contributions", link: "/member/dashboard" },
-      { label: "Fines", link: "/member/dashboard" },
+      { label: "Your profile", link: "/member/profile" },
     ],
   },
   {

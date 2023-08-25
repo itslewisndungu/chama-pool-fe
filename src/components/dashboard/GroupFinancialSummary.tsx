@@ -14,7 +14,6 @@ export function GroupFinancialSummary({ summary }: Props) {
     <section className="p-4 flex gap-4 flex-wrap">
       <AccountBalanceStatCard balance={summary.accountBalance} />
       <MonthlyRevenueStatCard revenue={summary.totalIncome} />
-      <MonthlyExpensesStatCard expenses={summary.totalExpenses} />
     </section>
   );
 }
@@ -47,7 +46,7 @@ const MonthlyRevenueStatCard = ({ revenue }: { revenue: number }) => {
     <Paper withBorder p="md" radius="md" className="flex-1">
       <Group position="apart">
         <Text size="xs" color="dimmed" className="uppercase font-bold">
-          Total Revenue
+          Interest earned from loans
         </Text>
         <IconReceipt2 className="text-gray-300" size="1.4rem" stroke={1.5} />
       </Group>
@@ -57,10 +56,6 @@ const MonthlyRevenueStatCard = ({ revenue }: { revenue: number }) => {
           {getFormattedCurrency(revenue)}
         </p>
       </div>
-
-      <Text fz="xs" c="dimmed" mt={7}>
-        Amount that the group has earned.
-      </Text>
     </Paper>
   );
 };
@@ -70,7 +65,7 @@ const MonthlyExpensesStatCard = ({ expenses }: { expenses: number }) => {
     <Paper withBorder p="md" radius="md" className="flex-1">
       <Group position="apart">
         <Text size="xs" color="dimmed" className="uppercase font-bold">
-          Total Expenses
+          Interest earned from loans
         </Text>
         <IconTransferOut className="text-gray-300" size="1.4rem" stroke={1.5} />
       </Group>
@@ -80,10 +75,6 @@ const MonthlyExpensesStatCard = ({ expenses }: { expenses: number }) => {
           {getFormattedCurrency(expenses)}
         </p>
       </div>
-
-      <Text fz="xs" c="dimmed" mt={7}>
-        Expenses the group has incurred.
-      </Text>
     </Paper>
   );
 };

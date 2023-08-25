@@ -1,6 +1,5 @@
 "use client";
 
-import { InvitedMember } from "@/types/InvitedMember";
 import { Button, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { IconCheck, IconUserPlus } from "@tabler/icons-react";
@@ -8,10 +7,11 @@ import { signIn, useSession } from "next-auth/react";
 import { DateInput } from "@mantine/dates";
 import { useState, useTransition } from "react";
 import { notifications } from "@mantine/notifications";
+import { InvitedMember } from "@/types/user";
 import { getEndpointPath } from "@/lib/utils";
 
 const inviteMember = async (memberDetails: InvitedMember, token: string) => {
-  const req = new Request(getEndpointPath("/members/invites"), {
+  const req = new Request(getEndpointPath(`/members/invites`), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -24,17 +24,29 @@ const inviteMember = async (memberDetails: InvitedMember, token: string) => {
 };
 
 export const NewMemberForm = () => {
-  const form = useForm<InvitedMember>({});
+  const form = useForm<InvitedMember>({
+    validate: {
+      phoneNumber: p =>
+        /^(\+254)?\d{9}$/.test(p) ? null : "Invalid phone number",
+      nationalId: n => (/^[0-9]{8}$/.test(n) ? null : "Invalid national ID"),
+    },
+  });
 
   const [error, setError] = useState<string>();
   const [pending, startTransition] = useTransition();
-
   const { data: session } = useSession({
     required: true,
     onUnauthenticated() {
       return signIn();
     },
   });
+
+  const today = new Date();
+  const maxDate = new Date(
+    today.getFullYear() - 18,
+    today.getMonth(),
+    today.getDate()
+  );
 
   const handleSubmit = async (memberDetails: InvitedMember) => {
     setError(undefined);
@@ -98,7 +110,7 @@ export const NewMemberForm = () => {
         />
 
         <DateInput
-          maxDate={new Date(Date.now())}
+          maxDate={maxDate}
           label={"Date of Birth"}
           id={"dateOfBirth"}
           placeholder={"22/10/2023"}

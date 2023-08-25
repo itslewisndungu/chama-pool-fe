@@ -3,7 +3,7 @@ import { Loan } from "@/types/loans";
 import { getEndpointPath } from "@/lib/utils";
 
 export const getMeetings = async (token: string) => {
-  const req = new Request(getEndpointPath("/meetings"), {
+  const req = new Request(getEndpointPath(`/meetings`), {
     headers: {
       Authorization: `Bearer ${token}`,
     },

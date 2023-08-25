@@ -5,6 +5,7 @@ import { LoanApplication, LoanApplicationStatus } from "@/types/loans";
 import { sortTableData } from "@/lib/utils";
 import { LoanApplicationsHeader } from "@/app/group/loans/applications/loans-applications-header";
 import { LoanApplicationsTable } from "@/app/group/loans/applications/loan-applications-table";
+import { ApplicationsTable } from "@/app/member/loans/applications/past-applications/applications-table";
 
 type Props = {
   applications: LoanApplication[];

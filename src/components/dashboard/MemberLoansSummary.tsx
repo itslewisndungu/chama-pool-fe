@@ -51,7 +51,7 @@ export function MemberLoansSummary({ summary }: Props) {
 
       <Paper withBorder p="md" radius="md" className="flex-1 space-y-4 ">
         <Text size="xs" color="dimmed" className="uppercase font-bold">
-          Loans Summary
+          Loans Summary by Category
         </Text>
         <div>
           <p className={"m-0 space-x-2"}>

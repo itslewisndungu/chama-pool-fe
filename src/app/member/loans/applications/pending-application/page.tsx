@@ -15,7 +15,7 @@ const mockGetActiveLoanApplication = async (): Promise<
 const getActiveLoanApplication = async (
   token: string
 ): Promise<LoanApplication | undefined> => {
-  const request = new Request(getEndpointPath("/loans/applications/active"), {
+  const request = new Request(getEndpointPath(`/loans/applications/active`), {
     headers: {
       Authorization: `Bearer ${token}`,
     },

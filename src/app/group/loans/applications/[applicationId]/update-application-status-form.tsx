@@ -22,18 +22,6 @@ type LoanApproval = {
   message?: string;
 };
 
-const mockUpdateApplicationStatusForm = async (approval: LoanApproval) => {
-  return new Promise<any>((resolve, reject) => {
-    setTimeout(() => {
-      if (approval.approval === LoanApprovalStatus.APPROVED) {
-        resolve(approval);
-      } else {
-        reject("An error occurred");
-      }
-    }, 1000);
-  });
-};
-
 const updateApplicationStatus = async (
   loanId: number,
   approval: LoanApproval,
@@ -80,6 +68,12 @@ export function UpdateApplicationStatusForm({
           ? LoanApprovalStatus.APPROVED
           : LoanApprovalStatus.REJECTED,
       message: message,
+    },
+    validate: {
+      message: (value, formVals) =>
+        formVals.approval === LoanApprovalStatus.REJECTED && !value
+          ? "Please provide a reason for rejection"
+          : null,
     },
   });
 

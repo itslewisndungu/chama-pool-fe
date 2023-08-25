@@ -11,8 +11,9 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import { IconLogin } from "@tabler/icons-react";
 import { signIn, useSession } from "next-auth/react";
-import { MemberRole } from "@/types/MemberRole";
 import { NavbarMenu } from "@/components/layout/NavbarMenu";
+import { MemberRole } from "@/types/user";
+import { usePathname } from "next/navigation";
 
 const useStyles = createStyles(theme => ({
   header: {
@@ -52,11 +53,16 @@ export default function Navbar({ notificationsIcon }: Props) {
         role === MemberRole.CHAIRMAN
     );
 
+  const inAdminDashboard = usePathname().startsWith("/group");
+
   return (
     <header className={classes.header}>
       <div className={`text-white py-2 px-8`}>
         <Group position="apart">
-          <p>Vision Ahead Chama System</p>
+          <p className={"font-semibold my-0"}>
+            Vision Ahead Chama System <br />
+            {inAdminDashboard ? "Admin dasboard" : null}
+          </p>
           <Burger
             opened={opened}
             onClick={toggle}

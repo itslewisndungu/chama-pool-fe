@@ -19,7 +19,7 @@ type FormInputs = {
 };
 
 const scheduleMeeting = async (meeting: FormInputs, token: string) => {
-  const req = new Request(getEndpointPath("/meetings/schedule"), {
+  const req = new Request(getEndpointPath(`/meetings/schedule`), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

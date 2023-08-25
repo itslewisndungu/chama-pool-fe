@@ -12,8 +12,7 @@ import { redirect } from "next/navigation";
 import { getEndpointPath } from "@/lib/utils";
 
 const getGroupFinancialSummary = async (token: string) => {
-  const path = getEndpointPath("/chama/account-summary");
-  const req = new Request(path, {
+  const req = new Request(getEndpointPath(`/chama/account-summary`), {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -23,8 +22,7 @@ const getGroupFinancialSummary = async (token: string) => {
 };
 
 const getMeetingsSummary = async (token: string) => {
-  const path = getEndpointPath("/chama/meetings-summary");
-  const req = new Request(path, {
+  const req = new Request(getEndpointPath(`/member/meetings-summary`), {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -34,8 +32,7 @@ const getMeetingsSummary = async (token: string) => {
 };
 
 const getMemberLoansSummary = async (token: string) => {
-  const path = getEndpointPath("member/loans-summary");
-  const req = new Request(path, {
+  const req = new Request(getEndpointPath(`/member/loans-summary`), {
     headers: {
       Authorization: `Bearer ${token}`,
     },

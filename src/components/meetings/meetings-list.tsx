@@ -36,32 +36,9 @@ export const MeetingsList = ({ meetings }: Props) => {
     );
   };
 
-  const handleFilter = (filteredValue: MeetingCategory | undefined) => {
-    let searchedValue = "";
-
-    if (filteredValue) {
-      if (Array.isArray(filteredValue)) {
-        // Handle an array of MeetingStatus values
-        searchedValue = filteredValue.join(",");
-      } else {
-        // Handle a single MeetingStatus value
-        searchedValue = filteredValue.toString();
-      }
-    }
-
-    setSearch(searchedValue);
-    setSortedData(
-      sortTableData<Meeting>(meetings, {
-        sortBy,
-        reversed: reverseSortDirection,
-        search: searchedValue,
-      })
-    );
-  };
-
   return (
     <>
-      <MeetingsListHeader />
+      <MeetingsListHeader search={handleSearch} />
       <MeetingsListTable
         meetings={sortedData}
         setSorting={setSorting}

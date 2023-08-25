@@ -10,7 +10,7 @@ const getUser = async ({
   username: string;
   password: string;
 }): Promise<User | null> => {
-  const res = await fetch(getEndpointPath("/auth/login"), {
+  const res = await fetch(getEndpointPath(`/auth/login`), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

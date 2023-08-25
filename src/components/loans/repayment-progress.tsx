@@ -22,7 +22,7 @@ export function RepaymentProgress({ loan, isTreasurer }: Params) {
           {isTreasurer ? (
             <>
               <p className={"lead"}>This still awaiting disbursement.</p>
-              <DisburseLoanButton loanId={loan.id} />
+              <DisburseLoanButton loanId={loan.loanId} />
             </>
           ) : (
             <p className={"lead"}>

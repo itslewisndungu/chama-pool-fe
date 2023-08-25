@@ -1,4 +1,4 @@
-import { InvitedMember } from "@/types/InvitedMember";
+import { InvitedMember } from "@/types/user";
 import { getEndpointPath } from "@/lib/utils";
 
 export async function inviteMemberToGroup(

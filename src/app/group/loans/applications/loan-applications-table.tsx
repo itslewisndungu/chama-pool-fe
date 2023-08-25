@@ -17,6 +17,7 @@ import {
 } from "@tabler/icons-react";
 import { LoanApplication, LoanApplicationStatus } from "@/types/loans";
 import Link from "next/link";
+import { getFormattedCurrency, getFormattedDate } from "@/lib/utils";
 
 const useStyles = createStyles(theme => ({
   th: {
@@ -53,6 +54,7 @@ interface ThProps {
   children: React.ReactNode;
   reversed: boolean;
   sorted: boolean;
+
   onSort(): void;
 }
 
@@ -85,11 +87,14 @@ export const LoanApplicationsTable = ({
   sortBy,
   reverseSortDirection,
 }: Props) => {
+  console.log(applications)
+
   const rows = applications.map((application, idx) => (
     <tr key={application.id}>
       <td>{idx + 1}</td>
       <td>{application.memberName}</td>
-      <td>{application.amount}</td>
+      <td>{getFormattedCurrency(application.amount)}</td>
+      <td>{getFormattedDate(application.applicationDate)}</td>
       <td>
         <Badge
           color={
@@ -125,7 +130,7 @@ export const LoanApplicationsTable = ({
       >
         <thead>
           <tr>
-            <th>
+            <th style={{ width: rem(60) }}>
               <Text fw={500} fz="sm">
                 #
               </Text>
@@ -142,14 +147,21 @@ export const LoanApplicationsTable = ({
               reversed={reverseSortDirection}
               onSort={() => setSorting("amount")}
             >
-              Amount requested
+              Amount
+            </Th>
+            <Th
+              sorted={sortBy === "amount"}
+              reversed={reverseSortDirection}
+              onSort={() => setSorting("amount")}
+            >
+                Application Date
             </Th>
             <Th
               sorted={sortBy === "status"}
               reversed={reverseSortDirection}
               onSort={() => setSorting("status")}
             >
-              Application status
+              Status
             </Th>
             <th>
               <Text fw={500} fz="sm">

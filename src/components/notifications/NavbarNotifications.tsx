@@ -16,7 +16,7 @@ const getUnreadNotifications = async (token: string | undefined) => {
     );
   }
 
-  const req = new Request(getEndpointPath("/notifications/member"), {
+  const req = new Request(getEndpointPath(`/notifications/member`), {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,

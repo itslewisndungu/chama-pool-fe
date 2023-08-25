@@ -17,6 +17,7 @@ import {
 } from "@tabler/icons-react";
 import { Loan } from "@/types/loans";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const useStyles = createStyles(theme => ({
   th: {
@@ -85,9 +86,11 @@ export const LoansListTable = ({
   sortBy,
   reverseSortDirection,
 }: Props) => {
+    const inAdmin = usePathname().startsWith("/group");
+
   const loansRows = loans.map(loan => (
-    <tr key={loan.id}>
-      <td>{loan.memberName}</td>
+    <tr key={loan.loanId}>
+      <td>{loan.fullName}</td>
       <td>{loan.amount}</td>
       <td>
         <Badge>{loan.status}</Badge>
@@ -96,7 +99,7 @@ export const LoansListTable = ({
         <Button
           variant={"subtle"}
           component={Link}
-          href={`/group/loans/${loan.id}/summary`}
+          href={inAdmin ? `/group/loans/${loan.loanId}/summary` : `/member/loans/${loan.loanId}/summary`}
         >
           View Details
         </Button>
@@ -115,9 +118,9 @@ export const LoansListTable = ({
         <thead>
           <tr>
             <Th
-              sorted={sortBy === "memberName"}
+              sorted={sortBy === "fullName"}
               reversed={reverseSortDirection}
-              onSort={() => setSorting("memberName")}
+              onSort={() => setSorting("fullName")}
             >
               Member name
             </Th>

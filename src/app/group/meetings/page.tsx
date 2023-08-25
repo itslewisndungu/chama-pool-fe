@@ -15,7 +15,7 @@ export default async function Page() {
 
   return (
     <section className="grid gap-4">
-      <MeetingsHeader />
+      <MeetingsHeader token={session.accessToken} />
       <MeetingsList meetings={meetings} />
     </section>
   );
