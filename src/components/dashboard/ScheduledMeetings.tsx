@@ -3,6 +3,7 @@
 import { Button, Paper, Text } from "@mantine/core";
 import { getFormattedCurrency } from "@/lib/utils";
 import { MeetingsSummary } from "@/types/dashboard";
+import Link from "next/link";
 
 type Props = {
   summary: MeetingsSummary;
@@ -21,7 +22,9 @@ export function ScheduledMeetings({ summary }: Props) {
             <p className={"font-light text-gray-800 text-lg my-2"}>
               No group meetings scheduled
             </p>
-            <Button>Schedule meeting</Button>
+            <Button component={Link} href="/group/meetings">
+              Schedule meeting
+            </Button>
           </>
         ) : (
           <>

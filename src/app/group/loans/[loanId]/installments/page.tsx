@@ -14,7 +14,11 @@ const getLoanInstallments = async (loanId: number, token: string) => {
     },
   });
 
-  return (await fetch(req).then(res => res.json())) as LoanInstallment[];
+  return (await fetch(req).then(res => res.json())) as {
+    installments: LoanInstallment[];
+    loanBalance: number;
+    totalPaid: number;
+  };
 };
 
 type Props = {
@@ -29,7 +33,7 @@ export default async function LoanInstallmentsPage({ params }: Props) {
     return redirect("/login");
   }
 
-  const loanInstallments = await getLoanInstallments(
+  const { installments, loanBalance } = await getLoanInstallments(
     params.loanId,
     session.accessToken
   );
@@ -39,7 +43,8 @@ export default async function LoanInstallmentsPage({ params }: Props) {
   return (
     <>
       <LoanInstallmentsList
-        installments={loanInstallments}
+        installments={installments}
+        balance={loanBalance}
         loanId={params.loanId}
         isAdmin={isAdmin}
       />

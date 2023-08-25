@@ -1,6 +1,5 @@
 "use client";
 
-import { InvitedMember } from "@/types/InvitedMember";
 import { Button, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { IconCheck, IconUserPlus } from "@tabler/icons-react";
@@ -9,6 +8,7 @@ import { DateInput } from "@mantine/dates";
 import { useState, useTransition } from "react";
 import { notifications } from "@mantine/notifications";
 import { getEndpointPath } from "@/lib/utils";
+import { InvitedMember } from "@/types/user";
 
 const inviteMember = async (memberDetails: InvitedMember, token: string) => {
   const req = new Request(getEndpointPath("/members/invites"), {

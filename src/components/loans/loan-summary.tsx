@@ -65,7 +65,7 @@ export function LoanSummary({ loan }: Params) {
 
         <p className={"m-0"}>
           <span className={" text-sm"}>Member Name: </span>
-          <span className={"font-semibold"}>{loan.memberName}</span>
+          <span className={"font-semibold"}>{loan.fullName}</span>
         </p>
         <p className={"m-0"}>
           <span className={" text-sm"}>Member ID: </span>

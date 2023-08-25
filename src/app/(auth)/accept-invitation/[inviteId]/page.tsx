@@ -1,5 +1,6 @@
 import { InvitedMember } from "@/types/InvitedMember";
 import AcceptInvitationForm from "./AcceptInvatationForm";
+import { InvitedMember } from "@/types/user";
 import {getEndpointPath} from "@/lib/utils";
 
 type Props = {
@@ -15,7 +16,7 @@ async function getInvitedMember(id: string) {
     headers: {
       "Content-Type": "application/json",
     },
-    cache: 'no-store'
+    cache: "no-store",
   });
 
   const res = await fetch(req);
@@ -27,7 +28,6 @@ async function getInvitedMember(id: string) {
 
 export default async function Page({ params }: Props) {
   const invitation = await getInvitedMember(params.inviteId);
-  console.log(invitation)
 
   return (
     <main className="grid place-content-center mx-auto">

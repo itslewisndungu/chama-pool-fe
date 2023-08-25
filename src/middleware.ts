@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getSession } from "next-auth/react";
-import { MemberRole } from "./types/MemberRole";
 import { IncomingMessage } from "http";
 import { isUserAdmin } from "@/lib/utils";
 

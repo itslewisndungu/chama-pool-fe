@@ -1,9 +1,10 @@
 import React from "react";
 import { getServerSession } from "next-auth/next";
-import MembersTable from "./MembersTable";
-import { UserProfile } from "@/types/user";
+import { Member } from "@/types/user";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import DownloadReportButton from "@/components/reports/DownloadReportButton";
+import MembersTable from "@/components/members/MembersTable";
 import { getEndpointPath } from "@/lib/utils";
 
 type Props = {};
@@ -16,17 +17,7 @@ const getMembersList = async (token: string) => {
     },
   });
 
-  const res = await fetch(req, { next: { revalidate: 10 } });
-  const members = (await res.json()) as UserProfile[];
-
-  return members.map(m => {
-    return {
-      firstName: m.firstName,
-      lastName: m.lastName,
-      username: m.username,
-      phoneNumber: m.phoneNumber,
-    };
-  });
+  return (await fetch(req).then(res => res.json())) as { members: Member[] };
 };
 
 export default async function Page({}: Props) {
@@ -41,8 +32,14 @@ export default async function Page({}: Props) {
 
   return (
     <section className={"max-w-5xl"}>
-      <h1 className={"mt-0"}>Members directory</h1>
-      <MembersTable data={members} />
+      <div className={"flex justify-between items-center"}>
+        <h1 className={"mt-0"}>Members directory</h1>
+        <DownloadReportButton
+          token={session.accessToken}
+          link={`http://localhost:8080/reports/group-members`}
+        />
+      </div>
+      <MembersTable data={members.members} />
     </section>
   );
 }

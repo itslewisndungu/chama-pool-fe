@@ -20,7 +20,7 @@ const routes = [
     icon: IconUsers,
     links: [
       { label: "Invite new member", link: "/group/members/new-member" },
-      { label: "Member directory", link: "/group/members/directory" },
+      { label: "Member directory", link: "/group/members" },
     ],
   },
   {

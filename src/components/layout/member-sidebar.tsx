@@ -18,7 +18,7 @@ const routes = [
   {
     label: "Members",
     icon: IconUsers,
-    links: [{ label: "Member directory", link: "/member/members/directory" }],
+    links: [{ label: "Member directory", link: "/member/members" }],
   },
   {
     label: "Profile",

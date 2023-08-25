@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { getEndpointPath } from "@/lib/utils";
+import DownloadReportButton from "@/components/reports/DownloadReportButton";
 
 const getGroupLoans = async (token: string): Promise<Loan[]> => {
   const req = new Request(getEndpointPath(getEndpointPath("/loans")), {
@@ -26,7 +27,13 @@ export default async function MemberLoansPage() {
 
   return (
     <>
-      <h1>List member loans</h1>
+      <div className={"flex justify-between items-center"}>
+        <h1>Group Loans</h1>
+        <DownloadReportButton
+          token={session.accessToken}
+          link={"http://localhost:8080/loans/report"}
+        />
+      </div>
       <LoansList loans={loans} />
     </>
   );

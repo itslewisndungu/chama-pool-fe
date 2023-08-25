@@ -7,6 +7,7 @@ export type LoanSummary = {
   repaidLoans: number;
   pendingLoans: number;
   loanApplications: number;
+  outstandingBalance: number;
 };
 
 export type GroupAccountSummary = {

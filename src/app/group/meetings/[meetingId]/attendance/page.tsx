@@ -1,10 +1,10 @@
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { MemberRole } from "@/types/MemberRole";
 import { getMeetingAttendance } from "@/lib/api/utils";
 import { Attendance } from "@/components/meetings/Attendance";
 import { MeetingNotInitiated } from "@/components/meetings/MeetingNotInitiated";
+import { MemberRole } from "@/types/user";
 
 type Props = {
   params: {

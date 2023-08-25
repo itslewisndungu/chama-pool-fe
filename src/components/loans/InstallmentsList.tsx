@@ -13,9 +13,10 @@ type Props = {
   installments: LoanInstallment[];
   loanId: number;
   isAdmin: boolean;
+  balance: number;
 };
 
-export function LoanInstallmentsList({ installments, isAdmin, loanId }: Props) {
+export function LoanInstallmentsList({ installments, isAdmin, loanId, balance }: Props) {
   const [sortedData, setSortedData] = useState<LoanInstallment[]>(installments);
 
   const [search] = useState("");
@@ -64,6 +65,7 @@ export function LoanInstallmentsList({ installments, isAdmin, loanId }: Props) {
             opened={opened}
             close={closeRecordInstallmentModal}
             loanId={loanId}
+            loanBalance={balance}
           />
         </>
       ) : null}
