@@ -1,7 +1,8 @@
 import { LoginCredentials } from "@/types/LoginCredentials";
+import { getEndpointPath } from "@/lib/utils";
 
 export async function userLogin(credentials: LoginCredentials) {
-  const loginRequest = new Request("http://localhost:8080/auth/login", {
+  const loginRequest = new Request(getEndpointPath(`/auth/login`), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -13,7 +14,7 @@ export async function userLogin(credentials: LoginCredentials) {
 }
 
 export async function getCurrentUser(token: string) {
-  const req = new Request("http://localhost:8080/auth/me", {
+  const req = new Request(getEndpointPath(`/auth/me`), {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -23,29 +24,3 @@ export async function getCurrentUser(token: string) {
 
   return fetch(req);
 }
-
-// export async function userLogout() {
-//   return axios.post('/(auth)/logout')
-// }
-
-// export async function refreshUserToken() {
-//   const refreshToken = localStorage.getItem('rt-token')
-
-//   if (!refreshToken) {
-//     return Promise.reject('Refresh token not found. Please log in again')
-//   }
-
-//   return axios.post<Res<User>>(
-//     '/(auth)/refresh',
-//     {},
-//     {
-//       headers: {
-//         Authorization: `Bearer ${refreshToken}`,
-//       },
-//     }
-//   )
-// }
-
-// export async function userSignup(credentials: LoginCredentials) {
-//   return axios.post<Res<User>>('/(auth)/signup', credentials)
-// }

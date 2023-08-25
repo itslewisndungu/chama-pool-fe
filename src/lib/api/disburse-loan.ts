@@ -2,6 +2,7 @@
 
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
+import { getEndpointPath } from "@/lib/utils";
 
 export const disburseLoan = async (loanId: number) => {
   const session = await getServerSession(authOptions);
@@ -10,7 +11,7 @@ export const disburseLoan = async (loanId: number) => {
     throw new Error("Unauthorized");
   }
 
-  const req = new Request(`http://localhost:8080/loans/${loanId}/disburse`, {
+  const req = new Request(getEndpointPath(`/loans/${loanId}/disburse`), {
     method: "POST",
     headers: {
       Authorization: `Bearer ${session.accessToken}`,
@@ -28,17 +29,14 @@ export const recordLoanInstallment = async (loanId: number, amount: number) => {
     throw new Error("Unauthorized");
   }
 
-  const req = new Request(
-    `http://localhost:8080/loans/${loanId}/installments`,
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${session.accessToken}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ amount }),
-    }
-  );
+  const req = new Request(getEndpointPath(`/loans/${loanId}/installments`), {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${session.accessToken}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ amount }),
+  });
 
   const res = await fetch(req);
   return res;

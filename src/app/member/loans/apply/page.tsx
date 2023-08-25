@@ -4,6 +4,7 @@ import { LoanEligibility } from "@/types/loans";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { getEndpointPath } from "@/lib/utils";
 
 const mockIsMemberEligibleForLoan = async (
   eligible: boolean = true
@@ -24,7 +25,7 @@ const mockIsMemberEligibleForLoan = async (
 const isMemberEligibleForLoan = async (
   token: string
 ): Promise<LoanEligibility> => {
-  const req = new Request("http://localhost:8080/loans/eligibility", {
+  const req = new Request(getEndpointPath("/loans/eligibility"), {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,

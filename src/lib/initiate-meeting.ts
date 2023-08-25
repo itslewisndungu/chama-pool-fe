@@ -3,6 +3,7 @@
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { getEndpointPath } from "@/lib/utils";
 
 const initiateMeeting = async (meetingId: number) => {
   const session = await getServerSession(authOptions);
@@ -10,15 +11,12 @@ const initiateMeeting = async (meetingId: number) => {
     return redirect("/login");
   }
 
-  const req = new Request(
-    `http://localhost:8080/meetings/${meetingId}/initiate`,
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${session.accessToken}`,
-      },
-    }
-  );
+  const req = new Request(getEndpointPath(`/meetings/${meetingId}/initiate`), {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${session.accessToken}`,
+    },
+  });
 
   return await fetch(req).then(res => res.json());
 };

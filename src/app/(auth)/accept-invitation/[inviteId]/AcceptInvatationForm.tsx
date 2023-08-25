@@ -13,6 +13,7 @@ import { notifications } from "@mantine/notifications";
 import { useState, useTransition } from "react";
 import { LoginCredentials } from "@/types/LoginCredentials";
 import { useRouter } from "next/navigation";
+import {getEndpointPath} from "@/lib/utils";
 
 type Props = {
   invitation: InvitedMember & { username: string; inviteId: number };
@@ -22,8 +23,9 @@ const acceptInvitation = async (
   inviteId: number,
   memberDetails: LoginCredentials
 ) => {
+  const path = getEndpointPath(`/members/invites/${inviteId}/accept`)
   const req = new Request(
-    `http://localhost:8080/members/invites/${inviteId}/accept`,
+    path,
     {
       method: "POST",
       headers: {

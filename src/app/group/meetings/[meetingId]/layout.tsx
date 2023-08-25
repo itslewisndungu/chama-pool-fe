@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Meeting } from "@/types/meetings";
-import { getFormattedDate } from "@/lib/utils";
+import { getEndpointPath, getFormattedDate } from "@/lib/utils";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
@@ -17,7 +17,7 @@ const getMeeting = async (
   meetingId: number,
   token: string
 ): Promise<Meeting> => {
-  const req = new Request(`http://localhost:8080/meetings/${meetingId}`, {
+  const req = new Request(getEndpointPath(`/meetings/${meetingId}`), {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

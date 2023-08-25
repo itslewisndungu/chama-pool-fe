@@ -1,5 +1,6 @@
 import { InvitedMember } from "@/types/InvitedMember";
 import AcceptInvitationForm from "./AcceptInvatationForm";
+import {getEndpointPath} from "@/lib/utils";
 
 type Props = {
   params: {
@@ -8,7 +9,8 @@ type Props = {
 };
 
 async function getInvitedMember(id: string) {
-  const req = new Request(`http://localhost:8080/members/invites/${id}`, {
+  const path = getEndpointPath(`/members/invites/${id}`)
+  const req = new Request(path, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

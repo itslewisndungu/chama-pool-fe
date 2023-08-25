@@ -161,3 +161,8 @@ export const compareDates = (dateA: string | Date, dateB: string | Date) => {
     return 0;
   }
 };
+
+export const getEndpointPath = (path?: string): string => {
+  const apiPath = process.env.SERVER_URL
+  return `${apiPath}${path}`
+}

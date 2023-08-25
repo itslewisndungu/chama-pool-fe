@@ -3,7 +3,7 @@ import { useForm } from "@mantine/form";
 import { DateInput } from "@mantine/dates";
 import { Button, NativeSelect, Textarea, TextInput } from "@mantine/core";
 import { Meeting, MeetingCategory } from "@/types/meetings";
-import { getFormattedDate } from "@/lib/utils";
+import { getEndpointPath, getFormattedDate } from "@/lib/utils";
 import { IconCheck, IconPlus } from "@tabler/icons-react";
 import Link from "next/link";
 import { useState, useTransition } from "react";
@@ -19,7 +19,7 @@ type FormInputs = {
 };
 
 const scheduleMeeting = async (meeting: FormInputs, token: string) => {
-  const req = new Request("http://localhost:8080/meetings/schedule", {
+  const req = new Request(getEndpointPath("/meetings/schedule"), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

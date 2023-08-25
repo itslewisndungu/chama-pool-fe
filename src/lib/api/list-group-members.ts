@@ -1,6 +1,8 @@
+import { getEndpointPath } from "@/lib/utils";
+
 export async function listAllGroupMembers() {
-  const req = new Request('http://localhost:8080/members', {
-    method: 'GET',
+  const req = new Request(getEndpointPath(`/members`), {
+    method: "GET",
     next: {
       revalidate: 10,
     },

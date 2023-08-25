@@ -3,9 +3,10 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { LoansList } from "@/components/loans/loans-list";
+import { getEndpointPath } from "@/lib/utils";
 
 const getMyLoans = async (token: string): Promise<Loan[]> => {
-  const req = new Request("http://localhost:8080/loans/my-loans", {
+  const req = new Request(getEndpointPath("/loans/my-loans"), {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,

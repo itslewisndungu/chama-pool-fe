@@ -8,9 +8,10 @@ import { signIn, useSession } from "next-auth/react";
 import { DateInput } from "@mantine/dates";
 import { useState, useTransition } from "react";
 import { notifications } from "@mantine/notifications";
+import { getEndpointPath } from "@/lib/utils";
 
 const inviteMember = async (memberDetails: InvitedMember, token: string) => {
-  const req = new Request("http://localhost:8080/members/invites", {
+  const req = new Request(getEndpointPath("/members/invites"), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

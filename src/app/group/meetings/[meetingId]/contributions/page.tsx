@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { MemberRole } from "@/types/MemberRole";
 import { MeetingNotInitiated } from "@/components/meetings/MeetingNotInitiated";
 import ContributionsList from "@/components/meetings/ContributionsList";
+import { getEndpointPath } from "@/lib/utils";
 
 type Props = {
   params: {
@@ -13,16 +14,13 @@ type Props = {
 };
 
 const getContributions = async (id: number, token: string) => {
-  const req = new Request(
-    `http://localhost:8080/meetings/${id}/contributions`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const req = new Request(getEndpointPath(`/meetings/${id}/contributions`), {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   return (await fetch(req).then(res => res.json())) as MeetingContribution[];
 };

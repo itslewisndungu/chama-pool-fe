@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { LoanApplication } from "@/types/loans";
+import { getEndpointPath } from "@/lib/utils";
 
 const mockGetActiveLoanApplication = async (): Promise<
   LoanApplication | undefined
@@ -14,14 +15,11 @@ const mockGetActiveLoanApplication = async (): Promise<
 const getActiveLoanApplication = async (
   token: string
 ): Promise<LoanApplication | undefined> => {
-  const request = new Request(
-    "http://localhost:8080/loans/applications/active",
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const request = new Request(getEndpointPath("/loans/applications/active"), {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   const res = await fetch(request);
 

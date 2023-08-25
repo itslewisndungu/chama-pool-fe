@@ -8,6 +8,7 @@ import { notifications } from "@mantine/notifications";
 import { IconCheck } from "@tabler/icons-react";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { getEndpointPath } from "@/lib/utils";
 
 type Props = {
   loanId: number;
@@ -41,7 +42,7 @@ const updateApplicationStatus = async (
   const approved = approval.approval === LoanApprovalStatus.APPROVED;
 
   const req = new Request(
-    `http://localhost:8080/loans/applications/${loanId}/approve`,
+    getEndpointPath(`/loans/applications/${loanId}/approve`),
     {
       method: "POST",
       body: JSON.stringify({

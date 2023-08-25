@@ -2,7 +2,7 @@ import { GroupNotification } from "@/types/notifications";
 import { NotificationsButton } from "@/components/notifications/NotificationsButton";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
-import { compareDates } from "@/lib/utils";
+import { compareDates, getEndpointPath } from "@/lib/utils";
 
 interface res {
   notifications: GroupNotification[];
@@ -16,7 +16,7 @@ const getUnreadNotifications = async (token: string | undefined) => {
     );
   }
 
-  const req = new Request("http://localhost:8080/notifications/member", {
+  const req = new Request(getEndpointPath("/notifications/member"), {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -26,7 +26,6 @@ const getUnreadNotifications = async (token: string | undefined) => {
   return (await fetch(req).then(r => r.json())) as res;
 };
 
-
 export async function NavbarNotifications() {
   const session = await getServerSession(authOptions);
 
@@ -34,7 +33,9 @@ export async function NavbarNotifications() {
     session?.accessToken
   );
 
-  const sortedNotifications = notifications.sort((a, b) => compareDates(b.date, a.date));
+  const sortedNotifications = notifications.sort((a, b) =>
+    compareDates(b.date, a.date)
+  );
 
   return (
     <NotificationsButton

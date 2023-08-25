@@ -4,11 +4,12 @@ import MembersTable from "./MembersTable";
 import { UserProfile } from "@/types/user";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { getEndpointPath } from "@/lib/utils";
 
 type Props = {};
 
 const getMembersList = async (token: string) => {
-  const req = new Request("http://localhost:8080/members", {
+  const req = new Request(getEndpointPath("/members"), {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,

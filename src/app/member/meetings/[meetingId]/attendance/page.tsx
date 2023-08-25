@@ -4,9 +4,10 @@ import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { MeetingNotInitiated } from "@/components/meetings/MeetingNotInitiated";
 import { Attendance } from "@/components/meetings/Attendance";
+import { getEndpointPath } from "@/lib/utils";
 
 const getMeetingAttendance = async (id: number, token: string) => {
-  const req = new Request(`http://localhost:8080/meetings/${id}/attendance`, {
+  const req = new Request(getEndpointPath(`/meetings/${id}/attendance`), {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
