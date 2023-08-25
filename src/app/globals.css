@@ -1,0 +1,11 @@
+/* @tailwind base; */
+@tailwind components;
+@tailwind utilities;
+
+a {
+    text-decoration: none;
+}
+
+.lead {
+    @apply text-xl md:text-2xl font-light text-gray-800;
+}
