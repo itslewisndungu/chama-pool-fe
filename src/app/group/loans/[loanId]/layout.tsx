@@ -4,6 +4,7 @@ import DownloadReportButton from "@/components/reports/DownloadReportButton";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { getEndpointPath } from "@/lib/utils";
 
 export default async function Layout({
   children,
@@ -23,7 +24,7 @@ export default async function Layout({
         <h1 className={"m-0"}>Loan details</h1>
         <DownloadReportButton
           token={session.accessToken}
-          link={`http://localhost:8080/loans/${params.loanId}/report`}
+          link={getEndpointPath(`/loans/${params.loanId}/report`)}
         />
       </div>
       <LoanDetailHeader loanId={params.loanId} />

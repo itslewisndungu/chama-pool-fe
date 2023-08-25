@@ -1,10 +1,10 @@
 import React from "react";
 import { getServerSession } from "next-auth/next";
-import MembersTable from "./MembersTable";
 import { UserProfile } from "@/types/user";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { getEndpointPath } from "@/lib/utils";
+import MembersTable from "@/components/members/MembersTable";
 
 type Props = {};
 
